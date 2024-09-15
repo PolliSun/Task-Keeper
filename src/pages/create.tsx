@@ -1,29 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { NoteForm } from "../components/NoteForm";
 import { TNote } from "../types/type";
 import { saveNotesToStorage, getNotesFromStorage } from "../utils/noteStorage";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../components/Modal";
+import { useDispatch } from "../services/store";
+import { addNote } from '../services/slices/notesSlice';
 
 export const CreateNote: React.FC = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const dispatch = useDispatch();
 
-  const saveNote = (newNote: TNote) => {
+  const handleSaveNote = (newNote: TNote) => {
+    dispatch(addNote(newNote));
     const savedNotes = getNotesFromStorage();
-    const updatedNotes = [...savedNotes, newNote];
-    saveNotesToStorage(updatedNotes);
-    navigate("/");
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    navigate("/");
+    saveNotesToStorage([...savedNotes, newNote]);
+    navigate('/');
   };
 
   return (
-    <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-      <NoteForm onSubmit={saveNote} />
-    </Modal>
+    <NoteForm onSubmit={handleSaveNote} />
   );
 };

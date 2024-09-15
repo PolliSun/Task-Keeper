@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TNote } from "../types/type";
 
 type NoteFormProps = {
@@ -13,14 +13,26 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   const [title, setTitle] = useState(initialData?.title || "");
   const [content, setContent] = useState(initialData?.content || "");
   const [image, setImage] = useState(initialData?.image || "");
+  const [id, setId] = useState(initialData?.id || "");
+  const [date, setDate] = useState(initialData?.date || "");
+
+  useEffect(() => {
+    if(initialData) {
+      setTitle(initialData.title);
+      setContent(initialData.content);
+      setImage(initialData.image);
+      setId(initialData.id);
+      setDate(initialData.date);
+    }
+  }, [initialData]);
 
   const handleSubmit = () => {
     const newNote: TNote = {
-      id: Math.random().toString(),
+      id: initialData ? initialData.id : Math.random().toString(),
       title,
       content,
       image,
-      date: new Date().toLocaleDateString(),
+      date: initialData ? initialData.date : new Date().toLocaleDateString(),
     };
     onSubmit(newNote);
   };
@@ -31,6 +43,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Дайте заголовок"
+        maxLength={25}
       />
       <textarea
         value={content}
@@ -42,7 +55,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
         onChange={(e) => setImage(e.target.value)}
         placeholder="Вставьте URL картинки"
       />
-      <button onClick={handleSubmit}>Сохранить</button>
+      <button onClick={handleSubmit}> {initialData ? "Изменить" : "Сохранить"}</button>
     </div>
   );
 };

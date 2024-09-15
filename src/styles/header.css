@@ -1,0 +1,39 @@
+.header-conteiner {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: black solid 3px;
+}
+
+.header-conteiner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(../images/background-fon.jpg);
+    background-position: center center;
+    filter: opacity(65%) blur(2px);
+    background-size: cover;
+}
+
+.header-title {
+    font-size: 100px;
+    font-style: italic;
+}
+
+.header-button {
+    font-size: 23px;
+    font-weight: bold;
+    border-bottom: transparent solid 7px;
+
+}
+
+.header-button:hover {
+    border-bottom: black solid 7px;
+}
