@@ -5,12 +5,16 @@
 }
 
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-image: url(../images/note-list-fon.jpg);
-  background-position: center;
+  font-family: 'NerkoOne-Regular', Arial, sans-serif;
+  background-color: #f9d6fdd5;
+  /* background-color: #8EE4AF; */
+  /* background-image: url(../images/note-list-fon.jpg); */
+  /* background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed; 
+  background-attachment: fixed;  */
+  color: #000000;
+  /* background: radial-gradient(#BAB2B5, #fcb69b) no-repeat cover; */
 }
 
 h1,

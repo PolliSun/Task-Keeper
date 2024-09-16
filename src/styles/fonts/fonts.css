@@ -1,0 +1,6 @@
+@font-face {
+    font-display: swap;
+    font-family: 'NerkoOne-Regular';
+    src: url('./NerkoOne-Regular.ttf') format('ttf');
+    font-weight: 400;
+}

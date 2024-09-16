@@ -11,8 +11,15 @@ export const Header: React.FC = () => {
 
   return (
     <div className="header-conteiner">
-      <h1 className="header-title">Note Keeper</h1>
-      <button className="header-button" onClick={handleCreateNote}>Добавить заметку</button>
+      <div className="title-conteiner">
+        <a href="#" className="logo"></a>
+        <h1 className="header-title">Note Keeper</h1>
+      </div>
+      <div className="button-header-conteiner">
+        <button className="header-button" onClick={handleCreateNote}>
+          Добавить заметку
+        </button>
+      </div>
     </div>
   );
 };
