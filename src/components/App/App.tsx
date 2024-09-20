@@ -1,10 +1,12 @@
 import React from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Home } from "../pages/home";
-import { EditNote } from "../pages/edit";
-import { CreateNote } from "../pages/create";
-import { Modal } from "./Modal";
-import { Header } from "./Header";
+import { Home } from "../../pages/home";
+import { EditNote } from "../../pages/edit";
+import { CreateNote } from "../../pages/create";
+import { Modal } from "../Modal/Modal";
+import { Header } from "../Header/Header";
+import "./app.css";
+
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -12,7 +14,7 @@ export const App: React.FC = () => {
   const background = location.state?.background;
 
   return (
-    <>
+    <div className="app">
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<Home />} />
@@ -39,6 +41,6 @@ export const App: React.FC = () => {
           />
         </Routes>
       )}
-    </>
+    </div>
   );
 };

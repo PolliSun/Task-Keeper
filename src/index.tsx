@@ -1,14 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./components/App";
+import { App } from "../src/components/App/App";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./services/store";
-import "./styles/global.css";
-import "./styles/modal.css";
-import "./styles/header.css";
-import "./styles/note.css";
-import "./styles/notelist.css";
+import "./styles/index.css";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container!);

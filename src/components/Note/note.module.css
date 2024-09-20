@@ -1,4 +1,4 @@
-.note-conteiner {
+.note_conteiner {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,22 +9,22 @@
     box-shadow: 1px #BAB2B5;
 }
 
-.note-conteiner:hover {
+.note_conteiner:hover {
     box-shadow: 5px 5px 2px 1px #ae58b9;
     cursor: pointer;
 }
 
-.note-title{
+.note_title{
     padding: 0  0 5px;
     background-color: #EEE1DC;
     width: 100%;
 }
 
-.note-date{
+.note_date{
     font-weight: bold;
 }
 
-.note-image {
+.note_image {
     content: "";
     position: absolute;
     top: 0;
@@ -38,7 +38,7 @@
     object-position: center; 
 }
 
-.note-paragraph {
+.note_paragraph {
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -49,13 +49,13 @@
     letter-spacing: -0.5px;
 }
 
-.date-conteiner {
+.date_conteiner {
     display: flex;
     justify-content: space-between;
     background-color: #EEE1DC;
 }
 
-.button-conteiner{
+.button_conteiner{
     display: flex;
     gap: 9px;
 }

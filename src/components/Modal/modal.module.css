@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal_overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-.modal-content {
+.modal_content {
   background: white;
   border-radius: 8px;
   width: 500px;
@@ -19,13 +19,7 @@
   position: relative;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-close-button {
+.modal_close_button {
   background: none;
   border: none;
   font-size: 1.5em;
