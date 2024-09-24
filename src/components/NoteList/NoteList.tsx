@@ -2,7 +2,7 @@ import React from "react";
 import { Note } from "../Note/Note";
 import { TNote } from "../../types/type";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./notelist.css";
+import styles from "./notelist.module.css";
 
 type NoteListProps = {
   notes: TNote[];
@@ -18,13 +18,13 @@ export const NoteList: React.FC<NoteListProps> = ({ notes, onDelete }) => {
   };
 
   return (
-    <div className="note_container">
-      <div className="button_container">
-        <button className="button" onClick={handleCreateNote}>
+    <div className={styles.noteContainer}>
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={handleCreateNote}>
           + Добавить заметку
         </button>
       </div>
-      <ul className="note_list">
+      <ul className={styles.noteList}>
         {notes.map((note) => (
           <li key={note.id}>
             <Note note={note} onDelete={onDelete} />
@@ -33,13 +33,4 @@ export const NoteList: React.FC<NoteListProps> = ({ notes, onDelete }) => {
       </ul>
     </div>
   );
-  /* return (
-    <ul className={styles.note_list}>
-      {notes.map((note) => (
-        <li key={note.id}>
-          <Note note={note} onDelete={onDelete} />
-        </li>
-      ))}
-    </ul>
-  ); */
 };

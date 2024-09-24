@@ -3,9 +3,11 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Home } from "../../pages/home";
 import { EditNote } from "../../pages/edit";
 import { CreateNote } from "../../pages/create";
+import { Calendar } from "../../pages/calendar";
+import { ToDoList } from "../../pages/toDoList";
 import { Modal } from "../Modal/Modal";
 import { Header } from "../Header/Header";
-import "./app.css";
+import styles from './app.module.css'
 
 
 export const App: React.FC = () => {
@@ -14,11 +16,13 @@ export const App: React.FC = () => {
   const background = location.state?.background;
 
   return (
-    <div className="app">
+    <div className={styles.app}>
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CreateNote />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/to-do-list" element={<ToDoList />} />
       </Routes>
 
       {background && (

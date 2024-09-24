@@ -55,7 +55,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
         onChange={(e) => setImage(e.target.value)}
         placeholder="Вставьте URL картинки"
       />
-      <button onClick={handleSubmit}> {initialData ? "Изменить" : "Сохранить"}</button>
+      <button onClick={handleSubmit}> {initialData ? "Изменить" : "Создать"}</button>
     </div>
   );
 };

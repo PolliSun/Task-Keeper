@@ -4,24 +4,20 @@
   justify-content: space-around;
   flex-direction: column;
   overflow: hidden;
-  margin-bottom: 80px;
   gap: 10px;
+  background-color: rgb(31, 41,55);
+  border-bottom: rgb(34, 211, 238) solid 2px;
 }
 
-.title_container {
+.titleContainer {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding-left: 20px;
+  margin: auto;
+  padding-bottom: 20px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.button_header_container {
-  display: flex;
-  justify-content: flex-end;
-  margin: 10px 20px 20px;
 }
 
 .logo {
@@ -33,18 +29,18 @@
   height: 50px;
 }
 
-.header_title {
+.buttonHeader{
+  color: rgb(34, 211, 238);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.headerTitle {
   font-size: 80px;
   font-weight: bolder;
   letter-spacing: 0.2rem;
-}
-
-.header_button {
-  font-size: 23px;
-  font-weight: bold;
-  color: white;
-}
-
-.header_button:hover {
-  background: linear-gradient(to bottom right, pink, #ae58b9);
 }

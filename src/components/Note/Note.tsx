@@ -1,7 +1,10 @@
 import React from "react";
 import { TNote } from "../../types/type";
 import { useNavigate } from "react-router-dom";
-import "./note.css";
+import styles from "./note.module.css";
+import paperclip from "../../images/paperclip.svg";
+import pencil from "../../images/pencil.svg";
+import basket from "../../images/basket.svg";
 
 type NoteProps = {
   note: TNote;
@@ -12,55 +15,44 @@ export const Note: React.FC<NoteProps> = ({ note, onDelete }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="note_conteiner">
-      <small className="note_date">{note.date}</small>
-      <img className="note_image" src={note.image} alt={note.title} />
-      <h2 className="note_title">{note.title}</h2>
-      <p className="note_paragraph">{note.content}</p>
-      
-        <div className="button_conteiner">
-          <button
-            className="button_delete"
-            onClick={() => onDelete(note.id)}
-          >
-            Удалить
-          </button>
-          <button
-            className="button_edit"
-            onClick={() =>
-              navigate(`/edit/${note.id}`, {
-                state: { background: { pathname: location.pathname } },
-              })
-            }
-          >
-            Редактировать
-          </button>
-      </div>
-    </div>
-  );
-  /* return (
-    <div className={styles.note_conteiner}>
-      <h2 className={styles.note_title}>{note.title}</h2>
-      <p className={styles.note_paragraph}>{note.content}</p>
-      <img className={styles.note_image} src={note.image} alt={note.title} />
-      <div className={styles.date_conteiner}>
-        <small className={styles.note_date}>{note.date}</small>
-        <div className={styles.button_conteiner} >
-        <button className={`${styles.button} ${styles.button_delete}`} onClick={() => onDelete(note.id)}>
-          Удалить
+    <div className={styles.noteConteiner}>
+      <div className={styles.headerConteiner}>
+        <small className={styles.noteDate}>{note.date}</small>
+        <button className={styles.headerButton}>
+          <img
+            src={paperclip}
+            alt="иконка закрепленной заметки"
+            className={styles.paperClip}
+          />
         </button>
+      </div>
+      <img className={styles.noteImage} src={note.image} alt={note.title} />
+      <h2 className={styles.notTitle}>{note.title}</h2>
+      <p className={styles.noteParagraph}>{note.content}</p>
+
+      <div className={styles.buttonConteiner}>
         <button
-          className={`${styles.button} ${styles.button_edit}`}
+          className={styles.button}
           onClick={() =>
             navigate(`/edit/${note.id}`, {
               state: { background: { pathname: location.pathname } },
             })
           }
         >
-          Редактировать
+          <img
+            src={pencil}
+            alt="иконка редактирования заметки"
+            className={styles.pencil}
+          />
         </button>
-        </div>
+        <button className={styles.button} onClick={() => onDelete(note.id)}>
+        <img
+            src={basket}
+            alt="иконка удаления заметки"
+            className={styles.basket}
+          />
+        </button>
       </div>
     </div>
-  ); */
+  );
 };

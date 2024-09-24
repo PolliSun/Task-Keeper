@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/index.tsx"),
@@ -14,32 +15,39 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        exclude: /\.module\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.module\.css$/i,
-        exclude: /node_modules/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              modules: true
-            }
-          }
-        ]
+              modules: {
+                mode: "local",
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+                auto: /\.module\.\w+$/i,
+                namedExport: false,
+              },
+            },
+          },
+        ],
       },
+      {
+				test: /\.svg$/i,
+				issuer: /\.[jt]sx?$/,
+				use: ['@svgr/webpack', 'url-loader'],
+			},
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/public/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "static/styles/index.css",
     }),
   ],
   devServer: {
