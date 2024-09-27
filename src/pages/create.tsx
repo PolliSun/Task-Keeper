@@ -1,5 +1,5 @@
 import React from "react";
-import { NoteForm } from "../components/NoteForm";
+import { NoteForm } from "../components/NoteForm/NoteForm";
 import { TNote } from "../types/type";
 import { saveNotesToStorage, getNotesFromStorage } from "../utils/noteStorage";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export const CreateNote: React.FC = () => {
     dispatch(addNote(newNote));
     const savedNotes = getNotesFromStorage();
     saveNotesToStorage([...savedNotes, newNote]);
-    navigate('/');
+    navigate("/notes");
   };
 
   return (

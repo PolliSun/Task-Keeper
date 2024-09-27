@@ -4,24 +4,46 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(31, 41, 55, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modalContent {
-  background: white;
-  border-radius: 8px;
-  width: 500px;
+  background: rgb(31 41 55);
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  width: 600px;
   max-width: 90%;
-  padding: 20px;
+  padding: 1.5rem;
   position: relative;
+  color: rgb(74 222 128);
 }
 
 .modalCloseButton {
+  display: flex;
+  justify-content: center;
+    align-items: center;
   background: none;
   border: none;
   font-size: 1.5em;
   cursor: pointer;
+  width: 26px;
+  height: 26px;
+}
+
+.title{
+  font-size: 22px;
+}
+
+.modalHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeButton {
+  width: 20px;
+  height: 20px;
 }

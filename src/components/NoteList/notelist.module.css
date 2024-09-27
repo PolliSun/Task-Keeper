@@ -2,11 +2,26 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 28px;
+  gap: 18px;
+  background-color: #ffdbc3;
+  border-radius: calc(0.5rem - 2px);
+  padding: 21px;
 }
 
 .noteContainer {
-  padding: 32px;
+  padding: 22px;
+}
+
+.noteCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+  height: 250px;
+  overflow: hidden;
+  box-shadow: 1px #bab2b5;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #FFF5E0;
 }
 
 .buttonContainer {
@@ -19,8 +34,8 @@
   font-size: 23px;
   font-weight: bold;
   color: white;
+  background-color: #EE9E8E;
+  padding: 10px;
+  border-radius: calc(0.5rem - 2px);
 }
 
-.button:hover {
-  background: linear-gradient(to bottom right, pink, #ae58b9);
-}

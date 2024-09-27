@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { TNote } from "../types/type";
+import { TNote } from "../../types/type";
+import styles from './noteform.module.css';
 
 type NoteFormProps = {
   onSubmit: (note: TNote) => void;
@@ -17,7 +18,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   const [date, setDate] = useState(initialData?.date || "");
 
   useEffect(() => {
-    if(initialData) {
+    if (initialData) {
       setTitle(initialData.title);
       setContent(initialData.content);
       setImage(initialData.image);
@@ -38,24 +39,28 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   };
 
   return (
-    <div>
+    <div className={styles.noteForm}>
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Дайте заголовок"
+        placeholder="Заголовок"
         maxLength={25}
+        className={styles.formInputTitle}
       />
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Придумайте креативное описание"
+        placeholder="Содержание"
+        className={styles.textArea}
       />
       <input
         value={image}
         onChange={(e) => setImage(e.target.value)}
         placeholder="Вставьте URL картинки"
+        className={styles.formInputImage}
       />
-      <button onClick={handleSubmit}> {initialData ? "Изменить" : "Создать"}</button>
+      <button className={styles.formButton}
+        onClick={handleSubmit}> {initialData ? "Изменить" : "Создать"}</button>
     </div>
   );
 };

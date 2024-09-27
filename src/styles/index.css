@@ -8,8 +8,10 @@ body {
   font-family: 'NerkoOne-Regular', Arial, sans-serif;
 /*   background-image: url(../images/fon1.webp); */
   background-color: rgb(17 24 39);
-  color: rgb(34, 211, 238);
+  color: #000;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 body::before{
@@ -54,4 +56,6 @@ button, input, textarea {
   border: none;
   background: none;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
 }

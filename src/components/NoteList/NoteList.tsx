@@ -26,7 +26,7 @@ export const NoteList: React.FC<NoteListProps> = ({ notes, onDelete }) => {
       </div>
       <ul className={styles.noteList}>
         {notes.map((note) => (
-          <li key={note.id}>
+          <li key={note.id} className={styles.noteCard}>
             <Note note={note} onDelete={onDelete} />
           </li>
         ))}

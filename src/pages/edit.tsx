@@ -1,5 +1,5 @@
 import React from "react";
-import { NoteForm } from "../components/NoteForm";
+import { NoteForm } from "../components/NoteForm/NoteForm";
 import { TNote } from "../types/type";
 import { saveNotesToStorage, getNotesFromStorage } from "../utils/noteStorage";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,7 +21,7 @@ export const EditNote: React.FC = () => {
       note.id === updatedNote.id ? updatedNote : note
     );
     saveNotesToStorage(updatedNotes);
-    navigate("/");
+    navigate("/notes");
   };
 
   return <NoteForm onSubmit={handleEditNote} initialData={noteToEdit} />;
