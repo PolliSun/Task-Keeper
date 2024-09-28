@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
-import logo from "../../images/pencil.svg";
+import logo from "../../images/paperclip.svg";
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
       <nav className={styles.buttonContainer}>
         <button
           className={styles.buttonHeader}
-          onClick={() => navigate("/notes")}
+          onClick={() => navigate("/notes-page")}
         >
           Заметки
         </button>

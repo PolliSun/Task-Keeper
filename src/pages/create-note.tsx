@@ -1,20 +1,18 @@
-import React from "react";
-import { NoteForm } from "../components/NoteForm/NoteForm";
+import React, { FC } from "react";
+import { NoteForm } from "../components/note-form/note-form";
 import { TNote } from "../types/type";
-import { saveNotesToStorage, getNotesFromStorage } from "../utils/noteStorage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../services/store";
 import { addNote } from '../services/slices/notesSlice';
+import { RootState, useSelector } from "../services/store";
 
-export const CreateNote: React.FC = () => {
+export const CreateNote: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSaveNote = (newNote: TNote) => {
     dispatch(addNote(newNote));
-    const savedNotes = getNotesFromStorage();
-    saveNotesToStorage([...savedNotes, newNote]);
-    navigate("/notes");
+    navigate("/notes-page");
   };
 
   return (

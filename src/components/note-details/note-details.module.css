@@ -1,0 +1,35 @@
+.buttonConteiner{
+    display: flex;
+    justify-content: space-between;
+    gap: 9px;
+    margin-top: 30px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EE9E8E;
+    width: 90px;
+    height: 40px;
+    border-radius: calc(0.5rem - 2px);
+}
+
+.button:hover {
+    background-color: rgb(34, 211, 238);
+}
+
+.pencil,
+.basket{
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
+
+
+
+
+

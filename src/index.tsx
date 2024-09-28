@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "../src/components/App/App";
+import { App } from "./components/app/app";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./services/store";

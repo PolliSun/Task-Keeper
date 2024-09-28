@@ -1,9 +1,8 @@
 .app{
-  /* background-color: rgb(17 24 39); */
   background-color: #FFF5E0;
   background-attachment: fixed;
   max-width: 1280px;
   margin: 0 auto;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
 }

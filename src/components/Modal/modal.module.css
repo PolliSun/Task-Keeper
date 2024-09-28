@@ -4,46 +4,55 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(31, 41, 55, 0.7);
+  background: #4d4d4dc4;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modalContent {
-  background: rgb(31 41 55);
+  background: #FFF5E0;
   border: 1px solid #fff;
-  border-radius: 0.5rem;
+  border-radius: calc(0.5rem - 2px);
   width: 600px;
   max-width: 90%;
   padding: 1.5rem;
   position: relative;
-  color: rgb(74 222 128);
+  color: #000;
 }
 
 .modalCloseButton {
   display: flex;
   justify-content: center;
-    align-items: center;
+  align-items: center;
   background: none;
   border: none;
   font-size: 1.5em;
   cursor: pointer;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
+  background-color: #ffdbc3;
+  border-radius: calc(0.5rem - 2px);
 }
 
 .title{
-  font-size: 22px;
+  font-size: 24px;
+  
 }
 
 .modalHeader{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .closeButton {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+}
+
+.closeButton:hover {
+  width: 21px;
+  height: 21px;
 }
