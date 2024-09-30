@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
-import closeButton from "../../images/closeButton.svg";
+import iconClose from "../../images/close.svg";
 
 type ModalProps = {
   title?: string;
@@ -32,15 +32,15 @@ export const Modal: FC<ModalProps> = ({ title, onClose, children }) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.modalHeader}>
+    <div className={styles.overlay}>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.titleContainer}>
           <h2 className={styles.title}>{title}</h2>
-          <button className={styles.modalCloseButton} onClick={onClose}>
+          <button className={styles.button} onClick={onClose}>
             <img
-              src={closeButton}
+              src={iconClose}
               alt="Кнопка закрытия"
-              className={styles.closeButton}
+              className={styles.iconClose}
             />
           </button>
         </div>

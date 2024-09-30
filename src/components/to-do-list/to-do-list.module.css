@@ -1,21 +1,26 @@
-.notes {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 18px;
+.page {
+  padding: 22px;
+}
+
+.tasks {
   background-color: #ffdbc3;
   border-radius: calc(0.5rem - 2px);
   padding: 21px;
 }
 
-.page {
-  padding: 22px;
-}
-
 .headerContainer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px 0 40px;
+}
+
+.counter {
+  font-size: 23px;
+  font-weight: bold;
+  background-color: #ffdbc3;
+  border-radius: calc(0.5rem - 2px);
+  padding: 10px;
 }
 
 .button {

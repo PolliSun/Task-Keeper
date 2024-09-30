@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import notesReducer from './slices/notesSlice';
+import toDoReducer from './slices/toDoSlice';
 
 import {
     TypedUseSelectorHook,
@@ -10,6 +11,7 @@ import {
 
 export const rootReducer = combineReducers({
   notes: notesReducer,
+  tasks: toDoReducer,
 });
 
 const store = configureStore({

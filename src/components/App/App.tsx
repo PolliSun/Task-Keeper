@@ -3,9 +3,9 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
 import { EditNote } from "../../pages/edit-note";
 import { CreateNote } from "../../pages/create-note";
-import { Calendar } from "../../pages/calendar";
+import { CreateDoing } from "../../pages/create-task";
 import { NotesPage } from "../../pages/notes-page";
-import { ToDoList } from "../../pages/to-do-list";
+import { TasksPage } from "../../pages/tasks-page";
 import { Modal } from "../modal/modal";
 import { Header } from "../header/header";
 import { NoteDetails } from "../../pages/note-details";
@@ -22,8 +22,7 @@ export const App: FC = () => {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/notes-page" element={<NotesPage />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/to-do-list" element={<ToDoList />} />
+        <Route path="/to-do-page" element={<TasksPage />} />
         <Route path="/notes-page/create-note" element={<CreateNote />} />
         <Route path="/notes-page/edit/:id" element={<EditNote />} />
         <Route path="/notes-page/:id" element={<NoteDetails />} />
@@ -61,6 +60,17 @@ export const App: FC = () => {
                 onClose={() => navigate("/notes-page")}
               >
                 <NoteDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/to-do-list/create-task"
+            element={
+              <Modal
+                title="Добавить задачу"
+                onClose={() => navigate("/to-do-page")}
+              >
+                <CreateDoing />
               </Modal>
             }
           />

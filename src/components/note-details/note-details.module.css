@@ -1,35 +1,161 @@
-.buttonConteiner{
-    display: flex;
-    justify-content: space-between;
-    gap: 9px;
-    margin-top: 30px;
+.noteCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+  height: 250px;
+  overflow: hidden;
+  box-shadow: 1px #bab2b5;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #fff5e0;
 }
 
-.button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #EE9E8E;
-    width: 90px;
-    height: 40px;
-    border-radius: calc(0.5rem - 2px);
+.title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  margin: 30px 0 15px;
+  font-size: 18px;
+  padding: 0 15px;
+  white-space: pre-wrap;
 }
 
-.button:hover {
-    background-color: rgb(34, 211, 238);
+.modalTitle {
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: normal;
+  font-size: 20px;
+  padding-right: 100px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.modalImage {
+  height: 220px;
+}
+
+.paragraph {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 2.1em;
+  line-height: 1em;
+  color: #8585858a;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.modalParagraph {
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+  text-overflow: unset;
+  height: auto;
+  line-height: normal;
+  font-size: 16px;
+}
+
+.buttonСlip {
+  width: 20px;
+  height: 20px;
+}
+
+.modalButtonСlip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  background-color: #ffdbc3;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.iconClip {
+  width: 20px;
+}
+
+.modalIconClip {
+  width: 22px;
+  height: 22px;
+}
+
+.conteinerParagraph {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  gap: 20px;
+}
+
+.modalConteinerParagraph {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+
+.date {
+  content: "";
+  top: 130px;
+  left: 15px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0dacc;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  height: 25px;
+  width: 80px;
+  border-radius: calc(0.5rem - 2px);
+  font-size: 12px;
+}
+
+.modalDate {
+  top: 332px;
+  left: 490px;
+  font-size: 14px;
+  height: 29px;
+  width: 84px;
+}
+
+.modalButtonConteiner {
+  display: flex;
+  justify-content: space-between;
+  gap: 9px;
+  margin-top: 30px;
+}
+
+.modalButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ee9e8e;
+  width: 90px;
+  height: 40px;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.modalButton:hover {
+  background-color: rgb(34, 211, 238);
 }
 
 .pencil,
-.basket{
-    width: 24px;
-    height: 24px;
+.basket {
+  width: 24px;
+  height: 24px;
 }
-
-
-
-
-
-
-
-
-

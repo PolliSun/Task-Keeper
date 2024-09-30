@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { TNote } from "../../types/type";
 import styles from "./note-form.module.css";
-import { useDispatch } from "../../services/store";
 
 type NoteFormProps = {
   onSubmit: (note: TNote) => void;
@@ -12,7 +11,6 @@ export const NoteForm: FC<NoteFormProps> = ({
   onSubmit,
   initialData,
 }) => {
-  const dispatch = useDispatch();
 
   const [note, setNote] = useState<TNote>({
     id: "",

@@ -3,7 +3,7 @@ import { NoteForm } from "../components/note-form/note-form";
 import { TNote } from "../types/type";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../services/store";
-import { addNote } from '../services/slices/notesSlice';
+import { addNote } from "../services/slices/notesSlice";
 import { RootState, useSelector } from "../services/store";
 
 export const CreateNote: FC = () => {
@@ -15,7 +15,5 @@ export const CreateNote: FC = () => {
     navigate("/notes-page");
   };
 
-  return (
-    <NoteForm onSubmit={handleSaveNote} />
-  );
+  return <NoteForm onSubmit={handleSaveNote} />;
 };

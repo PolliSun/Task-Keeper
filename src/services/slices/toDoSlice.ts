@@ -1,29 +1,45 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TToDo } from '../../types/type';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TToDo } from "../../types/type";
+import {
+  saveTasksToStorage,
+  getTasksFromStorage,
+} from "../../utils/tasksStorage";
 
 interface ToDoState {
-    doings: TToDo[];
+  tasks: TToDo[];
 }
 
 const initialState: ToDoState = {
-    doings: []
-}
+  tasks: getTasksFromStorage(),
+};
 
 const toDoSlice = createSlice({
-    name: 'doings',
-    initialState,
-    reducers: {
-        setDoings(state, action: PayloadAction<TToDo[]>) {
-            state.doings = action.payload;
-        },
-        addDoing(state, action: PayloadAction<TToDo>) {
-            state.doings.push(action.payload);
-        },
-        deliteDoing(state, action: PayloadAction<string>) {
-            state.doings = state.doings.filter(doing => doing.id !== action.payload);
-        }
-    }
-})
+  name: "tasks",
+  initialState,
+  reducers: {
+    setTasks(state, action: PayloadAction<TToDo[]>) {
+      state.tasks = action.payload;
+      saveTasksToStorage(state.tasks);
+    },
+    addTask(state, action: PayloadAction<TToDo>) {
+      state.tasks.push(action.payload);
+      saveTasksToStorage(state.tasks);
+    },
+    deliteTask(state, action: PayloadAction<string>) {
+      state.tasks = state.tasks.filter(
+        (tasks) => tasks.id !== action.payload
+      );
+      saveTasksToStorage(state.tasks);
+    },
+    toggleTaskStatus(state, action: PayloadAction<string>) {
+      const task = state.tasks.find(task => task.id === action.payload);
+      if(task) {
+        task.status = !task.status;
+        saveTasksToStorage(state.tasks);
+      }
+    },
+  },
+});
 
-export const {setDoings, addDoing, deliteDoing} = toDoSlice.actions;
+export const { setTasks, addTask, deliteTask, toggleTaskStatus } = toDoSlice.actions;
 export default toDoSlice.reducer;

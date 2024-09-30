@@ -1,6 +1,15 @@
 @font-face {
     font-display: swap;
     font-family: 'NerkoOne-Regular';
+    font-style: normal;
     src: url('./NerkoOne-Regular.ttf') format('ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Pacifico';
+    font-style: normal;
+    src: url('./Pacifico-Regular.ttf') format('ttf');
     font-weight: 400;
 }

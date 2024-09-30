@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { NoteDetailsUI } from "../components/note-details/note-details";
 import { useDispatch, useSelector, RootState } from "../services/store";
 import { deleteNote } from "../services/slices/notesSlice";
+import { NoteDetailsUI } from "../components/note-details/note-details";
 
 export const NoteDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,8 +23,10 @@ export const NoteDetails: FC = () => {
   }
 
   return (
-    <div>
-      <NoteDetailsUI note={selectedNote} onDelete={handleDeleteNote} />
-    </div>
+    <NoteDetailsUI
+      note={selectedNote}
+      isModal={true}
+      onDelete={handleDeleteNote}
+    />
   );
 };

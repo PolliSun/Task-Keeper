@@ -11,21 +11,23 @@ export const Header: FC = () => {
   };
 
   return (
-    <div className={styles.header}>
-      <a href="#" onClick={handleNavigation} className={styles.titleLink}>
+    <header className={styles.header}>
+      <a href="#" onClick={handleNavigation} className={styles.link}>
         <img src={logo} className={styles.logo} alt="Logo" />
-        <h1 className={styles.headerTitle}>Note Keeper</h1>
+        <h1 className={styles.title}>Note Keeper</h1>
       </a>
-      <nav className={styles.buttonContainer}>
+      <nav className={styles.navigation}>
         <button
-          className={styles.buttonHeader}
+          className={styles.button}
           onClick={() => navigate("/notes-page")}
         >
           Заметки
         </button>
-        <button className={styles.buttonHeader}>Календарь</button>
-        <button className={styles.buttonHeader}>Список дел</button>
+        <button className={styles.button}>Календарь</button>
+        <button className={styles.button}
+          onClick={() => navigate("/to-do-page")}
+        >Список дел</button>
       </nav>
-    </div>
+    </header>
   );
 };

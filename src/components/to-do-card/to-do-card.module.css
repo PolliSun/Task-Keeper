@@ -1,0 +1,96 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  background-color: #fff5e0;
+  padding: 10px;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.dataContainer {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.customCheckboxContainer {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.customCheckbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid #ee9e8e;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.hiddenCheckbox:checked + .customCheckbox {
+  background-color: #ee9e8e;
+  border: none;
+}
+
+.customCheckbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 9px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.hiddenCheckbox:checked + .customCheckbox::after {
+  display: block;
+}
+
+.completed {
+  color: #858585d6;
+  text-decoration: line-through;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ee9e8e;
+  padding: 7px 30px;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.button:hover {
+  background-color: rgb(34, 211, 238);
+}
+
+.basket {
+  width: 24px;
+  height: 24px;
+}
