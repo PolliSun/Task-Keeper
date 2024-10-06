@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { TNote } from "../../types/type";
+import { TNote } from "../../../types/type";
 import styles from "./note-form.module.css";
 
 type NoteFormProps = {
@@ -7,7 +7,7 @@ type NoteFormProps = {
   initialData?: TNote;
 };
 
-export const NoteForm: FC<NoteFormProps> = ({
+export const NoteFormUI: FC<NoteFormProps> = ({
   onSubmit,
   initialData,
 }) => {

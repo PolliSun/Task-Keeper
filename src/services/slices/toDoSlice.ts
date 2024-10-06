@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TToDo } from "../../types/type";
+import { TTask } from "../../types/type";
 import {
   saveTasksToStorage,
   getTasksFromStorage,
 } from "../../utils/tasksStorage";
 
 interface ToDoState {
-  tasks: TToDo[];
+  tasks: TTask[];
 }
 
 const initialState: ToDoState = {
@@ -17,11 +17,11 @@ const toDoSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    setTasks(state, action: PayloadAction<TToDo[]>) {
+    setTasks(state, action: PayloadAction<TTask[]>) {
       state.tasks = action.payload;
       saveTasksToStorage(state.tasks);
     },
-    addTask(state, action: PayloadAction<TToDo>) {
+    addTask(state, action: PayloadAction<TTask>) {
       state.tasks.push(action.payload);
       saveTasksToStorage(state.tasks);
     },

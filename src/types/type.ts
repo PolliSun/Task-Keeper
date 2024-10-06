@@ -6,7 +6,7 @@ export type TNote = {
     image: string;
 }
 
-export type TToDo = {
+export type TTask = {
     id: string;
     title: string;
     status: boolean;

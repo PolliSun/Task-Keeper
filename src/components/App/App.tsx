@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { EditNote } from "../../pages/edit-note";
-import { CreateNote } from "../../pages/create-note";
-import { CreateDoing } from "../../pages/create-task";
+import { EditNote } from "../note-form-edit/edit-note";
+import { CreateNote } from "../note-form-create/create-note";
+import { CreateTask } from "../task-form-create/create-task";
 import { NotesPage } from "../../pages/notes-page";
 import { TasksPage } from "../../pages/tasks-page";
 import { Modal } from "../modal/modal";
 import { Header } from "../header/header";
-import { NoteDetails } from "../../pages/note-details";
+import { NoteDetails } from "../note-details/note-details";
 import styles from "./app.module.css";
 
 export const App: FC = () => {
@@ -70,7 +70,7 @@ export const App: FC = () => {
                 title="Добавить задачу"
                 onClose={() => navigate("/to-do-page")}
               >
-                <CreateDoing />
+                <CreateTask />
               </Modal>
             }
           />

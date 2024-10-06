@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { NoteForm } from "../components/note-form/note-form";
-import { TNote } from "../types/type";
+import { FC } from "react";
+import { NoteFormUI } from "../ui/note-form/note-form";
+import { TNote } from "../../types/type";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector, RootState } from "../services/store";
-import { editNote } from "../services/slices/notesSlice";
+import { useDispatch, useSelector, RootState } from "../../services/store";
+import { editNote } from "../../services/slices/notesSlice";
 
 export const EditNote: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,5 +19,5 @@ export const EditNote: FC = () => {
     navigate(-1);
   };
 
-  return <NoteForm onSubmit={handleEditNote} initialData={noteToEdit} />;
+  return <NoteFormUI onSubmit={handleEditNote} initialData={noteToEdit} />;
 };

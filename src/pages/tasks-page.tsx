@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { ToDoList } from "../components/to-do-list/to-do-list";
+import { TasksList } from "../components/tasks-list/tasks-list";
 
 export const TasksPage: FC = () => {
-  return <ToDoList />;
+  return <TasksList />;
 };

@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { ToDoCardUI } from "../to-do-card/to-do-card";
-import styles from "./to-do-list.module.css";
+import { TaskDetailsUI } from "../ui/task-details/task-details";
+import styles from "./tasks-list.module.css";
 import { RootState, useSelector, useDispatch } from "../../services/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deliteTask, toggleTaskStatus } from "../../services/slices/toDoSlice";
 
-export const ToDoList: FC = () => {
+export const TasksList: FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -39,7 +39,7 @@ export const ToDoList: FC = () => {
       <ul className={styles.tasks}>
         {tasks.map((task) => (
           <li key={task.id}>
-            <ToDoCardUI
+            <TaskDetailsUI
               task={task}
               onDelete={handleDeleteTask}
               onToggle={handleToggleTask}

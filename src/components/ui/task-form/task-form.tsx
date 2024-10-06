@@ -1,14 +1,14 @@
 import React, { FC, useState, useEffect } from "react";
-import { TToDo } from "../../types/type";
-import styles from "./to-do-form.module.css";
+import { TTask } from "../../../types/type";
+import styles from "./task-form.module.css";
 
-type DoingFormProps = {
-  onSubmit: (task: TToDo) => void;
-  initialData?: TToDo;
+type TaskFormProps = {
+  onSubmit: (task: TTask) => void;
+  initialData?: TTask;
 };
 
-export const ToDoForm: FC<DoingFormProps> = ({ onSubmit, initialData }) => {
-  const [task, setTask] = useState<TToDo>({
+export const TaskFormUI: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
+  const [task, setTask] = useState<TTask>({
     id: "",
     title: "",
     status: false,
@@ -22,7 +22,7 @@ export const ToDoForm: FC<DoingFormProps> = ({ onSubmit, initialData }) => {
   }
 
   const handleSubmit = () => {
-    const newTask: TToDo = {
+    const newTask: TTask = {
       ...task,
       id: Math.random().toString(),
     };

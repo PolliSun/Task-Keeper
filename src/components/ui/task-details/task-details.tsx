@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-import { TToDo } from "../../types/type";
-import styles from "./to-do-card.module.css";
-import basket from "../../images/basket.svg";
+import { TTask } from "../../../types/type";
+import styles from "./task-details.module.css";
+import basket from "../../../images/basket.svg";
 
-type ToDoCardUIProps = {
-  task: TToDo;
+type TaskDetailsUIProps = {
+  task: TTask;
   onDelete: (id: string) => void;
   onToggle: (id: string) => void;
 };
 
-export const ToDoCardUI: FC<ToDoCardUIProps> = ({ task, onDelete, onToggle }) => {
+export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({ task, onDelete, onToggle }) => {
   return (
     <div className={styles.card}>
       <div className={styles.dataContainer}>

@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .content {
@@ -16,9 +17,26 @@
   border-radius: calc(0.5rem - 2px);
   width: 600px;
   max-width: 90%;
+  max-height: 90vh; 
   padding: 1.5rem;
   position: relative;
   color: #000;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffdbc3 #f1f1f1;
+}
+
+.content::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.content::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #ffdbc3; 
+  border-radius: 10px; 
 }
 
 .button {

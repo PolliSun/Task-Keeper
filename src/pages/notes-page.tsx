@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { NoteList } from "../components/note-list/note-list";
+import { FC } from "react";
+import { NotesPageUI } from "../components/ui/pages/notes-pages/note-pages";
 
 export const NotesPage: FC = () => {
-  return <NoteList />;
+  return <NotesPageUI />;
 };
