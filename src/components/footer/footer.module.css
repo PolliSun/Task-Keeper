@@ -1,0 +1,15 @@
+.footer{
+    margin-top: auto;
+    background-color: #575365ba;
+    text-align: center;
+    padding: 5px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bolder;
+    letter-spacing: 0.2rem;
+    font-family: 'Pacifico', cursive;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }

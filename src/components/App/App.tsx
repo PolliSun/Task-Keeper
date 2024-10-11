@@ -6,8 +6,10 @@ import { CreateNote } from "../note-form-create/create-note";
 import { CreateTask } from "../task-form-create/create-task";
 import { NotesPage } from "../../pages/notes-page";
 import { TasksPage } from "../../pages/tasks-page";
+import { CalendarPage } from "../../pages/calendar-page";
 import { Modal } from "../modal/modal";
 import { Header } from "../header/header";
+import { Footer } from "../footer/footer";
 import { NoteDetails } from "../note-details/note-details";
 import styles from "./app.module.css";
 
@@ -23,6 +25,7 @@ export const App: FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/notes-page" element={<NotesPage />} />
         <Route path="/to-do-page" element={<TasksPage />} />
+        <Route path="/calendar-page" element={<CalendarPage />} />
         <Route path="/notes-page/create-note" element={<CreateNote />} />
         <Route path="/notes-page/edit/:id" element={<EditNote />} />
         <Route path="/notes-page/:id" element={<NoteDetails />} />
@@ -76,6 +79,7 @@ export const App: FC = () => {
           />
         </Routes>
       )}
+      <Footer />
     </div>
   );
 };

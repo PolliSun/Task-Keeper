@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
-  background-color: #fff5e0;
+  background-color: #FBE9E7;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
 }
@@ -39,13 +39,13 @@
   width: 100%;
   height: 100%;
   background-color: #fff;
-  border: 2px solid #ee9e8e;
+  border: 2px solid #000;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #ee9e8e;
+  background-color: #f7e47b;
   border: none;
 }
 
@@ -57,7 +57,7 @@
   top: 4px;
   width: 5px;
   height: 10px;
-  border: solid white;
+  border: solid #000;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -75,13 +75,14 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0 20px;
+  word-break: break-all; 
 }
 
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ee9e8e;
+  background-color: #f7e47b;
   padding: 7px 30px;
   border-radius: calc(0.5rem - 2px);
 }

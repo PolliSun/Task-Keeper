@@ -1,5 +1,7 @@
 .app{
-  background-color: #FFF5E0;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF8EB;
   background-attachment: fixed;
   max-width: 1280px;
   margin: 0 auto;

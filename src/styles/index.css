@@ -7,10 +7,14 @@
 body {
   font-family: 'NerkoOne-Regular', Arial, sans-serif;
   background-color: rgb(17 24 39);
-  color: #000;
+  color: #D8EAD7;
   position: relative;
   margin: 0;
   padding: 0;
+}
+
+section {
+  flex-grow: 1;
 }
 
 body::before{

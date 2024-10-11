@@ -27,7 +27,7 @@ export const TasksList: FC = () => {
   };
 
   return (
-    <div className={styles.page}>
+    <section className={styles.page}>
       <div className={styles.headerContainer}>
         <div className={styles.counter}>
           Задачи: {completedTasks}/{totalTasks}
@@ -36,17 +36,25 @@ export const TasksList: FC = () => {
           + Добавить задачу
         </button>
       </div>
-      <ul className={styles.tasks}>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <TaskDetailsUI
-              task={task}
-              onDelete={handleDeleteTask}
-              onToggle={handleToggleTask}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className={styles.content}>
+        <ul className={styles.tasks}>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <TaskDetailsUI
+                task={task}
+                onDelete={handleDeleteTask}
+                onToggle={handleToggleTask}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className={styles.notebookHoles}>
+          {[...Array(7)].map((_, index) => (
+            <div key={index} className={styles.hole} />
+          ))}
+        </div>
+        <ul className={styles.tasks}></ul>
+      </div>
+    </section>
   );
 };

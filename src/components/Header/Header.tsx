@@ -23,10 +23,18 @@ export const Header: FC = () => {
         >
           Заметки
         </button>
-        <button className={styles.button}>Календарь</button>
-        <button className={styles.button}
+        <button
+          className={styles.button}
+          onClick={() => navigate("/calendar-page")}
+        >
+          Календарь
+        </button>
+        <button
+          className={styles.button}
           onClick={() => navigate("/to-do-page")}
-        >Список дел</button>
+        >
+          Список дел
+        </button>
       </nav>
     </header>
   );

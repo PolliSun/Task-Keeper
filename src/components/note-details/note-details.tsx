@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, RootState } from "../../services/store";
-import { deleteNote } from "../../services/slices/notesSlice";
+import { deleteNote, pinNote } from "../../services/slices/notesSlice";
 import { NoteDetailsUI } from "../ui/note-details/note-details";
 
 export const NoteDetails: FC = () => {
@@ -9,7 +9,7 @@ export const NoteDetails: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const selectedNote = useSelector((state: RootState) =>
+  const notes = useSelector((state: RootState) =>
     state.notes.notes.find((note) => note.id === id)
   );
 
@@ -18,15 +18,22 @@ export const NoteDetails: FC = () => {
     navigate("/notes-page");
   };
 
-  if (!selectedNote) {
+  const handlePinNote = () => {
+    if (notes) {
+      dispatch(pinNote(notes.id));
+    }
+  };
+
+  if (!notes) {
     return null;
   }
 
   return (
     <NoteDetailsUI
-      note={selectedNote}
+      note={notes}
       isModal={true}
       onDelete={handleDeleteNote}
+      onPin={handlePinNote}
     />
   );
 };

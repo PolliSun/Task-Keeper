@@ -38,8 +38,24 @@ const notesSlice = createSlice({
         saveNotesToStorage(state.notes);
       }
     },
+    pinNote(state, action: PayloadAction<string>) {
+      const index = state.notes.findIndex((note) => note.id === action.payload);
+      if (index !== -1) {
+        const note = state.notes[index];
+        note.isPinned = !note.isPinned;
+        state.notes.splice(index, 1);
+
+        if (note.isPinned) {
+          state.notes.unshift(note);
+        } else {
+          state.notes.push(note);
+        }
+        saveNotesToStorage(state.notes);
+      }
+    },
   },
 });
 
-export const { setNotes, addNote, deleteNote, editNote } = notesSlice.actions;
+export const { setNotes, addNote, deleteNote, editNote, pinNote } =
+  notesSlice.actions;
 export default notesSlice.reducer;

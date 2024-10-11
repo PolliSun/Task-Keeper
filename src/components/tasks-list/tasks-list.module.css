@@ -1,18 +1,32 @@
 .page {
-  padding: 22px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .tasks {
-  background-color: #ffdbc3;
+  background-color: #917972b8;
   border-radius: calc(0.5rem - 2px);
-  padding: 21px;
+  padding: 30px;
+  color: #000;
+  width: 48%;
+  min-width: 48%;
+  flex-grow: 1;
 }
 
 .headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 40px;
+  margin-bottom: 40px;
+}
+
+.content{
+  flex-grow: 1;
+  display: flex;
+  gap: 10px;
 }
 
 .counter {
@@ -21,13 +35,31 @@
   background-color: #ffdbc3;
   border-radius: calc(0.5rem - 2px);
   padding: 10px;
+  color: #000;
 }
 
 .button {
   font-size: 23px;
   font-weight: bold;
-  color: white;
-  background-color: #ee9e8e;
+  background-color: #f7e47b;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
+}
+
+.notebookHoles {
+  position: absolute;
+  left: 48.5%;
+  top: 100px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.hole {
+  width: 40px;
+  height: 20px;
+  background-color: #b2d4eb;
+  border-radius: 20%;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
 }
