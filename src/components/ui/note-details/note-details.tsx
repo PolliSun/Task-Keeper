@@ -6,6 +6,7 @@ import pencil from "../../../images/pencil.svg";
 import basket from "../../../images/basket.svg";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { GrPin } from "react-icons/gr";
 
 type NoteDetailsUIProps = {
   note: TNote;
@@ -30,8 +31,11 @@ export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
 
   return (
     <>
-      <Link to={`/notes-page/${note.id}`} state={{ background: "/notes-page" }}>
-        <li key={note.id} className={isModal ? "" : styles.noteCard}>
+      <li key={note.id} className={isModal ? "" : styles.noteCard}>
+        <Link
+          to={`/notes-page/${note.id}`}
+          state={{ background: "/notes-page" }}
+        >
           <img
             className={`${styles.image} ${isModal ? styles.modalImage : ""}`}
             src={note.image}
@@ -45,36 +49,32 @@ export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
           <h2 className={`${styles.title} ${isModal ? styles.modalTitle : ""}`}>
             {note.title}
           </h2>
-          <div
-            className={`${styles.conteinerParagraph} ${
-              isModal ? styles.modalConteinerParagraph : ""
+          <p
+            className={`${styles.paragraph} ${
+              isModal ? styles.modalParagraph : ""
             }`}
           >
-            <button
-              className={`${styles.buttonСlip} ${
-                isModal ? styles.modalButtonСlip : ""
-              }`}
-              onClick={() => onPin && onPin(note.id)}
-            >
-              <img
-                src={paperclip}
-                alt="иконка закрепленной заметки"
-                className={`${styles.iconClip} ${
-                  isModal ? styles.modalIconClip : ""
-                }`}
-                style={{ fill: note.isPinned ? "gold" : "black" }}
-              />
-            </button>
-            <p
-              className={`${styles.paragraph} ${
-                isModal ? styles.modalParagraph : ""
-              }`}
-            >
-              {note.content}
-            </p>
-          </div>
-        </li>
-      </Link>
+            {note.content}
+          </p>
+        </Link>
+        <button
+          aria-label="Закрепить заметку"
+          className={`${styles.buttonСlip} ${
+            isModal ? styles.modalButtonСlip : ""
+          }`}
+          onClick={(e) => {
+            onPin && onPin(note.id);
+          }}
+        >
+          <GrPin
+            className={`${styles.iconClip} ${
+              isModal ? styles.modalIconClip : ""
+            }`}
+            size={20}
+            color={note.isPinned ? "#f7e47b" : "#000"}
+          />
+        </button>
+      </li>
 
       {isModal && (
         <div className={styles.modalButtonConteiner}>
