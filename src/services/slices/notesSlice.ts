@@ -53,6 +53,15 @@ const notesSlice = createSlice({
         saveNotesToStorage(state.notes);
       }
     },
+    searchNotes(state, action: PayloadAction<string>) {
+      const searchTerm = action.payload.toLowerCase();
+      state.notes = state.notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(searchTerm) ||
+          note.content.toLowerCase().includes(searchTerm) ||
+          note.date.includes(searchTerm)
+      );
+    },
   },
 });
 

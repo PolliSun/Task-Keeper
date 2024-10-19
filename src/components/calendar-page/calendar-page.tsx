@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import styles from "./calendar.module.css";
+import styles from "./calendar-page.module.css";
 import { CalendarHeaderUI } from "../ui/pages/calendar-header/calendar-header";
 import { CalendarGridUI } from "../ui/pages/calendar-grid/calendar-grid";
 
-interface CalendarProps {
+interface CalendarPageProps {
   onDateChange?: (date: Date) => void;
 }
 
-export const Calendar: FC<CalendarProps> = ({ onDateChange }) => {
+export const CalendarPage: FC<CalendarPageProps> = ({ onDateChange }) => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -37,7 +37,7 @@ export const Calendar: FC<CalendarProps> = ({ onDateChange }) => {
   };
 
   return (
-    <section className={styles.page}>
+    <main className={styles.page}>
       <CalendarHeaderUI
         currentMonth={currentMonth}
         currentYear={currentYear}
@@ -45,6 +45,6 @@ export const Calendar: FC<CalendarProps> = ({ onDateChange }) => {
         onNextMonth={goToNextMonth}
       />
       <CalendarGridUI month={currentMonth} year={currentYear} />
-    </section>
+    </main>
   );
 };

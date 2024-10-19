@@ -13,10 +13,6 @@ body {
   padding: 0;
 }
 
-section {
-  flex-grow: 1;
-}
-
 body::before{
   content: "";
   position: fixed;

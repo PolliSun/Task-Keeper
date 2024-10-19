@@ -1,0 +1,31 @@
+.tasks {
+  background-color: #917972b8;
+  border-radius: calc(0.5rem - 2px);
+  padding: 30px;
+  color: #000;
+  width: 50%;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.noteBookHoles {
+  position: absolute;
+  left: 48.5%;
+  top: 100px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.hole {
+  width: 40px;
+  height: 20px;
+  background-color: #b2d4eb;
+  border-radius: 20%;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}

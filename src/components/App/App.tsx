@@ -1,15 +1,15 @@
 import React, { FC } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { EditNote } from "../note-form-edit/edit-note";
-import { CreateNote } from "../note-form-create/create-note";
+import { NoteList } from "../note-list/note-list";
+import { NoteHeader } from "../note-header/note-header";
 import { CreateTask } from "../task-form-create/create-task";
-import { NotesPage } from "../../pages/notes-page";
-import { TasksPage } from "../../pages/tasks-page";
-import { CalendarPage } from "../../pages/calendar-page";
+import { Notes } from "../../pages/notes";
+import { TaskPage } from "../../pages/tasks-page";
+import { Calendar } from "../../pages/calendar";
 import { Modal } from "../modal/modal";
 import { Header } from "../header/header";
-import { Footer } from "../footer/footer";
+import { Footer } from "../ui/footer/footer";
 import { NoteDetails } from "../note-details/note-details";
 import styles from "./app.module.css";
 
@@ -23,11 +23,11 @@ export const App: FC = () => {
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/notes-page" element={<NotesPage />} />
-        <Route path="/to-do-page" element={<TasksPage />} />
-        <Route path="/calendar-page" element={<CalendarPage />} />
-        <Route path="/notes-page/create-note" element={<CreateNote />} />
-        <Route path="/notes-page/edit/:id" element={<EditNote />} />
+        <Route path="/notes-page" element={<Notes />} />
+        <Route path="/to-do-page" element={<TaskPage />} />
+        <Route path="/calendar-page" element={<Calendar />} />
+        <Route path="/notes-page/create-note" element={<NoteHeader />} />
+        <Route path="/notes-page/edit-note/:id" element={<NoteList />} />
         <Route path="/notes-page/:id" element={<NoteDetails />} />
       </Routes>
 
@@ -40,18 +40,18 @@ export const App: FC = () => {
                 title="Добавить заметку"
                 onClose={() => navigate("/notes-page")}
               >
-                <CreateNote />
+                <NoteHeader />
               </Modal>
             }
           />
           <Route
-            path="/notes-page/edit/:id"
+            path="/notes-page/edit-note/:id"
             element={
               <Modal
                 title="Отредактировать заметку"
                 onClose={() => navigate(-1)}
               >
-                <EditNote />
+                <NoteList />
               </Modal>
             }
           />

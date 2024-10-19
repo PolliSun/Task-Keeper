@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector, RootState } from "../../services/store";
 import { editNote } from "../../services/slices/notesSlice";
 
-export const EditNote: FC = () => {
+export const NoteList: FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   const navigate = useNavigate();

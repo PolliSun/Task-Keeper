@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import logo from "../../images/paperclip.svg";
+import { NavLink } from 'react-router-dom';
 
 export const Header: FC = () => {
   const navigate = useNavigate();
@@ -17,24 +18,9 @@ export const Header: FC = () => {
         <h1 className={styles.title}>Note Keeper</h1>
       </a>
       <nav className={styles.navigation}>
-        <button
-          className={styles.button}
-          onClick={() => navigate("/notes-page")}
-        >
-          Заметки
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => navigate("/calendar-page")}
-        >
-          Календарь
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => navigate("/to-do-page")}
-        >
-          Список дел
-        </button>
+      <NavLink to={"/notes-page"} className={styles.navLink}>Заметки</NavLink>
+      <NavLink to={"/calendar-page"} className={styles.navLink}>Календарь</NavLink>
+      <NavLink to={"/to-do-page"} className={styles.navLink}>Таски</NavLink>
       </nav>
     </header>
   );

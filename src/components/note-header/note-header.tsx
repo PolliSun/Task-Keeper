@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../../services/store";
 import { addNote } from "../../services/slices/notesSlice";
 
-export const CreateNote: FC = () => {
+export const NoteHeader: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./footer.module.css";
 
 export const Footer: FC = () => {
