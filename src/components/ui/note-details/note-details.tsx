@@ -3,32 +3,26 @@ import { TNote } from "../../../types/type";
 import styles from "./note-details.module.css";
 import pencil from "../../../images/pencil.svg";
 import basket from "../../../images/basket.svg";
-import { useNavigate } from "react-router-dom";
 import { GrPin } from "react-icons/gr";
 
 type NoteDetailsUIProps = {
   note: TNote;
   onDelete: () => void;
   onPin: () => void;
+  onEdit: () => void;
 };
 
 export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
   note,
   onDelete,
   onPin,
+  onEdit,
 }) => {
-  const navigate = useNavigate();
-
-  const handleEdit = () => {
-    navigate(`/notes-page/edit-note/${note.id}`, {
-      state: { background: "/notes-page" },
-    });
-  };
 
   return (
     <div className={styles.content}>
       <img className={styles.image} src={note.image} alt={note.title} />
-      <small className={styles.date}>{note.date}</small>
+      <p className={styles.date}>{new Date(note.date).toLocaleDateString()}</p>
       <h2 className={styles.title}>{note.title}</h2>
       <p className={styles.paragraph}>{note.content}</p>
       <button
@@ -37,13 +31,12 @@ export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
         onClick={onPin}
       >
         <GrPin
-          className={styles.icon}
           size={20}
           color={note.isPinned ? "#f7e47b" : "#000"}
         />
       </button>
       <div className={styles.buttonConteiner}>
-        <button className={styles.button} onClick={handleEdit}>
+        <button className={styles.button} onClick={onEdit}>
           <img
             src={pencil}
             alt="иконка редактирования заметки"

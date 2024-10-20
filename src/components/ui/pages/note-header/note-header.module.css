@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.button {
+  background-color: #f7e47b;
+  padding: 10px;
+  border-radius: calc(0.5rem - 2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid #f7e47b ;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.searchInput {
+  padding: 10px;
+  width: 200px;
+  height: 100%;
+  outline: none;
+}
+
+.rotateIconSearch {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(1px, 0); 
+  }
+  50% {
+    transform: translate(1px, 1px);
+  }
+  75% {
+    transform: translate(0, 1px);
+  }
+}
+
+.rotateIconEraser {
+  animation: shake 3s ease infinite;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+
+.sortButton {
+  position: relative;
+  cursor: pointer;
+  width: 140px;
+}
+
+.iconRotated {
+  transform: rotate(-180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.searchContainer:focus {
+  outline: 3px #f7e47b solid;
+}
+
+.sortDropdown {
+  position: absolute;
+  top: 47px;
+  right: 0;
+  z-index: 1;
+  display: block;
+  border: 1px solid #f7e47b;
+  width: 140px;
+  border-radius: calc(0.5rem - 2px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sortDropdown button {
+  display: block;
+  width: 100%;
+  background-color: #FFF8EB;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+

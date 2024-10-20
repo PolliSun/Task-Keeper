@@ -18,7 +18,7 @@ export const NoteCardUI: FC<NoteCardUIProps> = ({ note, onPin }) => {
           state={{ background: "/notes-page" }}
         >
           <img className={styles.image} src={note.image} alt={note.title} />
-          <small className={styles.date}>{note.date}</small>
+          <p className={styles.date}>{new Date(note.date).toLocaleDateString()}</p>
           <h2 className={styles.title}>{note.title}</h2>
           <p className={styles.paragraph}>{note.content}</p>
         </Link>

@@ -26,8 +26,16 @@ export const NoteDetails: FC = () => {
     }
   };
 
+  const handleEditNote = () => {
+    if (note) {
+      navigate(`/notes-page/edit-note/${note.id}`, {
+        state: { background: "/notes-page" },
+      });
+    }
+  };
+
   if (!note) {
-    return null;
+    return <div>Заметка не найдена</div>;
   }
 
   return (
@@ -35,6 +43,7 @@ export const NoteDetails: FC = () => {
       note={note}
       onDelete={handleDeleteNote}
       onPin={handlePinNote}
+      onEdit={handleEditNote}
     />
   );
 };

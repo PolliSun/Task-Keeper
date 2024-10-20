@@ -4,7 +4,7 @@ import { HomePage } from "../../pages/home-page";
 import { NoteList } from "../note-list/note-list";
 import { NoteHeader } from "../note-header/note-header";
 import { CreateTask } from "../task-form-create/create-task";
-import { Notes } from "../../pages/notes";
+import { Notes } from "../../pages/notes/notes";
 import { TaskPage } from "../../pages/tasks-page";
 import { Calendar } from "../../pages/calendar";
 import { Modal } from "../modal/modal";

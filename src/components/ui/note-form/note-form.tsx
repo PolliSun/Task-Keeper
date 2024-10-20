@@ -37,7 +37,7 @@ export const NoteFormUI: FC<NoteFormProps> = ({
     const newNote: TNote = {
       ...note,
       id: note.id || Math.random().toString(),
-      date: note.date || new Date().toLocaleDateString(),
+      date: note.date || new Date().toISOString(),
     };
 
     onSubmit(newNote);
