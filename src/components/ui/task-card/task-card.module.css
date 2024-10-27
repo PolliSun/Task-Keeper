@@ -45,16 +45,15 @@
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #f7e47b;
-  border: none;
+  background-color: #575365b0;
 }
 
 .customCheckbox::after {
   content: "";
   position: absolute;
   display: none;
-  left: 9px;
-  top: 4px;
+  left: 7px;
+  top: 2px;
   width: 5px;
   height: 10px;
   border: solid #000;
@@ -80,28 +79,18 @@
 
 .buttonContainer{
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7e47b;
-  padding: 7px;
+.timer {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: #57536580;
   border-radius: calc(0.5rem - 2px);
 }
-
-.priority {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 7px;
-  border-radius: calc(0.5rem - 2px);
-}
-
 
 
 

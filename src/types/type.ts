@@ -9,9 +9,12 @@ export type TNote = {
 
 export type TTask = {
   id: string;
+  date: string;
   title: string;
+  timer: number;
+  remainingTime: number;
   status: boolean;
-  priority?: "high" | "medium" | "low" | "none";
+  priority: "высокий" | "средний" | "низкий" | "без приоритета";
 };
 
 export type TCalendar = {

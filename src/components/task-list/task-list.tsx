@@ -1,24 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { TasksListUI } from "../ui/pages/tasks-list/tasks-list";
 import { RootState, useSelector, useDispatch } from "../../services/store";
-import { deliteTask, toggleTaskStatus } from "../../services/slices/toDoSlice";
 
 export const TaskList: FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const dispatch = useDispatch();
-  const handleToggleTask = (id: string) => {
-    dispatch(toggleTaskStatus(id));
-  };
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
-  const handleDeleteTask = (id: string) => {
-    dispatch(deliteTask(id));
+  const handleSelectTask = (id: string) => {
+    setSelectedTaskId(id);
   };
 
   return (
     <TasksListUI
       tasks={tasks}
-      onToggleTask={handleToggleTask}
-      onDeleteTask={handleDeleteTask}
+      selectedTaskId={selectedTaskId}
+      onTaskSelect={handleSelectTask}
     />
   );
 };

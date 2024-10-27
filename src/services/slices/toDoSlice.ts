@@ -5,11 +5,11 @@ import {
   getTasksFromStorage,
 } from "../../utils/tasksStorage";
 
-interface ToDoState {
+interface TaskState {
   tasks: TTask[];
 }
 
-const initialState: ToDoState = {
+const initialState: TaskState = {
   tasks: getTasksFromStorage(),
 };
 
@@ -24,6 +24,14 @@ const taskSlice = createSlice({
     addTask(state, action: PayloadAction<TTask>) {
       state.tasks.push(action.payload);
       saveTasksToStorage(state.tasks);
+      // const timer = Number(action.payload.timer) || 0;
+      // const newTask = {
+      //   ...action.payload,
+      //   timer: timer,
+      //   remainingTime: timer,
+      // };
+      // state.tasks.push(newTask);
+      // saveTasksToStorage(state.tasks);
     },
     deliteTask(state, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter(
@@ -38,8 +46,15 @@ const taskSlice = createSlice({
         saveTasksToStorage(state.tasks);
       }
     },
+    updateRemainingTime(state, action: PayloadAction<{ id: string; remainingTime: number}>) {
+      const task = state.tasks.find(task => task.id === action.payload.id);
+      if(task) {
+        task.remainingTime = action.payload.remainingTime;
+        saveTasksToStorage(state.tasks);
+      }
+    }
   },
 });
 
-export const { setTasks, addTask, deliteTask, toggleTaskStatus } = taskSlice.actions;
+export const { setTasks, addTask, deliteTask, toggleTaskStatus, updateRemainingTime } = taskSlice.actions;
 export default taskSlice.reducer;

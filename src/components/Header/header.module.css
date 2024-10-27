@@ -13,7 +13,7 @@
 .link {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .link:hover {
@@ -34,10 +34,7 @@
 }
 
 .title {
-  font-size: 35px;
+  font-size: 32px;
   font-weight: bolder;
   letter-spacing: 0.2rem;
-  font-family: 'Pacifico', cursive;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }

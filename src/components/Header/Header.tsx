@@ -14,7 +14,7 @@ export const Header: FC = () => {
   return (
     <header className={styles.header}>
       <a href="#" onClick={handleNavigation} className={styles.link}>
-        <IoBookOutline size={50} />
+        <IoBookOutline size={40} />
         <h1 className={styles.title}>Note Keeper</h1>
       </a>
       <nav className={styles.navigation}>

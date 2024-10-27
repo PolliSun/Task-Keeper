@@ -15,7 +15,6 @@ export const NoteList: FC = () => {
   const searchResults = useSelector(
     (state: RootState) => state.notes.searchResults
   );
-  const sortedNotes = useSelector((state: RootState) => state.notes.notes);
   const isSearching = useSelector((state: RootState) => state.notes.isSearching);
   const noteToEdit = id ? notes.find((note) => note.id === id) : undefined;
 

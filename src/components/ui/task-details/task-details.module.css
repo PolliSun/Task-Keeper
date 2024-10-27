@@ -1,0 +1,22 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    border-radius: calc(0.5rem - 2px);
+    background-color: #FBE9E7;
+    padding: 20px;
+    gap: 20px;
+}
+
+.priorityContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.button {
+    width: 100%;
+    border-radius: calc(0.5rem - 2px);
+    padding: 5px 10px;
+    background-color: #57536580;
+}

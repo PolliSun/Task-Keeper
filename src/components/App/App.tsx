@@ -7,7 +7,7 @@ import { Notes } from "../../pages/notes/notes";
 import { Tasks } from "../../pages/tasks/tasks";
 import { Calendar } from "../../pages/calendar/calendar";
 import { Modal } from "../modal/modal";
-import { Header } from "../header/header";
+import { Header } from "../header/Header";
 import { Footer } from "../ui/footer/footer";
 import { NoteDetails } from "../note-details/note-details";
 import { TaskHeader } from "../task-header/task-header";
