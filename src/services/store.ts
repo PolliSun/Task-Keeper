@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import notesReducer from './slices/notesSlice';
-import toDoReducer from './slices/toDoSlice';
+import tasksReducer from './slices/toDoSlice';
+import calendarReducer from './slices/calendarSlice';
 
 import {
     TypedUseSelectorHook,
@@ -11,7 +12,8 @@ import {
 
 export const rootReducer = combineReducers({
   notes: notesReducer,
-  tasks: toDoReducer,
+  tasks: tasksReducer,
+  calendar: calendarReducer,
 });
 
 const store = configureStore({

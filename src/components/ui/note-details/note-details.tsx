@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { TNote } from "../../../types/type";
 import styles from "./note-details.module.css";
-import pencil from "../../../images/pencil.svg";
-import basket from "../../../images/basket.svg";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { LuPencil } from "react-icons/lu";
 import { GrPin } from "react-icons/gr";
 
 type NoteDetailsUIProps = {
@@ -18,7 +18,6 @@ export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
   onPin,
   onEdit,
 }) => {
-
   return (
     <div className={styles.content}>
       <img className={styles.image} src={note.image} alt={note.title} />
@@ -30,25 +29,14 @@ export const NoteDetailsUI: FC<NoteDetailsUIProps> = ({
         className={styles.buttonСlip}
         onClick={onPin}
       >
-        <GrPin
-          size={20}
-          color={note.isPinned ? "#f7e47b" : "#000"}
-        />
+        <GrPin size={20} color={note.isPinned ? "#f7e47b" : "#000"} />
       </button>
       <div className={styles.buttonConteiner}>
         <button className={styles.button} onClick={onEdit}>
-          <img
-            src={pencil}
-            alt="иконка редактирования заметки"
-            className={styles.pencil}
-          />
+          <LuPencil size={24} />
         </button>
         <button className={styles.button} onClick={onDelete}>
-          <img
-            src={basket}
-            alt="иконка удаления заметки"
-            className={styles.basket}
-          />
+          <RiDeleteBin5Line size={24} />
         </button>
       </div>
     </div>

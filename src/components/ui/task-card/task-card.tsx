@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { TTask } from "../../../types/type";
 import styles from "./task-card.module.css";
-import basket from "../../../images/basket.svg";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 type TaskCardUIProps = {
   task: TTask;
@@ -9,7 +10,11 @@ type TaskCardUIProps = {
   onToggle: (id: string) => void;
 };
 
-export const TaskCardUI: FC<TaskCardUIProps> = ({ task, onDelete, onToggle }) => {
+export const TaskCardUI: FC<TaskCardUIProps> = ({
+  task,
+  onDelete,
+  onToggle,
+}) => {
   return (
     <div className={styles.card}>
       <div className={styles.dataContainer}>
@@ -22,15 +27,23 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({ task, onDelete, onToggle }) =>
           />
           <span className={styles.customCheckbox}></span>
         </label>
-        <span className={`${styles.title} ${task.status ? styles.completed : ''}`}>{task.title}</span>
+        <span
+          className={`${styles.title} ${task.status ? styles.completed : ""}`}
+        >
+          {task.title}
+        </span>
       </div>
-      <button className={styles.button} onClick={() => onDelete(task.id)}>
-        <img
-          src={basket}
-          alt="иконка удаления заметки"
-          className={styles.basket}
-        />
-      </button>
+      <div className={styles.buttonContainer}>
+        <button className={styles.priority}>
+          <AiOutlineExclamationCircle
+            size={24}
+            className={styles.priorityIcon}
+          />
+        </button>
+        <button className={styles.button} onClick={() => onDelete(task.id)}>
+          <RiDeleteBin5Line size={0} />
+        </button>
+      </div>
     </div>
   );
 };

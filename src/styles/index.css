@@ -7,7 +7,7 @@
 body {
   font-family: 'NerkoOne-Regular', Arial, sans-serif;
   background-color: rgb(17 24 39);
-  color: #D8EAD7;
+  color: #000;
   position: relative;
   margin: 0;
   padding: 0;
@@ -25,6 +25,15 @@ body::before{
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.5;
+}
+
+main {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
 }
 
 h1,

@@ -68,8 +68,7 @@
   justify-content: center;
   align-items: center;
   background-color: #f7e47b;
-  width: 90px;
-  height: 40px;
+  padding: 7px 30px;
   border-radius: calc(0.5rem - 2px);
 }
 
@@ -77,10 +76,5 @@
   background-color: rgb(34, 211, 238);
 }
 
-.pencil,
-.basket {
-  width: 24px;
-  height: 24px;
-}
 
 

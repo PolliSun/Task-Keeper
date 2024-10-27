@@ -72,10 +72,17 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   margin: 0 20px;
   word-break: break-all; 
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .button {
@@ -83,15 +90,18 @@
   justify-content: center;
   align-items: center;
   background-color: #f7e47b;
-  padding: 7px 30px;
+  padding: 7px;
   border-radius: calc(0.5rem - 2px);
 }
 
-.button:hover {
-  background-color: rgb(34, 211, 238);
+.priority {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  border-radius: calc(0.5rem - 2px);
 }
 
-.basket {
-  width: 24px;
-  height: 24px;
-}
+
+
+

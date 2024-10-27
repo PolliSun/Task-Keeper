@@ -1,5 +1,7 @@
 import { FC } from "react";
 import styles from "./task-header.module.css";
+import { RiStickyNoteAddLine } from "react-icons/ri";
+import { TbClockQuestion } from "react-icons/tb";
 
 type TaskHeaderUIProps = {
   totalTasks: number;
@@ -18,9 +20,14 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
         <div className={styles.counter}>
           Задачи: {completedTasks}/{totalTasks}
         </div>
-        <button className={styles.button} onClick={onCreateTask}>
-          + Добавить задачу
-        </button>
+        <div className={styles.buttonContainer}>
+          <button className={styles.button}>
+            <TbClockQuestion size={23} />
+          </button>
+          <button className={styles.button} onClick={onCreateTask}>
+            <RiStickyNoteAddLine size={23} />
+          </button>
+        </div>
       </header>
     </>
   );

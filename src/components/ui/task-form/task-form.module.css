@@ -1,19 +1,44 @@
-.taskForm{
-    display: flex;
-    flex-direction: column;
-    margin: 30px 0;
-    gap: 30px;
+.taskForm {
+  display: flex;
+  flex-direction: column;
 }
 
 .formInputTitle {
-    border-radius: calc(0.5rem - 2px);
-    height: 2.25rem;
-    border: 2px solid #8585858a;
+  border-radius: calc(0.5rem - 2px);
+  height: 2.25rem;
+  border: 2px solid #8585858a;
+  margin-bottom: 15px;
 }
 
-.formButton{
-    border-radius: calc(0.5rem - 2px);
-    background-color: #EE9E8E;
-    width: 100%;
-    height: 30px;
+.formButton {
+  border-radius: calc(0.5rem - 2px);
+  background-color: #ee9e8e;
+  width: 100%;
+  height: 30px;
+}
+
+.priorityGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.radioInput {
+  opacity: 0;
+  position: absolute;
+}
+
+.priorityGroup label {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: calc(0.5rem - 2px);
+  cursor: pointer;
+  background-color: #f7e47b;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.priorityGroup label.active {
+  background-color: #575365b0;
+  color: #f7e47b;
 }

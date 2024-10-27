@@ -13,7 +13,7 @@ const initialState: ToDoState = {
   tasks: getTasksFromStorage(),
 };
 
-const toDoSlice = createSlice({
+const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
@@ -41,5 +41,5 @@ const toDoSlice = createSlice({
   },
 });
 
-export const { setTasks, addTask, deliteTask, toggleTaskStatus } = toDoSlice.actions;
-export default toDoSlice.reducer;
+export const { setTasks, addTask, deliteTask, toggleTaskStatus } = taskSlice.actions;
+export default taskSlice.reducer;

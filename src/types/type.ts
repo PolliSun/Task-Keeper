@@ -11,6 +11,7 @@ export type TTask = {
   id: string;
   title: string;
   status: boolean;
+  priority?: "high" | "medium" | "low" | "none";
 };
 
 export type TCalendar = {

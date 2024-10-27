@@ -65,10 +65,15 @@
   }
 }
 
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .sortButton {
   position: relative;
   cursor: pointer;
-  width: 140px;
 }
 
 .iconRotated {

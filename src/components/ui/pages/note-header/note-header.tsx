@@ -1,6 +1,5 @@
 import { FC, RefObject } from "react";
 import styles from "./note-header.module.css";
-import search from "../../../../images/search.svg";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { HiOutlineSortDescending } from "react-icons/hi";
 import { RiSearchLine } from "react-icons/ri";
@@ -44,8 +43,10 @@ export const NoteHeaderUI: FC<NoteHeaderUIProps> = ({
                 className={isFocused ? styles.rotateIconSearch : ""}
               />
             ) : (
-              <LuEraser size={23} 
-              className={!isFocused ? styles.rotateIconEraser : ""}/>
+              <LuEraser
+                size={23}
+                className={!isFocused ? styles.rotateIconEraser : ""}
+              />
             )}
           </button>
           <input
@@ -59,24 +60,26 @@ export const NoteHeaderUI: FC<NoteHeaderUIProps> = ({
             onBlur={onBlur}
           />
         </div>
+        <div className={styles.buttonContainer}>
         <button
-          className={`${styles.button} ${styles.buttonCreate}`}
-          onClick={onCreate}
-          aria-label="Добавить заметку"
-        >
-          <RiStickyNoteAddLine size={23} />
-        </button>
-        <button
-          onClick={onSortClick}
-          className={`${styles.button} ${styles.sortButton} ${
-            isSortOpen ? "open" : ""
-          }`}
-        >
-          <HiOutlineSortDescending
-            size={23}
-            className={isSortOpen ? styles.iconRotated : styles.icon}
-          />
-        </button>
+            onClick={onSortClick}
+            className={`${styles.button} ${styles.sortButton} ${
+              isSortOpen ? "open" : ""
+            }`}
+          >
+            <HiOutlineSortDescending
+              size={23}
+              className={isSortOpen ? styles.iconRotated : styles.icon}
+            />
+          </button>
+          <button
+            className={`${styles.button} ${styles.buttonCreate}`}
+            onClick={onCreate}
+            aria-label="Добавить заметку"
+          >
+            <RiStickyNoteAddLine size={23} />
+          </button>
+        </div>
         {isSortOpen && (
           <div className={styles.sortDropdown}>
             <button onClick={() => onSortSelect("date")}>По дате</button>

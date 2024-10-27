@@ -6,7 +6,7 @@
 }
 
 .counter {
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bold;
   background-color: #f7e47b;
   border-radius: calc(0.5rem - 2px);
@@ -14,10 +14,17 @@
   color: #000;
 }
 
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .button {
-  font-size: 23px;
-  font-weight: bold;
   background-color: #f7e47b;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

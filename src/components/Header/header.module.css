@@ -7,6 +7,7 @@
   padding: 10px 50px 20px;
   box-shadow: 0 0 #0000,  0 0 #0000, 0 4px 6px -1px rgba(0,0,0),0 2px 4px -2px rgba(0,0,0);
   background-color: #575365;
+  color: #D8EAD7;
 }
 
 .link {
@@ -19,11 +20,6 @@
   cursor: pointer;
 }
 
-.logo {
-  width: 30px;
-  height: 30px;
-}
-
 .navigation {
   display: flex;
   justify-content: flex-end;
@@ -34,10 +30,11 @@
 
 .navLink {
   font-size: 20px;
+  font-style: italic;
 }
 
 .title {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bolder;
   letter-spacing: 0.2rem;
   font-family: 'Pacifico', cursive;
