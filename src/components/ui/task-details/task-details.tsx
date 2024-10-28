@@ -10,11 +10,19 @@ type TaskDetailsUIProps = {
   remainingTime: string;
 };
 
-export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({ task, onDelete, remainingTime }) => {
+export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
+  task,
+  onDelete,
+  remainingTime,
+}) => {
   return (
     <div className={styles.content}>
       <h2 className={styles.title}>{task.title}</h2>
-      <p className={styles.date}>{new Date(task.date).toLocaleDateString()}</p>
+      <div className={styles.dateContainer}>
+        <p className={styles.date}>
+          Дата создания: {new Date(task.date).toLocaleDateString()}
+        </p>
+      </div>
       <div className={styles.priorityContainer}>
         <TaskPriority priority={task.priority} />
         <p className={styles.priority}>Приоритет: {task.priority}.</p>

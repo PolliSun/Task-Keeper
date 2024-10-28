@@ -45,7 +45,7 @@
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #575365b0;
+  background-color: #57536580;
 }
 
 .customCheckbox::after {

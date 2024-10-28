@@ -86,6 +86,7 @@ export const TaskFormUI: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
         type="text"
         placeholder="Время в формате HH:MM:SS"
         value={timeInput}
+        className={styles.formInputTimer}
         onChange={handleTimerChange}
         pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"
       />

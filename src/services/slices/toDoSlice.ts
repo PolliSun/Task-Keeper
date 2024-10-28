@@ -24,14 +24,6 @@ const taskSlice = createSlice({
     addTask(state, action: PayloadAction<TTask>) {
       state.tasks.push(action.payload);
       saveTasksToStorage(state.tasks);
-      // const timer = Number(action.payload.timer) || 0;
-      // const newTask = {
-      //   ...action.payload,
-      //   timer: timer,
-      //   remainingTime: timer,
-      // };
-      // state.tasks.push(newTask);
-      // saveTasksToStorage(state.tasks);
     },
     deliteTask(state, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter(
