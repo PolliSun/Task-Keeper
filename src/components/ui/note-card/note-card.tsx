@@ -30,7 +30,6 @@ export const NoteCardUI: FC<NoteCardUIProps> = ({ note, onPin }) => {
           }}
         >
           <GrPin
-            className={styles.icon}
             size={20}
             color={note.isPinned ? "#f7e47b" : "#000"}
           />

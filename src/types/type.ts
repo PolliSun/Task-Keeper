@@ -14,7 +14,8 @@ export type TTask = {
   timer: number;
   remainingTime: number;
   status: boolean;
-  priority: "высокий" | "средний" | "низкий" | "без приоритета";
+  priority: "high" | "medium" | "low" | "none";
+  isPinned?: boolean;
 };
 
 export type TCalendar = {

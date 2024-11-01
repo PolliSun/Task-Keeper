@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect  } from "react";
 import { TaskCardUI } from "../ui/task-card/task-card";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "../../services/store";
-import { toggleTaskStatus, updateRemainingTime } from "../../services/slices/toDoSlice";
+import { toggleTaskStatus, updateRemainingTime, pinTask } from "../../services/slices/toDoSlice";
 import { TTask } from "../../types/type";
 
 type TaskCardProps = {
@@ -18,6 +18,10 @@ export const TaskCard: FC<TaskCardProps> = ({task, onClick}) => {
 
   const handleToggleTask = (id: string) => {
     dispatch(toggleTaskStatus(id));
+  };
+
+  const handlePinTask = () => {
+    dispatch(pinTask(task.id));
   };
 
   const [remainingTime, setRemainingTime] = useState<number>(0);
@@ -66,6 +70,7 @@ export const TaskCard: FC<TaskCardProps> = ({task, onClick}) => {
       onToggle={handleToggleTask}
       onClick={onClick}
       remainingTime={formatTimeDisplay(remainingTime)} 
+      onPin={handlePinTask}
     />
   );
 };

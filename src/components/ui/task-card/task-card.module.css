@@ -1,9 +1,10 @@
 .card {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: 20px 0;
-  background-color: #FBE9E7;
+  background-color: #fbe9e7;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
 }
@@ -74,23 +75,34 @@
   font-size: 14px;
   font-weight: bold;
   margin: 0 20px;
-  word-break: break-all; 
+  word-break: break-all;
 }
 
-.buttonContainer{
+.buttonContainer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
+}
+
+.buttonСlip {
+  content: "";
+  top: 10px;
+  right: 100px;
+  position: absolute;
+  background-color: #57536580;
+  border-radius: calc(0.5rem - 2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  margin: 4px;
 }
 
 .timer {
   font-family: monospace;
   font-size: 16px;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 3.5px 10px;
   background-color: #57536580;
   border-radius: calc(0.5rem - 2px);
 }
-
-
-

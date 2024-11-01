@@ -3,22 +3,30 @@ import { TaskCard } from "../../../task-card/task-card";
 import styles from "./tasks-list.module.css";
 import { TTask } from "../../../../types/type";
 import { TaskDetails } from "../../../task-details/task-details";
+import { TaskFormUI } from "../../task-form/task-form";
 
 type TasksListUIProps = {
   tasks: TTask[];
-  selectedTaskId: string | null;
+  selectedTask: TTask | null;
   onTaskSelect: (taskId: string) => void;
+  title?: string;
+  onCreateTask: (task: TTask) => void;
+  сreatedTask: TTask | null;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
   tasks,
-  selectedTaskId,
+  selectedTask,
   onTaskSelect,
+  title,
+  onCreateTask,
+  сreatedTask,
 }) => {
   return (
     <>
       <section className={styles.content}>
         <ul className={styles.tasks}>
+          <h2 className={styles.title}>{title}</h2>
           {tasks.map((task) => (
             <TaskCard
               key={task.id}
@@ -33,7 +41,8 @@ export const TasksListUI: FC<TasksListUIProps> = ({
           ))}
         </div>
         <ul className={styles.tasks}>
-          {selectedTaskId && <TaskDetails id={selectedTaskId} />}
+          {selectedTask && <TaskDetails task={selectedTask}/>}
+          {сreatedTask && <TaskFormUI onSubmit={onCreateTask} />}
         </ul>
       </section>
     </>

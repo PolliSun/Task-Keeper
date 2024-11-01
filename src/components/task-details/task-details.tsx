@@ -4,17 +4,24 @@ import { useDispatch, useSelector } from "../../services/store";
 import {
   deliteTask,
   updateRemainingTime,
+  pinTask,
+  toggleTaskStatus,
 } from "../../services/slices/toDoSlice";
+import { TTask } from "../../types/type";
 
 type TaskDetailsLogicProps = {
-  id: string;
+  task: TTask;
 };
 
-export const TaskDetails: FC<TaskDetailsLogicProps> = ({ id }) => {
+export const TaskDetails: FC<TaskDetailsLogicProps> = ({ task }) => {
   const dispatch = useDispatch();
-  const task = useSelector((state) =>
-    state.tasks.tasks.find((task) => task.id === id)
-  );
+  const handlePinTask = () => {
+    dispatch(pinTask(task.id));
+  };
+
+  const handleToggleTask = () => {
+    dispatch(toggleTaskStatus(task.id));
+  };
 
   const [remainingTime, setRemainingTime] = useState<number>(0);
 
@@ -41,15 +48,17 @@ export const TaskDetails: FC<TaskDetailsLogicProps> = ({ id }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [task, dispatch, id, remainingTime]);
+  }, [task, dispatch, remainingTime]);
 
   const formatTimeDisplay = (seconds: number): string => {
-    if (!seconds || isNaN(seconds)) return '00:00:00';
-    
+    if (!seconds || isNaN(seconds)) return "00:00:00";
+
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60; 
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleDeleteTask = (id: string) => {
@@ -65,6 +74,7 @@ export const TaskDetails: FC<TaskDetailsLogicProps> = ({ id }) => {
       task={task}
       remainingTime={formatTimeDisplay(remainingTime)} 
       onDelete={handleDeleteTask}
+      onToggle={handleToggleTask}
     />
   );
 };

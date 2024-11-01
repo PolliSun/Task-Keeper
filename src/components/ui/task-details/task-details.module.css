@@ -1,22 +1,61 @@
 .content {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-    border-radius: calc(0.5rem - 2px);
-    background-color: #FBE9E7;
-    padding: 20px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #fbe9e7;
+  padding: 20px;
+  gap: 20px;
 }
 
 .priorityContainer {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .button {
-    width: 100%;
-    border-radius: calc(0.5rem - 2px);
-    padding: 5px 10px;
-    background-color: #57536580;
+  width: 100%;
+  border-radius: calc(0.5rem - 2px);
+  padding: 5px 10px;
+  background-color: #57536580;
+}
+
+.customCheckboxContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 50px;
+  height: 24px;
+  background-color: #ddd;
+  border-radius: 12px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.customCheckboxContainer.checked {
+  background-color: #6bc400;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.customCheckboxContainer .customCheckbox {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+.customCheckboxContainer .hiddenCheckbox:checked + .customCheckbox {
+  transform: translateX(26px);
 }
