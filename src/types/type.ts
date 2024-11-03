@@ -1,21 +1,13 @@
-export type TNote = {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-  image: string;
-  isPinned?: boolean;
-};
-
 export type TTask = {
   id: string;
   date: string;
+  startDate?: string;
+  endDate?: string;
   title: string;
-  timer: number;
-  remainingTime: number;
   status: boolean;
-  priority: "high" | "medium" | "low" | "none";
+  priority: string;
   isPinned?: boolean;
+  subtasks?: { id: string; title: string}[];
 };
 
 export type TCalendar = {

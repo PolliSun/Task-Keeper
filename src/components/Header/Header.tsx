@@ -18,14 +18,11 @@ export const Header: FC = () => {
         <h1 className={styles.title}>Note Keeper</h1>
       </a>
       <nav className={styles.navigation}>
-        <NavLink to={"/notes-page"} className={styles.navLink}>
-          Заметки
+        <NavLink to={"/task-page"} className={styles.navLink}>
+          Задачи
         </NavLink>
         <NavLink to={"/calendar-page"} className={styles.navLink}>
           Календарь
-        </NavLink>
-        <NavLink to={"/task-page"} className={styles.navLink}>
-          Таски
         </NavLink>
       </nav>
     </header>

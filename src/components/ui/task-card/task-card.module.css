@@ -74,8 +74,7 @@
 .title {
   font-size: 14px;
   font-weight: bold;
-  margin: 0 20px;
-  word-break: break-all;
+  margin: 0 40px 0 20px;
 }
 
 .buttonContainer {
@@ -87,7 +86,7 @@
 .buttonСlip {
   content: "";
   top: 10px;
-  right: 100px;
+  right: 40px;
   position: absolute;
   background-color: #57536580;
   border-radius: calc(0.5rem - 2px);

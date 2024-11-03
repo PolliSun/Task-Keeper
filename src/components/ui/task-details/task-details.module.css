@@ -8,6 +8,13 @@
   gap: 20px;
 }
 
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+}
+
 .priorityContainer {
   display: flex;
   align-items: center;
@@ -21,6 +28,10 @@
   background-color: #57536580;
 }
 
+.title {
+  font-size: 18px;
+}
+
 .customCheckboxContainer {
   display: flex;
   align-items: center;
@@ -31,6 +42,7 @@
   border-radius: 12px;
   position: relative;
   transition: background-color 0.3s ease;
+  flex: 0 0 50px;
 }
 
 .customCheckboxContainer.checked {

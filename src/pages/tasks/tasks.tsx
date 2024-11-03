@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { TaskHeader } from "../../components/task-header/task-header";
 import { TaskList } from "../../components/task-list/task-list";
+import { RootState, useSelector } from "../../services/store";
 
 export const Tasks: FC = () => {
-    return (
-      <main >
-        <TaskHeader />
-        <TaskList />
-      </main>
-    );
-  };
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  return (
+    <main>
+      <TaskList tasks={tasks} />
+    </main>
+  );
+};

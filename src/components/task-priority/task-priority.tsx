@@ -2,23 +2,23 @@ import React, { FC } from "react";
 import { TaskPriorityUI } from "../ui/task-priority/task-priority";
 
 type TaskPriorityProps = {
-  priority: "high" | "medium" | "low" | "none";
+  priority: string;
 };
 
 export const TaskPriority: FC<TaskPriorityProps> = ({ priority }) => {
   let buttonStyle = "";
   switch (priority) {
-    case "high":
+    case "высокий":
             buttonStyle = "#ef282863";
             break;
-        case "medium":
+        case "средний":
             buttonStyle = "#ffae0063";
             break;
-        case "low":
+        case "низкий":
             buttonStyle = "#00800063";
             break;
-        case "none":
-            buttonStyle = "transparent";
+        case "без приоритета":
+            buttonStyle = "#dddddd";
             break;
   }
 

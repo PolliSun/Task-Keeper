@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import styles from "./home.module.css";
 
 export const HomeUI: FC = () => {
-
   return (
     <div className={styles.homePage}>
       <h2>Добро пожаловать!</h2>
@@ -12,9 +11,8 @@ export const HomeUI: FC = () => {
       </p>
       <p>В нашем приложении вы можете :</p>
       <ul>
-        <li>Оставлять заметки на странице Заметки</li>
+        <li>Составлять списки задач на странице Задачи</li>
         <li>Вести календарь на странице Календарь</li>
-        <li>Составлять списки на странице Список дел</li>
       </ul>
 
       <h3>Рекомендуем ознакомиться с правилами использования.</h3>

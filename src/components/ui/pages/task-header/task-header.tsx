@@ -1,11 +1,9 @@
 import { FC, RefObject } from "react";
 import styles from "./task-header.module.css";
 import { RiStickyNoteAddLine } from "react-icons/ri";
-import { TbClockQuestion } from "react-icons/tb";
 import { RiSearchLine } from "react-icons/ri";
 import { LuEraser } from "react-icons/lu";
 import { LuChevronDownSquare } from "react-icons/lu";
-
 
 type TaskHeaderUIProps = {
   totalTasks: number;
@@ -80,9 +78,6 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
               size={23}
               className={isSortOpen ? styles.iconRotated : styles.icon}
             />
-          </button>
-          <button className={styles.button}>
-            <TbClockQuestion size={23} />
           </button>
           <button className={styles.button} onClick={onCreateTask}>
             <RiStickyNoteAddLine size={23} />

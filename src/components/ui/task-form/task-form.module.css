@@ -1,20 +1,18 @@
 .taskForm {
   display: flex;
   flex-direction: column;
+  background-color: #fbe9e7;
+  padding: 25px;
+  border-radius: calc(0.5rem - 2px);
+  margin: 20px 0;
 }
 
-.formInputTitle {
+.formInputTitle,
+.formInputDate {
   border-radius: calc(0.5rem - 2px);
   height: 2.25rem;
   border: 2px solid #8585858a;
   margin-bottom: 15px;
-}
-
-.formInputTimer {
-  margin: 0 0 15px;
-  border: 2px solid #8585858a;
-  border-radius: calc(0.5rem - 2px);
-  height: 2.25rem;
 }
 
 .formButton {

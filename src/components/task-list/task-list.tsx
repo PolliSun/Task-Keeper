@@ -1,14 +1,18 @@
 import React, { FC, useState } from "react";
 import { TasksListUI } from "../ui/pages/tasks-list/tasks-list";
 import { RootState, useSelector, useDispatch } from "../../services/store";
-import { addTask, setTasks } from "../../services/slices/toDoSlice";
+import { addTask, setTasks } from "../../services/slices/taskSlice";
 import { useNavigate } from "react-router-dom";
 import { TTask } from "../../types/type";
+import { TaskHeader } from "../task-header/task-header";
 
-export const TaskList: FC = () => {
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+type TaskListProps = {
+  tasks: TTask[];
+};
+
+export const TaskList: FC<TaskListProps> = ({tasks}) => {
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
-  const [createdTask, setCreatedTask] = useState<TTask | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const searchResults = useSelector(
     (state: RootState) => state.tasks.searchResults
   );
@@ -22,15 +26,27 @@ export const TaskList: FC = () => {
 
   const handleSelectTask = (id: string) => {
     setSelectedTaskId(id);
+    setShowCreateForm(false); 
   };
 
-  const handleCreateTask = (newTasks: TTask) => {
-    dispatch(addTask(newTasks));
-    setCreatedTask(null);
-    navigate("/task-page");
+  const handleCreateTaskClick = () => {
+    setShowCreateForm(true);
+    setSelectedTaskId(null); 
+  };
+
+  const handleSaveTask = (newTask: TTask) => {
+    dispatch(addTask(newTask));
+    setShowCreateForm(false); 
+  };
+
+  const handleClose = () => {
+    setSelectedTaskId(null);
+    setShowCreateForm(false);
   };
 
   return (
+    <>
+    <TaskHeader tasks={tasks} onCreateTask={handleCreateTaskClick} />
     <TasksListUI
       title={
         isSearching && searchResults.length === 0
@@ -39,13 +55,18 @@ export const TaskList: FC = () => {
           ? "Задачи по вашему запросу:"
           : tasks.length === 0
           ? "Сейчас у вас нет задач, давайте создадим их!"
-          : undefined
+          : "Ваши задачи:"
+      }
+      titleData={
+        selectedTask ? "Детали задачи." : showCreateForm ? "Создание задачи." : "Выберите задачу для просмотра или создайте новую!"
       }
       tasks={isSearching ? searchResults : tasks}
       selectedTask={selectedTask}
       onTaskSelect={handleSelectTask}
-      onCreateTask={handleCreateTask}
-      сreatedTask={createdTask}
+      onCreateTask={handleSaveTask}
+      createdTask={showCreateForm}
+      onClose={handleClose}
     />
+    </>
   );
 };

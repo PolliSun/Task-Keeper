@@ -3,15 +3,18 @@ import { TaskCard } from "../../../task-card/task-card";
 import styles from "./tasks-list.module.css";
 import { TTask } from "../../../../types/type";
 import { TaskDetails } from "../../../task-details/task-details";
-import { TaskFormUI } from "../../task-form/task-form";
+import { CgCloseR } from "react-icons/cg";
+import { TaskForm } from "../../../task-form/task-form";
 
 type TasksListUIProps = {
   tasks: TTask[];
   selectedTask: TTask | null;
   onTaskSelect: (taskId: string) => void;
   title?: string;
-  onCreateTask: (task: TTask) => void;
-  сreatedTask: TTask | null;
+  titleData?: string;
+  onCreateTask: (newTask: TTask) => void;
+  createdTask: boolean;
+  onClose: () => void;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
@@ -19,14 +22,18 @@ export const TasksListUI: FC<TasksListUIProps> = ({
   selectedTask,
   onTaskSelect,
   title,
+  titleData,
   onCreateTask,
-  сreatedTask,
+  createdTask,
+  onClose,
 }) => {
   return (
     <>
       <section className={styles.content}>
         <ul className={styles.tasks}>
-          <h2 className={styles.title}>{title}</h2>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.title}>{title}</h2>
+          </div>
           {tasks.map((task) => (
             <TaskCard
               key={task.id}
@@ -40,9 +47,17 @@ export const TasksListUI: FC<TasksListUIProps> = ({
             <div key={index} className={styles.hole} />
           ))}
         </div>
-        <ul className={styles.tasks}>
-          {selectedTask && <TaskDetails task={selectedTask}/>}
-          {сreatedTask && <TaskFormUI onSubmit={onCreateTask} />}
+        <ul className={styles.data}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.title}>{titleData}</h2>
+            {(selectedTask || createdTask) && (
+              <button className={styles.button} onClick={onClose}>
+                <CgCloseR size={23} />
+              </button>
+            )}
+          </div>
+          {selectedTask && <TaskDetails task={selectedTask} />}
+          {createdTask && <TaskForm onSubmit={onCreateTask} />}
         </ul>
       </section>
     </>
