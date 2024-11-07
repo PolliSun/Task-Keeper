@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from "react";
+import React, { FC, useState } from "react";
 import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
 import { addSubtask, deliteSubtask } from "../../services/slices/taskSlice";
@@ -37,11 +37,18 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   const handleSubtaskAdd = () => {
     const newSubtask = {
       id: Math.random().toString(),
-      title: `Подзадача ${subtasks.length + 1}`,
+      title: "",
     };
     setSubtasks([...subtasks, newSubtask]);
     if (initialData?.id) {
       dispatch(addSubtask({ taskId: initialData.id, subtask: newSubtask }));
+    }
+  };
+
+  const handleSubtaskDelete = (subtaskId: string) => {
+    setSubtasks((prevSubtasks) => prevSubtasks.filter((subtask) => subtask.id !== subtaskId));
+    if (initialData?.id) {
+      dispatch(deliteSubtask({ taskId: initialData.id, subtaskId }));
     }
   };
 
@@ -76,6 +83,7 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       onSubmit={handleSubmit}
       onSubtaskAdd={handleSubtaskAdd}
       onSubtaskChange={handleSubtaskChange}
+      onSubtaskDelite={handleSubtaskDelete}
     />
   );
 };

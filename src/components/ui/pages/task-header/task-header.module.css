@@ -5,15 +5,6 @@
   margin-bottom: 40px;
 }
 
-.counter {
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #f7e47b;
-  border-radius: calc(0.5rem - 2px);
-  padding: 10px;
-  color: #000;
-}
-
 .buttonContainer{
   display: flex;
   justify-content: center;

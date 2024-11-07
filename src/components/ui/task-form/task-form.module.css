@@ -1,5 +1,6 @@
 .taskForm {
   display: flex;
+  gap: 20px;
   flex-direction: column;
   background-color: #fbe9e7;
   padding: 25px;
@@ -7,27 +8,34 @@
   margin: 20px 0;
 }
 
-.formInputTitle,
-.formInputDate {
+.formInput {
   border-radius: calc(0.5rem - 2px);
   height: 2.25rem;
   border: 2px solid #8585858a;
-  margin-bottom: 15px;
+  width: 100%;
 }
 
-.formButton {
+.buttonForm {
+  border-radius: calc(0.5rem - 2px);
+  padding: 10px;
+  background-color: #57536580;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttonSubmit {
   border-radius: calc(0.5rem - 2px);
   background-color: #ffd800;
   width: 100%;
   height: 30px;
   font-weight: bolder;
   font-size: 16px;
+  margin-top: 15px;
 }
 
 .priorityGroup {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
 }
 
 .radioInput {
@@ -40,12 +48,22 @@
   padding: 10px 20px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
-  background-color: #fff;
+  background-color: #e3d5d5;
   transition: background-color 0.3s;
-  font-weight: bold;
-  border: 1px solid #000;
 }
 
 .priorityGroup label.active {
   background-color: #57536580;
+}
+
+.dateContainer {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 10px;
+}
+
+.buttonSubtaskContainer {
+  display: flex;
+  gap: 10px;
 }

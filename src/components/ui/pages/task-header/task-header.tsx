@@ -6,8 +6,6 @@ import { LuEraser } from "react-icons/lu";
 import { LuChevronDownSquare } from "react-icons/lu";
 
 type TaskHeaderUIProps = {
-  totalTasks: number;
-  completedTasks: number;
   onCreateTask: () => void;
   onSearch: (searchTerm: string) => void;
   searchTerm: string;
@@ -22,8 +20,6 @@ type TaskHeaderUIProps = {
 };
 
 export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
-  totalTasks,
-  completedTasks,
   onCreateTask,
   onSearch,
   searchTerm,
@@ -63,9 +59,6 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             onFocus={onFocus}
             onBlur={onBlur}
           />
-        </div>
-        <div className={styles.counter}>
-          Задачи: {completedTasks}/{totalTasks}
         </div>
         <div className={styles.buttonContainer}>
           <button

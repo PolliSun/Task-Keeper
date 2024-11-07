@@ -7,6 +7,8 @@ import { CgCloseR } from "react-icons/cg";
 import { TaskForm } from "../../../task-form/task-form";
 
 type TasksListUIProps = {
+  totalTasks: number;
+  completedTasks: number;
   tasks: TTask[];
   selectedTask: TTask | null;
   onTaskSelect: (taskId: string) => void;
@@ -18,6 +20,8 @@ type TasksListUIProps = {
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
+  totalTasks,
+  completedTasks,
   tasks,
   selectedTask,
   onTaskSelect,
@@ -33,6 +37,9 @@ export const TasksListUI: FC<TasksListUIProps> = ({
         <ul className={styles.tasks}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>{title}</h2>
+            <div className={styles.counter}>
+              {completedTasks}/{totalTasks}
+            </div>
           </div>
           {tasks.map((task) => (
             <TaskCard

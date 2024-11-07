@@ -1,7 +1,7 @@
 import React, { FC, useState, useRef, useCallback, useEffect } from "react";
 import { TaskHeaderUI } from "../../components/ui/pages/task-header/task-header";
-import { RootState, useSelector, useDispatch } from "../../services/store";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "../../services/store";
+import { useLocation } from "react-router-dom";
 import { searchTasks, sortTasks } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 
@@ -18,10 +18,6 @@ export const TaskHeader: FC<TaskHeaderProps> = ({tasks, onCreateTask})=> {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((task) => task.status).length;
 
   const handleSearch = useCallback(
     (term: string) => {
@@ -55,8 +51,6 @@ export const TaskHeader: FC<TaskHeaderProps> = ({tasks, onCreateTask})=> {
 
   return (
     <TaskHeaderUI
-      totalTasks={totalTasks}
-      completedTasks={completedTasks}
       onCreateTask={onCreateTask}
       onSearch={handleSearch}
       searchTerm={searchTerm}

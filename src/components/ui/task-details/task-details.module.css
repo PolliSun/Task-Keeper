@@ -18,7 +18,7 @@
 .priorityContainer {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
 }
 
 .button {
@@ -70,4 +70,39 @@
 
 .customCheckboxContainer .hiddenCheckbox:checked + .customCheckbox {
   transform: translateX(26px);
+}
+
+.subtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 20px;
+}
+
+.subtaskTitle {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.subtaskListTitle {
+  font-size: 14px;
+}
+
+.dateContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 0.3fr);
+  justify-content: end;
+  justify-items: end;
+  align-items: center;
+  grid-row-gap: 5px;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+.createDate,
+.startDate,
+.endDate {
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px;
+  letter-spacing: normal;
 }

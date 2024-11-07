@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { TTask } from "../../../types/type";
 import styles from "./task-form.module.css";
 
 type TaskFormUIProps = {
@@ -8,13 +7,14 @@ type TaskFormUIProps = {
     startDate: string;
     endDate: string;
     priority: string;
-    subtasks: { id: string; title: string; }[];
+    subtasks: { id: string; title: string }[];
   };
   onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onStartDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPriorityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubtaskAdd: () => void;
+  onSubtaskDelite: (id: string) => void;
   onSubtaskChange: (index: number, value: string) => void;
   onSubmit: () => void;
 };
@@ -26,6 +26,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   onPriorityChange,
   onEndDateChange,
   onSubtaskAdd,
+  onSubtaskDelite,
   onSubtaskChange,
   onSubmit,
 }) => {
@@ -36,39 +37,8 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           name="title"
           value={task.title}
           placeholder="Заголовок задачи"
-          className={styles.formInputTitle}
+          className={styles.formInput}
           onChange={onTitleChange}
-        />
-        <div>
-          <button className={styles.buttonForm} onClick={onSubtaskAdd}>
-            +
-          </button>
-          {task.subtasks.map((subtask, index) => (
-            <div key={index} className={styles.buttonForm}>
-              <input
-                type="text"
-                value={subtask.title}
-                placeholder={`Подзадача ${index + 1}`}
-                onChange={(e) => onSubtaskChange(index, e.target.value)}
-              />
-            </div>
-          ))}
-        </div>
-        <label htmlFor="startDate">Дата начала:</label>
-        <input
-          id="startDate"
-          type="date"
-          value={task.startDate}
-          className={styles.formInputDate}
-          onChange={onStartDateChange}
-        />
-        <label htmlFor="endDate">Дата окончания:</label>
-        <input
-          id="endDate"
-          type="date"
-          value={task.endDate}
-          className={styles.formInputDate}
-          onChange={onEndDateChange}
         />
         <div className={styles.priorityGroup}>
           {["высокий", "средний", "низкий", "без приоритета"].map((label) => (
@@ -88,7 +58,49 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             </label>
           ))}
         </div>
-        <button className={styles.formButton} onClick={onSubmit}>
+
+        <div className={styles.dateContainer}>
+          <label htmlFor="startDate">Дата начала:</label>
+
+          <input
+            id="startDate"
+            type="date"
+            value={task.startDate}
+            className={styles.formInput}
+            onChange={onStartDateChange}
+          />
+          <label htmlFor="endDate">Дата окончания:</label>
+          <input
+            id="endDate"
+            type="date"
+            value={task.endDate}
+            className={styles.formInput}
+            onChange={onEndDateChange}
+          />
+        </div>
+
+        {task.subtasks.map((subtask, index) => (
+          <div key={index} className={styles.buttonSubtaskContainer}>
+            <input
+              type="text"
+              value={subtask.title}
+              placeholder={`Подзадача ${index + 1}`}
+              className={styles.formInput}
+              onChange={(e) => onSubtaskChange(index, e.target.value)}
+            />
+            <button
+              className={styles.buttonForm}
+              onClick={() => onSubtaskDelite(subtask.id)}
+            >
+              удалить
+            </button>
+          </div>
+        ))}
+        <button className={styles.buttonForm} onClick={onSubtaskAdd}>
+          + Добавить пункт
+        </button>
+
+        <button className={styles.buttonSubmit} onClick={onSubmit}>
           Создать
         </button>
       </div>

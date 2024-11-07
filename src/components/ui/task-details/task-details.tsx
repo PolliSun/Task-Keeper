@@ -39,24 +39,32 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
         </div>
         <div className={styles.dateContainer}>
           <p className={styles.date}>
-            Дата создания: {new Date(task.date).toLocaleDateString()}
+            дата создания: 
           </p>
-          <p className={styles.date}>Дата начала: {task.startDate}</p>
-          <p className={styles.date}>Дата окончания: {task.endDate}</p>
+          <span className={styles.createDate}>{new Date(task.date).toLocaleDateString()}</span>
+          <p className={styles.date}>дата начала:</p>
+          <span className={styles.startDate}>{task.startDate}</span>
+          <p className={styles.date}>дата окончания:</p>
+          <span className={styles.endDate}>{task.endDate}</span>
         </div>
         <div className={styles.priorityContainer}>
           <TaskPriority priority={task.priority} />
-          <p className={styles.priority}>Приоритет: {task.priority}.</p>
+          <p className={styles.priority}>
+            - <span>{task.priority}.</span>
+          </p>
         </div>
-        <ul className={styles.subtaskContainer}>
-          {task.subtasks && task.subtasks.length > 0 ? (
-            task.subtasks.map((subtask) => (
-              <li key={subtask.id} className={styles.subtaskItem}>
-                <span>{subtask.title}</span>
-              </li>
-            ))
-          ) : "" }
-        </ul>
+        {task.subtasks && task.subtasks.length > 0 && (
+          <div className={styles.subtaskContainer}>
+            <h2 className={styles.subtaskTitle}>список подзадач:</h2>
+            <ul className={styles.subtaskList}>
+              {task.subtasks.map((subtask) => (
+                <li key={subtask.id} className={styles.subtaskItem}>
+                  <h2 className={styles.subtaskListTitle}>{subtask.title}</h2>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={() => onDelete(task.id)}>
             <RiDeleteBin5Line size={20} />
