@@ -3,11 +3,11 @@ export type TTask = {
   date: string;
   startDate?: string;
   endDate?: string;
+  status: string;
   title: string;
-  status: boolean;
   priority: string;
-  isPinned?: boolean;
-  subtasks?: { id: string; title: string}[];
+  pinned: boolean;
+  subtasks?: { id: string; title: string; completed?: boolean;}[];
 };
 
 export type TCalendar = {

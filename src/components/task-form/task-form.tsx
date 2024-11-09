@@ -14,12 +14,16 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   const [title, setTitle] = useState(initialData?.title || "");
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
+  const [status, setStatus] = useState(
+    initialData?.status || "в работе"
+  );
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
   );
   const [subtasks, setSubtasks] = useState<{ id: string; title: string; }[]>(
     initialData?.subtasks || []
   );
+  const [pinned, setPinned] = useState(false);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -63,9 +67,10 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       id: Math.random().toString(),
       title,
       date: new Date().toISOString(),
+      pinned,
+      status,
       startDate,
       endDate,
-      status: false,
       priority,
       subtasks,
     };
@@ -75,7 +80,7 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
 
   return (
     <TaskFormUI
-      task={{ title, startDate, endDate, priority, subtasks }}
+      task={{ title, startDate, status, endDate, priority, subtasks }}
       onTitleChange={handleTitleChange}
       onStartDateChange={handleStartDateChange}
       onEndDateChange={handleEndDateChange}

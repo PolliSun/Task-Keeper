@@ -5,8 +5,11 @@ import { TTask } from "../../../../types/type";
 import { TaskDetails } from "../../../task-details/task-details";
 import { CgCloseR } from "react-icons/cg";
 import { TaskForm } from "../../../task-form/task-form";
+import { RiStickyNoteAddLine } from "react-icons/ri";
+import { LuChevronDownSquare } from "react-icons/lu";
 
 type TasksListUIProps = {
+  onClickCreateTask: () => void;
   totalTasks: number;
   completedTasks: number;
   tasks: TTask[];
@@ -20,6 +23,7 @@ type TasksListUIProps = {
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
+  onClickCreateTask,
   totalTasks,
   completedTasks,
   tasks,
@@ -33,7 +37,7 @@ export const TasksListUI: FC<TasksListUIProps> = ({
 }) => {
   return (
     <>
-      <section className={styles.content}>
+     <section className={styles.content}>
         <ul className={styles.tasks}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>{title}</h2>

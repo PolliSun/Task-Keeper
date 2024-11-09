@@ -2,30 +2,38 @@ import { FC, RefObject } from "react";
 import styles from "./task-header.module.css";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { RiSearchLine } from "react-icons/ri";
-import { LuEraser } from "react-icons/lu";
 import { LuChevronDownSquare } from "react-icons/lu";
+import { FaRegHeart } from "react-icons/fa";
 
 type TaskHeaderUIProps = {
   onCreateTask: () => void;
+  isCreateActive: boolean;
   onSearch: (searchTerm: string) => void;
+  isSearchVisible: boolean;
+  onSearchClick: () => void;
+  onFavoritesClick: () => void;
+  isFavoritesVisible: boolean;
   searchTerm: string;
   searchInputRef: RefObject<HTMLInputElement>;
   isFocused: boolean;
-  onEraserClick: () => void;
   onFocus: () => void;
   onBlur: () => void;
   isSortOpen: boolean;
   onSortClick: () => void;
-  onSortSelect: (sortBy: "date" | "alphabet" | "priority" | "favorites") => void;
+  onSortSelect: (sortBy: "date" | "alphabet" | "priority") => void;
 };
 
 export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
   onCreateTask,
+  isCreateActive,
   onSearch,
+  isSearchVisible,
+  isFavoritesVisible,
+  onSearchClick,
+  onFavoritesClick,
   searchTerm,
   searchInputRef,
   isFocused,
-  onEraserClick,
   onFocus,
   onBlur,
   isSortOpen,
@@ -35,26 +43,30 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.searchContainer}>
-          <button className={styles.button} onClick={onEraserClick}>
-            {searchTerm === "" || isFocused ? (
-              <RiSearchLine
-                size={23}
-                className={isFocused ? styles.rotateIconSearch : ""}
-              />
-            ) : (
-              <LuEraser
-                size={23}
-                className={!isFocused ? styles.rotateIconEraser : ""}
-              />
-            )}
+        <div
+          className={`${styles.searchContainer} ${
+            isSearchVisible ? styles.active : ""
+          }`}
+        >
+          <button
+            className={`${styles.button} ${styles.buttonSearch} ${
+              isSearchVisible ? styles.active : ""
+            }`}
+            onClick={onSearchClick}
+          >
+            <RiSearchLine
+              size={23}
+              className={isFocused ? styles.rotateIconSearch : ""}
+            />
           </button>
           <input
             ref={searchInputRef}
             type="text"
             value={searchTerm}
             onChange={(e) => onSearch(e.target.value)}
-            className={styles.searchInput}
+            className={`${styles.searchInput} ${
+              isSearchVisible ? styles.active : ""
+            }`}
             placeholder="Поиск по заметкам..."
             onFocus={onFocus}
             onBlur={onBlur}
@@ -64,7 +76,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
           <button
             onClick={onSortClick}
             className={`${styles.button} ${styles.sortButton} ${
-              isSortOpen ? "open" : ""
+              isSortOpen ? styles.active : ""
             }`}
           >
             <LuChevronDownSquare
@@ -72,7 +84,20 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
               className={isSortOpen ? styles.iconRotated : styles.icon}
             />
           </button>
-          <button className={styles.button} onClick={onCreateTask}>
+          <button
+            onClick={onFavoritesClick}
+            className={`${styles.button} ${styles.favoritesButton} ${
+              isFavoritesVisible ? styles.active : ""
+            }`}
+          >
+            <FaRegHeart size={22} />
+          </button>
+          <button
+            className={`${styles.button} ${styles.buttonCreate} ${
+              isCreateActive ? styles.active : ""
+            }`}
+            onClick={onCreateTask}
+          >
             <RiStickyNoteAddLine size={23} />
           </button>
         </div>
@@ -84,9 +109,6 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             </button>
             <button onClick={() => onSortSelect("priority")}>
               По приоритету
-            </button>
-            <button onClick={() => onSortSelect("favorites")}>
-              По избранности
             </button>
           </div>
         )}

@@ -18,7 +18,7 @@
 .buttonForm {
   border-radius: calc(0.5rem - 2px);
   padding: 10px;
-  background-color: #57536580;
+  background-color: #e3d5d5;
   font-size: 14px;
   font-weight: bold;
 }
@@ -53,7 +53,7 @@
 }
 
 .priorityGroup label.active {
-  background-color: #57536580;
+  background-color: #f7e47b;
 }
 
 .dateContainer {

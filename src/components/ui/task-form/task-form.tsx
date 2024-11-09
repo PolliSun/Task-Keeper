@@ -5,6 +5,7 @@ type TaskFormUIProps = {
   task: {
     title: string;
     startDate: string;
+    status: string;
     endDate: string;
     priority: string;
     subtasks: { id: string; title: string }[];

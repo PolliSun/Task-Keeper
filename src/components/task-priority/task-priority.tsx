@@ -18,9 +18,9 @@ export const TaskPriority: FC<TaskPriorityProps> = ({ priority }) => {
             buttonStyle = "#00800063";
             break;
         case "без приоритета":
-            buttonStyle = "#dddddd";
+            buttonStyle = "#BDBDBD";
             break;
   }
 
-  return <TaskPriorityUI backgroundColor={buttonStyle} />;
+  return <TaskPriorityUI priority={priority} backgroundColor={buttonStyle} />;
 };

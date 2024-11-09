@@ -6,14 +6,22 @@ import { searchTasks, sortTasks } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 
 type TaskHeaderProps = {
-  tasks: TTask[];
   onCreateTask: () => void;
+  isCreateActive: boolean;
+  onFavoritesClick: () => void;
+  isFavoritesVisible: boolean;
 };
 
-export const TaskHeader: FC<TaskHeaderProps> = ({tasks, onCreateTask})=> {
+export const TaskHeader: FC<TaskHeaderProps> = ({
+  onCreateTask,
+  isCreateActive,
+  onFavoritesClick,
+  isFavoritesVisible,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
@@ -30,21 +38,25 @@ export const TaskHeader: FC<TaskHeaderProps> = ({tasks, onCreateTask})=> {
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
-  const handleEraserClick = () => {
-    if (!isFocused) {
+  const handleSearchClick = () => {
+    if (!isSearchVisible) {
+      setIsSearchVisible(true);
+      searchInputRef.current?.focus();
+    } else {
       setSearchTerm("");
       dispatch(searchTasks(""));
+      setIsSearchVisible(false);
     }
   };
 
   useEffect(() => {
-    setSearchTerm(""); 
+    setSearchTerm("");
     dispatch(searchTasks(""));
   }, [location]);
 
   const handleSortClick = () => setIsSortOpen((prev) => !prev);
 
-  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority" | "favorites") => {
+  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority") => {
     dispatch(sortTasks(sortBy));
     setIsSortOpen(false);
   };
@@ -52,16 +64,20 @@ export const TaskHeader: FC<TaskHeaderProps> = ({tasks, onCreateTask})=> {
   return (
     <TaskHeaderUI
       onCreateTask={onCreateTask}
+      isCreateActive={isCreateActive}
       onSearch={handleSearch}
       searchTerm={searchTerm}
       searchInputRef={searchInputRef}
       isFocused={isFocused}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      onEraserClick={handleEraserClick}
+      onSearchClick={handleSearchClick}
       onSortClick={handleSortClick}
       onSortSelect={handleSortSelect}
+      onFavoritesClick={onFavoritesClick}
       isSortOpen={isSortOpen}
+      isSearchVisible={isSearchVisible}
+      isFavoritesVisible={isFavoritesVisible}
     />
   );
 };

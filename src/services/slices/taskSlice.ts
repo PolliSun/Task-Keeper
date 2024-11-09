@@ -10,7 +10,7 @@ interface TaskState {
   searchResults: TTask[];
   searchTerm: string;
   isSearching: boolean;
-  sortBy: "date" | "alphabet" | "priority" | "favorites" | null;
+  sortBy: "date" | "alphabet" | "priority" | null;
 }
 
 const initialState: TaskState = {
@@ -33,11 +33,19 @@ const taskSlice = createSlice({
       state.tasks.push(action.payload);
       saveTasksToStorage(state.tasks);
     },
-    addSubtask(state, action: PayloadAction<{taskId: string; subtask: { id: string; title: string}}>) {
-      const task = state.tasks.find((task) => task.id === action.payload.taskId);
-      if(task) {
+    addSubtask(
+      state,
+      action: PayloadAction<{
+        taskId: string;
+        subtask: { id: string; title: string };
+      }>
+    ) {
+      const task = state.tasks.find(
+        (task) => task.id === action.payload.taskId
+      );
+      if (task) {
         if (!task.subtasks) task.subtasks = [];
-        task.subtasks.push(action.payload.subtask);
+        task.subtasks.push({ ...action.payload.subtask, completed: false });
         saveTasksToStorage(state.tasks);
       }
     },
@@ -45,32 +53,53 @@ const taskSlice = createSlice({
       state.tasks = state.tasks.filter((tasks) => tasks.id !== action.payload);
       saveTasksToStorage(state.tasks);
     },
-    deliteSubtask(state, action: PayloadAction<{taskId: string; subtaskId: string}>) {
-      const task = state.tasks.find((task) => task.id === action.payload.taskId);
+    deliteSubtask(
+      state,
+      action: PayloadAction<{ taskId: string; subtaskId: string }>
+    ) {
+      const task = state.tasks.find(
+        (task) => task.id === action.payload.taskId
+      );
       if (task && task.subtasks) {
-        task.subtasks = task.subtasks.filter((subtasks) => subtasks.id !== action.payload.subtaskId);
+        task.subtasks = task.subtasks.filter(
+          (subtasks) => subtasks.id !== action.payload.subtaskId
+        );
         saveTasksToStorage(state.tasks);
       }
     },
-    toggleTaskStatus(state, action: PayloadAction<string>) {
-      const task = state.tasks.find((task) => task.id === action.payload);
+    toggleTaskStatus(
+      state,
+      action: PayloadAction<{ taskId: string; newStatus: string }>
+    ) {
+      const { taskId, newStatus } = action.payload;
+      const task = state.tasks.find((task) => task.id === taskId);
       if (task) {
-        task.status = !task.status;
+        task.status = newStatus;
         saveTasksToStorage(state.tasks);
+      }
+    },
+    toggleSubtaskStatus(
+      state,
+      action: PayloadAction<{
+        taskId: string;
+        subtaskId: string;
+        completed: boolean;
+      }>
+    ) {
+      const { taskId, subtaskId, completed } = action.payload;
+      const task = state.tasks.find((task) => task.id === taskId);
+      if (task?.subtasks) {
+        const subtask = task.subtasks.find((st) => st.id === subtaskId);
+        if (subtask) {
+          subtask.completed = completed;
+          saveTasksToStorage(state.tasks);
+        }
       }
     },
     pinTask(state, action: PayloadAction<string>) {
-      const index = state.tasks.findIndex((task) => task.id === action.payload);
-      if (index !== -1) {
-        const task = state.tasks[index];
-        task.isPinned = !task.isPinned;
-        state.tasks.splice(index, 1);
-
-        if (task.isPinned) {
-          state.tasks.unshift(task);
-        } else {
-          state.tasks.push(task);
-        }
+      const task = state.tasks.find((task) => task.id === action.payload);
+      if (task) {
+        task.pinned = !task.pinned;
         saveTasksToStorage(state.tasks);
       }
     },
@@ -82,8 +111,8 @@ const taskSlice = createSlice({
         state.isSearching = false;
       } else {
         state.searchResults = state.tasks.filter((task) => {
-          const taskTitle = task.title?.toLowerCase() || ""; 
-          const taskPriority = task.priority?.toLowerCase() || ""; 
+          const taskTitle = task.title?.toLowerCase() || "";
+          const taskPriority = task.priority?.toLowerCase() || "";
           return (
             taskTitle.includes(searchTerm) ||
             taskPriority.includes(searchTerm) ||
@@ -93,10 +122,7 @@ const taskSlice = createSlice({
         state.isSearching = true;
       }
     },
-    sortTasks(
-      state,
-      action: PayloadAction<"date" | "alphabet" | "priority" | "favorites">
-    ) {
+    sortTasks(state, action: PayloadAction<"date" | "alphabet" | "priority">) {
       state.sortBy = action.payload;
 
       const priorityOrder: Record<string, number> = {
@@ -119,17 +145,13 @@ const taskSlice = createSlice({
             .slice()
             .sort((a, b) => a.title.localeCompare(b.title));
           break;
-          case "priority":
+        case "priority":
           state.tasks = state.tasks.slice().sort((a, b) => {
             const priorityDiff =
-              (priorityOrder[a.priority] || 4) - (priorityOrder[b.priority] || 4);
+              (priorityOrder[a.priority] || 4) -
+              (priorityOrder[b.priority] || 4);
             return priorityDiff !== 0 ? priorityDiff : 0;
           });
-          break;
-        case "favorites":
-          state.tasks = state.tasks
-            .slice()
-            .sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0));
           break;
         default:
           break;
@@ -142,12 +164,11 @@ const taskSlice = createSlice({
               return new Date(b.date).getTime() - new Date(a.date).getTime();
             case "alphabet":
               return a.title.localeCompare(b.title);
-              case "priority":
+            case "priority":
               const priorityDiff =
-                (priorityOrder[a.priority] || 4) - (priorityOrder[b.priority] || 4);
+                (priorityOrder[a.priority] || 4) -
+                (priorityOrder[b.priority] || 4);
               return priorityDiff !== 0 ? priorityDiff : 0;
-            case "favorites":
-              return (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0);
             default:
               return 0;
           }
@@ -164,6 +185,7 @@ export const {
   deliteSubtask,
   deliteTask,
   toggleTaskStatus,
+  toggleSubtaskStatus,
   searchTasks,
   sortTasks,
   pinTask,

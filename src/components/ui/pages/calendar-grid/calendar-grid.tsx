@@ -28,10 +28,10 @@ export const CalendarGridUI: FC<CalendarGridUIProps> = ({ month, year }) => {
   return (
     <div className={styles.content}>
       <div className={styles.notebookHoles}>
-          {[...Array(7)].map((_, index) => (
-            <div key={index} className={styles.hole} />
-          ))}
-        </div>
+        {[...Array(7)].map((_, index) => (
+          <div key={index} className={styles.hole} />
+        ))}
+      </div>
       <div className={styles.weekdays}>
         {weekdays.map((day) => (
           <div key={day} className={styles.weekday}>

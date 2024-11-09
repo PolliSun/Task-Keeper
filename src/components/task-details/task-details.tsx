@@ -1,7 +1,7 @@
-import React, { FC, useCallback, memo } from "react";
+import React, { FC, useCallback, memo, useState } from "react";
 import { TaskDetailsUI } from "../ui/task-details/task-details";
 import { useDispatch } from "../../services/store";
-import { deliteTask, toggleTaskStatus } from "../../services/slices/taskSlice";
+import { deliteTask, toggleTaskStatus, toggleSubtaskStatus, pinTask } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 
 type TaskDetailsProps = {
@@ -10,6 +10,7 @@ type TaskDetailsProps = {
 
 export const TaskDetails: FC<TaskDetailsProps> = memo(({ task }) => {
   const dispatch = useDispatch();
+  const [status, setStatus] = useState(task.status || "в работе");
 
   const handleDeleteTask = useCallback(
     (id: string) => {
@@ -18,9 +19,22 @@ export const TaskDetails: FC<TaskDetailsProps> = memo(({ task }) => {
     [dispatch]
   );
 
-  const handleToggle = useCallback(() => {
-    dispatch(toggleTaskStatus(task.id));
+  const handlePin = useCallback(() => {
+    dispatch(pinTask(task.id));
   }, [dispatch, task.id]);
+
+  const handleSubtaskToggle = useCallback(
+    (taskId: string, subtaskId: string, completed: boolean) => {
+      dispatch(toggleSubtaskStatus({ taskId, subtaskId, completed }));
+    },
+    [dispatch]
+  );
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+    dispatch(toggleTaskStatus({ taskId: task.id, newStatus }));
+  };
 
   if (!task) return null;
 
@@ -28,7 +42,9 @@ export const TaskDetails: FC<TaskDetailsProps> = memo(({ task }) => {
     <TaskDetailsUI
       task={task}
       onDelete={handleDeleteTask}
-      onToggle={handleToggle}
+      onStatusChange={handleStatusChange}
+      onToggle={handleSubtaskToggle}
+      onPin={handlePin}
     />
   );
 });

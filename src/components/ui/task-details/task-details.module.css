@@ -1,6 +1,7 @@
 .content {
   display: flex;
   flex-direction: column;
+  position: relative;
   margin: 20px 0;
   border-radius: calc(0.5rem - 2px);
   background-color: #fbe9e7;
@@ -18,7 +19,6 @@
 .priorityContainer {
   display: flex;
   align-items: center;
-  gap: 5px;
 }
 
 .button {
@@ -33,20 +33,12 @@
 }
 
 .customCheckboxContainer {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  width: 50px;
-  height: 24px;
-  background-color: #ddd;
-  border-radius: 12px;
+  display: inline-block;
   position: relative;
-  transition: background-color 0.3s ease;
-  flex: 0 0 50px;
-}
-
-.customCheckboxContainer.checked {
-  background-color: #6bc400;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
 }
 
 .hiddenCheckbox {
@@ -57,19 +49,42 @@
   width: 0;
 }
 
-.customCheckboxContainer .customCheckbox {
+.customCheckbox {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  top: 2px;
-  left: 2px;
-  transition: transform 0.3s ease;
+  border: 2px solid #000;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
-.customCheckboxContainer .hiddenCheckbox:checked + .customCheckbox {
-  transform: translateX(26px);
+.hiddenCheckbox:checked + .customCheckbox {
+  background-color: #f7e47b;
+}
+
+.customCheckbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.hiddenCheckbox:checked + .customCheckbox::after {
+  display: block;
+}
+
+.completed {
+  color: #858585d6;
+  text-decoration: line-through;
 }
 
 .subtaskList {
@@ -77,6 +92,24 @@
   flex-direction: column;
   gap: 5px;
   margin: 0 20px;
+}
+
+.subtaskItem {
+  display: flex;
+  gap: 10px;
+}
+
+.buttonСlip {
+  display: flex;
+  justify-content: center;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #3d13430d;
+  padding: 5px 0;
+  width: 50px;
+}
+
+.buttonСlip.active {
+  background: radial-gradient(#ffffff00, #f7bff4);
 }
 
 .subtaskTitle {
@@ -89,20 +122,53 @@
 }
 
 .dateContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 0.3fr);
-  justify-content: end;
-  justify-items: end;
-  align-items: center;
-  grid-row-gap: 5px;
+  display: flex;
   letter-spacing: 1px;
   font-size: 14px;
+  margin: 4px;
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px 4px;
+}
+
+.createDateContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px 4px;
+  font-size: 12px;
+  background-color: #d1c9ed80;
 }
 
 .createDate,
 .startDate,
 .endDate {
+  font-size: 12px;
+}
+
+.statusGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.radioInput {
+  opacity: 0;
+  position: absolute;
+}
+
+.statusGroup label {
+  text-transform: lowercase;
+  display: flex;
+  justify-content: center;
+  padding: 5px 7px;
   border-radius: calc(0.5rem - 2px);
-  padding: 2px;
-  letter-spacing: normal;
+  cursor: pointer;
+  background-color: #e3d5d5;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.statusGroup label.active {
+  background-color: #f7e47b;
 }

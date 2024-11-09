@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useCallback, memo } from "react";
 import { TaskCardUI } from "../ui/task-card/task-card";
 import { useDispatch } from "../../services/store";
-import { toggleTaskStatus, pinTask } from "../../services/slices/taskSlice";
+import { pinTask } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 
 type TaskCardProps = {
@@ -9,25 +9,26 @@ type TaskCardProps = {
   onClick: () => void;
 };
 
-export const TaskCard: FC<TaskCardProps> = memo(({task, onClick}) => {
+export const TaskCard: FC<TaskCardProps> = memo(({ task, onClick}) => {
   const dispatch = useDispatch();
+  const pinned = task.pinned ? "избранный" : null;
 
-  const handleToggle = useCallback(() => {
-    dispatch(toggleTaskStatus(task.id));
-  }, [dispatch, task.id]);
-
-  const handlePin = useCallback(() => {
-    dispatch(pinTask(task.id));
-  }, [dispatch, task.id]);
+  let buttonStyle = "";
+  if (pinned === "избранный") {
+    buttonStyle = "#f7acea";
+  }
 
   if (!task) return null;
 
   return (
     <TaskCardUI
-      task={task}
-      onToggle={handleToggle}
+      task={{
+        ...task,
+        status: task.status || "в работе",
+      }}
       onClick={onClick}
-      onPin={handlePin}
+      pinned={pinned}
+      backgroundColor={buttonStyle}
     />
   );
 });

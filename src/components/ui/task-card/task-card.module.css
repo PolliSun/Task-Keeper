@@ -1,6 +1,7 @@
 .card {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   margin: 20px 0;
@@ -79,8 +80,8 @@
 
 .buttonContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 30px;
 }
 
 .buttonСlip {
@@ -97,11 +98,41 @@
   margin: 4px;
 }
 
-.timer {
+/* .timer {
   font-family: monospace;
   font-size: 16px;
   font-weight: bold;
   padding: 3.5px 10px;
   background-color: #57536580;
   border-radius: calc(0.5rem - 2px);
+} */
+
+.pinned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px 4px;
+}
+
+.pinnedTitle {
+  font-size: 12px;
+}
+
+.createDateContainer {
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px 4px;
+  font-size: 12px;
+  background-color: #d1c9ed80;
+  gap: 3px;
+}
+
+.createDate {
+  font-size: 12px;
 }

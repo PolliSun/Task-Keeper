@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { TasksListUI } from "../ui/pages/tasks-list/tasks-list";
 import { RootState, useSelector, useDispatch } from "../../services/store";
-import { addTask } from "../../services/slices/taskSlice";
+import { addTask, sortTasks } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 import { TaskHeader } from "../task-header/task-header";
 
@@ -12,6 +12,8 @@ type TaskListProps = {
 export const TaskList: FC<TaskListProps> = ({ tasks }) => {
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [isCreateActive, setIsCreateActive] = useState(false);
+  const [isFavoritesVisible, setIsFavoritesVisible] = useState(false);
   const searchResults = useSelector(
     (state: RootState) => state.tasks.searchResults
   );
@@ -23,15 +25,21 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
   const selectedTask = tasks.find((task) => task.id === selectedTaskId) || null;
 
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((task) => task.status).length;
-
+  const completedTasks = tasks.filter((task) => task.status === "выполнен" ).length;
+  
   const handleSelectTask = (id: string) => {
     setSelectedTaskId(id);
     setShowCreateForm(false);
+    setIsCreateActive(false);
+    setIsFavoritesVisible(false);
   };
 
   const handleCreateTaskClick = () => {
-    setShowCreateForm(true);
+    setIsCreateActive((prev) => {
+      const newState = !prev;
+      setShowCreateForm(newState);
+      return newState;
+    });
     setSelectedTaskId(null);
   };
 
@@ -40,15 +48,30 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
     setShowCreateForm(false);
   };
 
-  const handleClose = () => {
+  const handleCloseTask = () => {
     setSelectedTaskId(null);
     setShowCreateForm(false);
+    setIsCreateActive(false);
   };
+
+  const handleFavoritesClick = () => {
+    setIsFavoritesVisible((prev) => !prev);
+  }
+
+  const filteredTasks = isFavoritesVisible
+    ? tasks.filter((task) => task.pinned) 
+    : tasks;
 
   return (
     <>
-      <TaskHeader tasks={tasks} onCreateTask={handleCreateTaskClick} />
+      <TaskHeader
+        onCreateTask={handleCreateTaskClick}
+        isCreateActive={isCreateActive}
+        onFavoritesClick={handleFavoritesClick}
+        isFavoritesVisible={isFavoritesVisible}
+      />
       <TasksListUI
+        onClickCreateTask={handleCreateTaskClick}
         totalTasks={totalTasks}
         completedTasks={completedTasks}
         title={
@@ -67,12 +90,12 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
             ? "Создание задачи:"
             : "Выберите задачу для просмотра или создайте новую!"
         }
-        tasks={isSearching ? searchResults : tasks}
+        tasks={isSearching ? searchResults : filteredTasks}
         selectedTask={selectedTask}
         onTaskSelect={handleSelectTask}
         onCreateTask={handleSaveTask}
         createdTask={showCreateForm}
-        onClose={handleClose}
+        onClose={handleCloseTask}
       />
     </>
   );
