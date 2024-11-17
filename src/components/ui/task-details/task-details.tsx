@@ -5,6 +5,7 @@ import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
 import { TaskStatus } from "../../task-status/task-status";
+import { FiEdit2 } from "react-icons/fi";
 
 type TaskDetailsUIProps = {
   task: TTask;
@@ -12,6 +13,7 @@ type TaskDetailsUIProps = {
   onPin: (id: string) => void;
   onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onToggle: (taskId: string, subtaskId: string, completed: boolean) => void;
+  onEditTask: () => void;
 };
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
@@ -20,24 +22,46 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   onPin,
   onStatusChange,
   onToggle,
+  onEditTask,
 }) => {
   return (
     <>
       <li className={styles.content}>
-        <button
-          aria-label="Закрепить заметку"
-          className={`${styles.buttonСlip} ${task.pinned ? styles.active : ""}`}
-          onClick={() => {
-            onPin && onPin(task.id);
-          }}
-        >
-          <FaRegHeart
-            size={20}
-            // color={task.pinned ? "#f7acea" : "#000"}
-          />
-        </button>
+        <div className={styles.buttonContainer}>
+          <button
+            aria-label="Закрепить заметку"
+            className={`${styles.buttonСlip} ${
+              task.pinned ? styles.active : ""
+            }`}
+            onClick={() => {
+              onPin && onPin(task.id);
+            }}
+          >
+            <FaRegHeart size={20} />
+          </button>
+          <button
+            aria-label="Редактировать заметку"
+            className={styles.buttonEdit}
+            onClick={onEditTask}
+          >
+            <FiEdit2 size={20} />
+          </button>
+          <button
+            aria-label="Удалить заметку"
+            className={styles.buttonDelete}
+            onClick={() => onDelete(task.id)}
+          >
+            <RiDeleteBin5Line size={20} />
+          </button>
+        </div>
         <div className={styles.titleContainer}>
+          <p className={styles.createDate}>
+            {new Date(task.date).toLocaleDateString()}
+          </p>
           <h2 className={styles.title}>{task.title}</h2>
+        </div>
+        <div className={styles.priorityContainer}>
+          <span className={styles.titleColumn}>статус:</span>
           <div className={styles.statusGroup}>
             {["выполнен", "в работе", "отложен"].map((label) => (
               <label
@@ -56,21 +80,29 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
               </label>
             ))}
           </div>
-        </div>
-
-        <div className={styles.dateContainer}>
+          <span className={styles.titleColumn}>период:</span>
           <p className={styles.date}>
-            {task.startDate} | {task.endDate}
+            {task.startDate
+              ? new Date(task.startDate).toLocaleDateString("ru-RU", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })
+              : "не назначено"}{" "}
+            /{" "}
+            {task.endDate
+              ? new Date(task.endDate).toLocaleDateString("ru-RU", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })
+              : "не назначено"}
           </p>
-        </div>
-        <div className={styles.priorityContainer}>
+          <span className={styles.titleColumn}>приоритет:</span>
           <TaskPriority priority={task.priority} />
-          <TaskStatus status={task.status} />
-          <div className={styles.createDateContainer}>
-            <h3 className={styles.createDate}>
-              {new Date(task.date).toLocaleDateString()}
-            </h3>
-          </div>
+        </div>
+        <div className={styles.descriptionContainer}>
+          <p className={styles.description}>{task.description}</p>
         </div>
         {task.subtasks && task.subtasks.length > 0 && (
           <>
@@ -104,11 +136,6 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
             </ul>
           </>
         )}
-        <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={() => onDelete(task.id)}>
-            <RiDeleteBin5Line size={20} />
-          </button>
-        </div>
       </li>
     </>
   );

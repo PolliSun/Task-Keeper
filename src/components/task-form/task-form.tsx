@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
-import { addSubtask, deliteSubtask } from "../../services/slices/taskSlice";
+import { addSubtask, deliteSubtask, editTask } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
 
 type TaskFormProps = {
@@ -12,6 +12,7 @@ type TaskFormProps = {
 export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(initialData?.title || "");
+  const [description, setDescription] = useState(initialData?.description || "");
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
   const [status, setStatus] = useState(
@@ -25,8 +26,38 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   );
   const [pinned, setPinned] = useState(false);
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const titleRef = useRef<HTMLTextAreaElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const subtasksRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      titleRef.current.style.height = "2.5rem";
+      titleRef.current.style.height = `${titleRef.current.scrollHeight}px`;
+    }
+  }, [title]);
+
+  useEffect(() => {
+    if (descriptionRef.current) {
+      descriptionRef.current.style.height = "3.5rem";
+      descriptionRef.current.style.height = `${descriptionRef.current.scrollHeight}px`;
+    }
+  }, [description]);
+
+  useEffect(() => {
+    subtasksRefs.current.forEach((ref, index) => {
+      if (ref) {
+        ref.style.height = "2.3rem";
+        ref.style.height = `${ref.scrollHeight}px`;
+      }
+    });
+  }, [subtasks]);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
+  };
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
   };
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(e.target.value);
@@ -44,13 +75,16 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       title: "",
     };
     setSubtasks([...subtasks, newSubtask]);
+    subtasksRefs.current.push(null);
     if (initialData?.id) {
       dispatch(addSubtask({ taskId: initialData.id, subtask: newSubtask }));
     }
   };
 
   const handleSubtaskDelete = (subtaskId: string) => {
+    const indexToRemove = subtasks.findIndex((subtask) => subtask.id === subtaskId);
     setSubtasks((prevSubtasks) => prevSubtasks.filter((subtask) => subtask.id !== subtaskId));
+    subtasksRefs.current.splice(indexToRemove, 1);
     if (initialData?.id) {
       dispatch(deliteSubtask({ taskId: initialData.id, subtaskId }));
     }
@@ -63,10 +97,11 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   };
 
   const handleSubmit = () => {
-    const newTask: TTask = {
-      id: Math.random().toString(),
+    const taskData: TTask = {
+      id: initialData?.id || Math.random().toString(),
       title,
-      date: new Date().toISOString(),
+      description,
+      date: initialData?.date || new Date().toISOString(),
       pinned,
       status,
       startDate,
@@ -75,12 +110,18 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       subtasks,
     };
 
-    onSubmit(newTask);
+    if (initialData?.id) {
+      dispatch(editTask(taskData));
+      onSubmit(taskData);
+    } else {
+      onSubmit(taskData);
+    }
   };
 
   return (
     <TaskFormUI
-      task={{ title, startDate, status, endDate, priority, subtasks }}
+      task={{ title, description, startDate, status, endDate, priority, subtasks }}
+      isEditing={!!initialData}
       onTitleChange={handleTitleChange}
       onStartDateChange={handleStartDateChange}
       onEndDateChange={handleEndDateChange}
@@ -89,6 +130,10 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       onSubtaskAdd={handleSubtaskAdd}
       onSubtaskChange={handleSubtaskChange}
       onSubtaskDelite={handleSubtaskDelete}
+      onDescriptionChange={handleDescriptionChange}
+      titleRef={titleRef}
+      descriptionRef={descriptionRef}
+      subtasksRefs={subtasksRefs}
     />
   );
 };

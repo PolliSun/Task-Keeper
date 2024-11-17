@@ -56,7 +56,7 @@ export const TaskHeader: FC<TaskHeaderProps> = ({
 
   const handleSortClick = () => setIsSortOpen((prev) => !prev);
 
-  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority") => {
+  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority" | "status") => {
     dispatch(sortTasks(sortBy));
     setIsSortOpen(false);
   };

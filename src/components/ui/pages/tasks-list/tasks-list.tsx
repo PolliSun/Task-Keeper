@@ -20,6 +20,9 @@ type TasksListUIProps = {
   onCreateTask: (newTask: TTask) => void;
   createdTask: boolean;
   onClose: () => void;
+  editedTask: boolean;
+  onEditTask: (editedTask: TTask) => void;
+  handleEditClick: () => void;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
@@ -34,10 +37,13 @@ export const TasksListUI: FC<TasksListUIProps> = ({
   onCreateTask,
   createdTask,
   onClose,
+  editedTask,
+  onEditTask,
+  handleEditClick,
 }) => {
   return (
     <>
-     <section className={styles.content}>
+      <section className={styles.content}>
         <ul className={styles.tasks}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>{title}</h2>
@@ -61,13 +67,19 @@ export const TasksListUI: FC<TasksListUIProps> = ({
         <ul className={styles.data}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>{titleData}</h2>
-            {(selectedTask || createdTask) && (
+            {(selectedTask || createdTask || editedTask) && (
               <button className={styles.button} onClick={onClose}>
                 <CgCloseR size={23} />
               </button>
             )}
           </div>
-          {selectedTask && <TaskDetails task={selectedTask} />}
+          {editedTask && selectedTask ? (
+            <TaskForm onSubmit={onEditTask} initialData={selectedTask} />
+          ) : (
+            selectedTask && (
+              <TaskDetails task={selectedTask} onEditTask={handleEditClick} />
+            )
+          )}
           {createdTask && <TaskForm onSubmit={onCreateTask} />}
         </ul>
       </section>

@@ -13,14 +13,39 @@
   height: 2.25rem;
   border: 2px solid #8585858a;
   width: 100%;
+  padding: 5px;
+  resize: none;
+}
+
+.textareaTitle,
+.textareaDescription,
+.textareaSubtask {
+  border-radius: calc(0.5rem - 2px);
+  height: 2.5rem;
+  border: 2px solid #8585858a;
+  width: 100%;
+  padding: 5px;
+  resize: none;
+  font-size: 14px;
+}
+
+.formDate {
+  border-radius: calc(0.5rem - 2px);
+  height: 2rem;
+  border: 2px solid #8585858a;
+  width: 100%;
+  font-size: 14px;
 }
 
 .buttonForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: calc(0.5rem - 2px);
-  padding: 10px;
+  padding: 5px;
   background-color: #e3d5d5;
-  font-size: 14px;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .buttonSubmit {
@@ -29,13 +54,14 @@
   width: 100%;
   height: 30px;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 15px;
 }
 
 .priorityGroup {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
 }
 
 .radioInput {
@@ -44,12 +70,15 @@
 }
 
 .priorityGroup label {
-  display: inline-block;
-  padding: 10px 20px;
+  display: flex;
+  padding: 6px 10px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
   background-color: #e3d5d5;
   transition: background-color 0.3s;
+  font-size: 12px;
+  flex: 1;
+  justify-content: center;
 }
 
 .priorityGroup label.active {
@@ -63,7 +92,12 @@
   gap: 10px;
 }
 
+.dateContainer label {
+  font-size: 14px;
+}
+
 .buttonSubtaskContainer {
   display: flex;
   gap: 10px;
+  align-items: center;
 }

@@ -3,7 +3,7 @@ import { TTask } from "../../../types/type";
 import styles from "./task-card.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { TaskStatus } from "../../task-status/task-status";
-import { LuCalendar } from "react-icons/lu";
+import { LuCalendarX } from "react-icons/lu";
 
 type TaskCardUIProps = {
   task: TTask;
@@ -29,10 +29,16 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
           <h2 className={styles.title}>{task.title}</h2>
         </div>
         <div className={styles.buttonContainer}>
-        <div className={styles.createDateContainer}>
-            <LuCalendar size={14} />
-            <h3 className={styles.createDate}>
-              {new Date(task.date).toLocaleDateString()}
+          <div className={styles.endDateContainer}>
+            <LuCalendarX size={14} />
+            <h3 className={styles.endDate}>
+              {task.endDate
+                ? new Date(task.endDate).toLocaleDateString("ru-RU", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : null}
             </h3>
           </div>
           <TaskPriority priority={task.priority} />

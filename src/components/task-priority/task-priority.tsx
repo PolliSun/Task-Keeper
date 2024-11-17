@@ -5,7 +5,7 @@ type TaskPriorityProps = {
   priority: string;
 };
 
-export const TaskPriority: FC<TaskPriorityProps> = ({ priority }) => {
+export const TaskPriority: FC<TaskPriorityProps> = ({ priority}) => {
   let buttonStyle = "";
   switch (priority) {
     case "высокий":

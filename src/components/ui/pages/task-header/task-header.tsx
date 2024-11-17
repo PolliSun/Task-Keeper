@@ -20,7 +20,7 @@ type TaskHeaderUIProps = {
   onBlur: () => void;
   isSortOpen: boolean;
   onSortClick: () => void;
-  onSortSelect: (sortBy: "date" | "alphabet" | "priority") => void;
+  onSortSelect: (sortBy: "date" | "alphabet" | "priority" | "status") => void;
 };
 
 export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
@@ -110,6 +110,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             <button onClick={() => onSortSelect("priority")}>
               По приоритету
             </button>
+            <button onClick={() => onSortSelect("status")}>По статусу</button>
           </div>
         )}
       </header>

@@ -10,7 +10,7 @@ interface TaskState {
   searchResults: TTask[];
   searchTerm: string;
   isSearching: boolean;
-  sortBy: "date" | "alphabet" | "priority" | null;
+  sortBy: "date" | "alphabet" | "priority" | "status" | null;
 }
 
 const initialState: TaskState = {
@@ -103,6 +103,14 @@ const taskSlice = createSlice({
         saveTasksToStorage(state.tasks);
       }
     },
+    editTask(state, action: PayloadAction<TTask>) {
+      const editedTask = action.payload;
+      const taskIndex = state.tasks.findIndex((task) => task.id === editedTask.id);
+      if (taskIndex !== -1) {
+        state.tasks[taskIndex] = editedTask;
+        saveTasksToStorage(state.tasks);
+      }
+    },
     searchTasks(state, action: PayloadAction<string>) {
       const searchTerm = action.payload.toLowerCase();
       state.searchTerm = searchTerm;
@@ -122,7 +130,10 @@ const taskSlice = createSlice({
         state.isSearching = true;
       }
     },
-    sortTasks(state, action: PayloadAction<"date" | "alphabet" | "priority">) {
+    sortTasks(
+      state,
+      action: PayloadAction<"date" | "alphabet" | "priority" | "status">
+    ) {
       state.sortBy = action.payload;
 
       const priorityOrder: Record<string, number> = {
@@ -130,6 +141,12 @@ const taskSlice = createSlice({
         средний: 2,
         низкий: 3,
         "без приоритета": 4,
+      };
+
+      const priorityStatus: Record<string, number> = {
+        отложен: 1,
+        "в работе": 2,
+        выполнен: 3,
       };
 
       switch (action.payload) {
@@ -153,6 +170,14 @@ const taskSlice = createSlice({
             return priorityDiff !== 0 ? priorityDiff : 0;
           });
           break;
+        case "status":
+          state.tasks = state.tasks.slice().sort((a, b) => {
+            const priorityDiffStatus =
+              (priorityStatus[a.status] || 3) -
+              (priorityStatus[b.status] || 3);
+            return priorityDiffStatus !== 0 ? priorityDiffStatus : 0;
+          });
+          break;
         default:
           break;
       }
@@ -169,6 +194,11 @@ const taskSlice = createSlice({
                 (priorityOrder[a.priority] || 4) -
                 (priorityOrder[b.priority] || 4);
               return priorityDiff !== 0 ? priorityDiff : 0;
+            case "status":
+              const priorityDiffStatus =
+                (priorityStatus[a.status] || 3) -
+                (priorityStatus[b.status] || 3);
+              return priorityDiffStatus !== 0 ? priorityDiffStatus : 0;
             default:
               return 0;
           }
@@ -186,6 +216,7 @@ export const {
   deliteTask,
   toggleTaskStatus,
   toggleSubtaskStatus,
+  editTask,
   searchTasks,
   sortTasks,
   pinTask,

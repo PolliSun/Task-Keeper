@@ -1,16 +1,23 @@
 import React, { FC } from "react";
 import styles from "./task-form.module.css";
+import { CgCloseR } from "react-icons/cg";
 
 type TaskFormUIProps = {
   task: {
     title: string;
+    description: string;
     startDate: string;
     status: string;
     endDate: string;
     priority: string;
     subtasks: { id: string; title: string }[];
   };
-  onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isEditing: boolean;
+  titleRef: React.RefObject<HTMLTextAreaElement>;
+  descriptionRef: React.RefObject<HTMLTextAreaElement>;
+  subtasksRefs: React.RefObject<(HTMLTextAreaElement | null)[]>;
+  onTitleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onStartDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPriorityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,7 +29,12 @@ type TaskFormUIProps = {
 
 export const TaskFormUI: FC<TaskFormUIProps> = ({
   task,
+  isEditing,
+  titleRef,
+  descriptionRef,
+  subtasksRefs,
   onTitleChange,
+  onDescriptionChange,
   onStartDateChange,
   onPriorityChange,
   onEndDateChange,
@@ -34,12 +46,21 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   return (
     <>
       <div className={styles.taskForm}>
-        <input
+        <textarea
           name="title"
           value={task.title}
           placeholder="Заголовок задачи"
-          className={styles.formInput}
+          className={styles.textareaTitle}
           onChange={onTitleChange}
+          ref={titleRef}
+        />
+        <textarea
+          name="description"
+          value={task.description}
+          placeholder="Описание задачи"
+          className={styles.textareaDescription}
+          onChange={onDescriptionChange}
+          ref={descriptionRef}
         />
         <div className={styles.priorityGroup}>
           {["высокий", "средний", "низкий", "без приоритета"].map((label) => (
@@ -62,12 +83,11 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
 
         <div className={styles.dateContainer}>
           <label htmlFor="startDate">Дата начала:</label>
-
           <input
             id="startDate"
             type="date"
             value={task.startDate}
-            className={styles.formInput}
+            className={styles.formDate}
             onChange={onStartDateChange}
           />
           <label htmlFor="endDate">Дата окончания:</label>
@@ -75,25 +95,30 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             id="endDate"
             type="date"
             value={task.endDate}
-            className={styles.formInput}
+            className={styles.formDate}
             onChange={onEndDateChange}
           />
         </div>
 
         {task.subtasks.map((subtask, index) => (
           <div key={index} className={styles.buttonSubtaskContainer}>
-            <input
-              type="text"
+            <textarea
+              name="subtasks"
               value={subtask.title}
               placeholder={`Подзадача ${index + 1}`}
-              className={styles.formInput}
+              className={styles.textareaSubtask}
               onChange={(e) => onSubtaskChange(index, e.target.value)}
+              ref={(e) => {
+                if (subtasksRefs.current) {
+                  subtasksRefs.current[index] = e;
+                }
+              }}
             />
             <button
               className={styles.buttonForm}
               onClick={() => onSubtaskDelite(subtask.id)}
             >
-              удалить
+              <CgCloseR size={20} />
             </button>
           </div>
         ))}
@@ -101,8 +126,12 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           + Добавить пункт
         </button>
 
-        <button className={styles.buttonSubmit} onClick={onSubmit}>
-          Создать
+        <button
+          type="submit"
+          className={styles.buttonSubmit}
+          onClick={onSubmit}
+        >
+          {isEditing ? "Изменить" : "Создать"}
         </button>
       </div>
     </>

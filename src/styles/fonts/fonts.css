@@ -13,3 +13,11 @@
     src: url('./Pacifico-Regular.ttf') format('ttf');
     font-weight: 400;
 }
+
+@font-face {
+    font-display: swap;
+    font-family: 'Caveat';
+    font-style: normal;
+    src: url('./Caveat-VariableFont_wght.ttf') format('ttf');
+    font-weight: 400;
+}

@@ -11,25 +11,29 @@
 
 .titleContainer {
   display: flex;
-  justify-content: space-between;
-  flex: 1;
-  min-width: 0;
+  gap: 5px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .priorityContainer {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: 5px;
 }
 
-.button {
-  width: 100%;
+.titleColumn {
+  background-color: #3d13430d;
+  margin: 4px;
   border-radius: calc(0.5rem - 2px);
-  padding: 5px 10px;
-  background-color: #57536580;
+  padding: 2px 4px;
+  font-size: 12px;
 }
 
 .title {
-  font-size: 18px;
+  font-size: 16px;
+  font-family: "Caveat", sans-serif;
+  font-style: italic;
 }
 
 .customCheckboxContainer {
@@ -91,37 +95,43 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin: 0 20px;
+  margin: 0 20px 20px;
 }
 
 .subtaskItem {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
-.buttonСlip {
+.buttonСlip,
+.buttonEdit,
+.buttonDelete {
   display: flex;
   justify-content: center;
   border-radius: calc(0.5rem - 2px);
   background-color: #3d13430d;
   padding: 5px 0;
-  width: 50px;
+  flex: 1;
 }
 
 .buttonСlip.active {
   background: radial-gradient(#ffffff00, #f7bff4);
 }
 
-.subtaskTitle {
-  font-size: 16px;
-  margin: 10px 0;
+.buttonEdit {
+  flex: 5;
 }
 
-.subtaskListTitle {
+.subtaskTitle {
   font-size: 14px;
 }
 
-.dateContainer {
+.subtaskListTitle {
+  font-size: 12px;
+}
+
+.startEndDateContainer {
   display: flex;
   letter-spacing: 1px;
   font-size: 14px;
@@ -130,15 +140,17 @@
   padding: 2px 4px;
 }
 
-.createDateContainer {
+.dateContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4px;
+  font-size: 12px;
+}
+
+.createDate {
+  background-color: #d1c9ed80;
   border-radius: calc(0.5rem - 2px);
   padding: 2px 4px;
-  font-size: 12px;
-  background-color: #d1c9ed80;
 }
 
 .createDate,
@@ -149,7 +161,7 @@
 
 .statusGroup {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
 .radioInput {
@@ -161,14 +173,44 @@
   text-transform: lowercase;
   display: flex;
   justify-content: center;
-  padding: 5px 7px;
+  padding: 2px 4px;
+  margin: 4px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
   background-color: #e3d5d5;
   transition: background-color 0.3s;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.statusGroup label.active {
-  background-color: #f7e47b;
+.statusGroup label.active:nth-child(1) {
+  background-color: #00800063;
+}
+
+.statusGroup label.active:nth-child(2) {
+  background-color: #00b0ff63;
+}
+
+.statusGroup label.active:nth-child(3) {
+  background-color: #ef282863;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.date {
+  display: flex;
+  justify-content: center;
+  padding: 2px 4px;
+  margin: 4px;
+  font-size: 12px;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #d1c9ed80;
+}
+
+.description {
+  font-style: italic;
+  font-size: 14px;
 }

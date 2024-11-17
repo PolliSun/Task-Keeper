@@ -5,6 +5,7 @@ export type TTask = {
   endDate?: string;
   status: string;
   title: string;
+  description: string;
   priority: string;
   pinned: boolean;
   subtasks?: { id: string; title: string; completed?: boolean;}[];

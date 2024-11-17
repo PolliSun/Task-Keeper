@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { TasksListUI } from "../ui/pages/tasks-list/tasks-list";
 import { RootState, useSelector, useDispatch } from "../../services/store";
-import { addTask, sortTasks } from "../../services/slices/taskSlice";
+import { addTask, sortTasks, editTask } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 import { TaskHeader } from "../task-header/task-header";
 
@@ -12,6 +12,7 @@ type TaskListProps = {
 export const TaskList: FC<TaskListProps> = ({ tasks }) => {
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [isCreateActive, setIsCreateActive] = useState(false);
   const [isFavoritesVisible, setIsFavoritesVisible] = useState(false);
   const searchResults = useSelector(
@@ -25,13 +26,16 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
   const selectedTask = tasks.find((task) => task.id === selectedTaskId) || null;
 
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((task) => task.status === "выполнен" ).length;
-  
+  const completedTasks = tasks.filter(
+    (task) => task.status === "выполнен"
+  ).length;
+
   const handleSelectTask = (id: string) => {
     setSelectedTaskId(id);
     setShowCreateForm(false);
     setIsCreateActive(false);
     setIsFavoritesVisible(false);
+    setShowEditForm(false);
   };
 
   const handleCreateTaskClick = () => {
@@ -41,25 +45,38 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
       return newState;
     });
     setSelectedTaskId(null);
+    setShowEditForm(false);
   };
 
-  const handleSaveTask = (newTask: TTask) => {
+  const handleSaveTaskSubmit = (newTask: TTask) => {
     dispatch(addTask(newTask));
     setShowCreateForm(false);
+    setIsCreateActive(false);
   };
 
   const handleCloseTask = () => {
     setSelectedTaskId(null);
     setShowCreateForm(false);
     setIsCreateActive(false);
+    setShowEditForm(false);
   };
 
   const handleFavoritesClick = () => {
     setIsFavoritesVisible((prev) => !prev);
-  }
+  };
+
+  const handleEditClick = () => {
+    setShowEditForm((prev) => !prev);
+  };
+
+  const handleEditSubmit = (updatedTask: TTask) => {
+    dispatch(editTask(updatedTask));
+    setShowEditForm(false); 
+    setSelectedTaskId(updatedTask.id);
+  };
 
   const filteredTasks = isFavoritesVisible
-    ? tasks.filter((task) => task.pinned) 
+    ? tasks.filter((task) => task.pinned)
     : tasks;
 
   return (
@@ -84,7 +101,9 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
             : "Ваши задачи:"
         }
         titleData={
-          selectedTask
+          showEditForm
+            ? "Редактирование задачи:"
+            : selectedTask
             ? "Детали задачи:"
             : showCreateForm
             ? "Создание задачи:"
@@ -93,9 +112,12 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
         tasks={isSearching ? searchResults : filteredTasks}
         selectedTask={selectedTask}
         onTaskSelect={handleSelectTask}
-        onCreateTask={handleSaveTask}
+        onCreateTask={handleSaveTaskSubmit}
         createdTask={showCreateForm}
         onClose={handleCloseTask}
+        editedTask={showEditForm}
+        onEditTask={handleEditSubmit}
+        handleEditClick={handleEditClick}
       />
     </>
   );
