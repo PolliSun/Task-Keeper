@@ -9,13 +9,13 @@ export const TaskPriority: FC<TaskPriorityProps> = ({ priority}) => {
   let buttonStyle = "";
   switch (priority) {
     case "высокий":
-            buttonStyle = "#ef282863";
+            buttonStyle = "#fba4a4";
             break;
         case "средний":
-            buttonStyle = "#ffae0063";
+            buttonStyle = "#ffd375";
             break;
         case "низкий":
-            buttonStyle = "#00800063";
+            buttonStyle = "#a2d3a2";
             break;
         case "без приоритета":
             buttonStyle = "#BDBDBD";

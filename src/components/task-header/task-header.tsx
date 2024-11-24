@@ -3,7 +3,6 @@ import { TaskHeaderUI } from "../../components/ui/pages/task-header/task-header"
 import { useDispatch } from "../../services/store";
 import { useLocation } from "react-router-dom";
 import { searchTasks, sortTasks } from "../../services/slices/taskSlice";
-import { TTask } from "../../types/type";
 
 type TaskHeaderProps = {
   onCreateTask: () => void;

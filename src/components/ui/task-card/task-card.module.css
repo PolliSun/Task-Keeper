@@ -10,6 +10,11 @@
   border-radius: calc(0.5rem - 2px);
 }
 
+.selectedCard {
+  background-color: #fff9d9;
+  box-shadow: 5px 5px #ffbe86bf;
+}
+
 .dataContainer {
   display: flex;
   align-items: center;
@@ -129,7 +134,7 @@
   border-radius: calc(0.5rem - 2px);
   padding: 2px 4px;
   font-size: 12px;
-  background-color: #d1c9ed80;
+  background-color: #e4e0f3;
   gap: 3px;
 }
 

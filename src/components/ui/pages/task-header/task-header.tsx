@@ -113,6 +113,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             <button onClick={() => onSortSelect("status")}>По статусу</button>
           </div>
         )}
+        {}
       </header>
     </>
   );

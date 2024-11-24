@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { CalendarHeaderUI } from "../ui/pages/calendar-header/calendar-header";
+import { CalendarUI } from "../ui/pages/calendar-header/calendar";
 import { useDispatch, useSelector, RootState } from "../../services/store";
 import {
   goToPreviousMonth,
   goToNextMonth,
 } from "../../services/slices/calendarSlice";
 
-export const CalendarHeader: FC = () => {
+export const Calendar: FC = () => {
   const dispatch = useDispatch();
   const { month, year } = useSelector(
     (state: RootState) => state.calendar.currentDate
@@ -21,11 +21,13 @@ export const CalendarHeader: FC = () => {
   };
 
   return (
-    <CalendarHeaderUI
+    <CalendarUI
       currentMonth={month}
       currentYear={year}
       onPreviousMonth={handlePreviousMonth}
       onNextMonth={handleNextMonth}
+      month={month}
+      year={year}
     />
   );
 };

@@ -9,13 +9,13 @@ export const TaskStatus: FC<TaskStatusProps> = ({status}) => {
     let buttonStyle = "";
     switch (status) {
         case "выполнен":
-            buttonStyle = "#00800063";
+            buttonStyle = "#a2d3a2";
             break;
         case "в работе":
-            buttonStyle = "#00b0ff63";
+            buttonStyle = "#a5e3ff";
             break;
         case "отложен":
-            buttonStyle = "#ef282863";
+            buttonStyle = "#fba4a4";
             break;
     }
 

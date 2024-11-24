@@ -6,10 +6,8 @@ import {
   toggleTaskStatus,
   toggleSubtaskStatus,
   pinTask,
-  editTask,
 } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
-import { TaskForm } from "../task-form/task-form";
 
 type TaskDetailsProps = {
   task: TTask;

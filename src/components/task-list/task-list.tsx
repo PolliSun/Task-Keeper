@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { TasksListUI } from "../ui/pages/tasks-list/tasks-list";
 import { RootState, useSelector, useDispatch } from "../../services/store";
-import { addTask, sortTasks, editTask } from "../../services/slices/taskSlice";
+import { addTask, editTask } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 import { TaskHeader } from "../task-header/task-header";
 
@@ -37,6 +37,8 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
     setIsFavoritesVisible(false);
     setShowEditForm(false);
   };
+
+  const isTaskSelected = (taskId: string) => selectedTaskId === taskId;
 
   const handleCreateTaskClick = () => {
     setIsCreateActive((prev) => {
@@ -88,7 +90,6 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
         isFavoritesVisible={isFavoritesVisible}
       />
       <TasksListUI
-        onClickCreateTask={handleCreateTaskClick}
         totalTasks={totalTasks}
         completedTasks={completedTasks}
         title={
@@ -111,6 +112,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
         }
         tasks={isSearching ? searchResults : filteredTasks}
         selectedTask={selectedTask}
+        isTaskSelected={isTaskSelected}
         onTaskSelect={handleSelectTask}
         onCreateTask={handleSaveTaskSubmit}
         createdTask={showCreateForm}

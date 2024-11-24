@@ -4,9 +4,10 @@
   position: relative;
   margin: 20px 0;
   border-radius: calc(0.5rem - 2px);
-  background-color: #fbe9e7;
   padding: 20px;
   gap: 20px;
+  background-color: #fff9d9;
+  box-shadow: 5px 5px #ffbe86bf;
 }
 
 .titleContainer {
@@ -23,7 +24,7 @@
 }
 
 .titleColumn {
-  background-color: #3d13430d;
+  background-color: #8f8f8f2e;
   margin: 4px;
   border-radius: calc(0.5rem - 2px);
   padding: 2px 4px;
@@ -59,25 +60,24 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
-  border: 2px solid #000;
+  background-color: #8f8f8f2e;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #f7e47b;
+  background-color: #a2d3a2;
 }
 
 .customCheckbox::after {
   content: "";
   position: absolute;
   display: none;
-  left: 4px;
-  top: 1px;
+  left: 6px;
+  top: 2px;
   width: 4px;
   height: 8px;
-  border: solid #000;
+  border: solid #837f7f;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -110,7 +110,7 @@
   display: flex;
   justify-content: center;
   border-radius: calc(0.5rem - 2px);
-  background-color: #3d13430d;
+  background-color: #8f8f8f2e;
   padding: 5px 0;
   flex: 1;
 }
@@ -177,21 +177,21 @@
   margin: 4px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
-  background-color: #e3d5d5;
+  background-color: #8f8f8f2e;
   transition: background-color 0.3s;
   font-size: 12px;
 }
 
 .statusGroup label.active:nth-child(1) {
-  background-color: #00800063;
+  background-color: #a2d3a2;
 }
 
 .statusGroup label.active:nth-child(2) {
-  background-color: #00b0ff63;
+  background-color: #a5e3ff;
 }
 
 .statusGroup label.active:nth-child(3) {
-  background-color: #ef282863;
+  background-color: #fba4a4;
 }
 
 .buttonContainer {
@@ -207,7 +207,7 @@
   margin: 4px;
   font-size: 12px;
   border-radius: calc(0.5rem - 2px);
-  background-color: #d1c9ed80;
+  background-color: #e4e0f3;
 }
 
 .description {

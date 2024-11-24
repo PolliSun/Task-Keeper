@@ -1,16 +1,14 @@
-import React, { FC, useEffect, useCallback, memo } from "react";
+import React, { FC, memo } from "react";
 import { TaskCardUI } from "../ui/task-card/task-card";
-import { useDispatch } from "../../services/store";
-import { pinTask } from "../../services/slices/taskSlice";
 import { TTask } from "../../types/type";
 
 type TaskCardProps = {
   task: TTask;
-  onClick: () => void;
+  onClickTask: () => void;
+  isTaskSelected: (taskId: string) => boolean;
 };
 
-export const TaskCard: FC<TaskCardProps> = memo(({ task, onClick}) => {
-  const dispatch = useDispatch();
+export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSelected}) => {
   const pinned = task.pinned ? "избранный" : null;
 
   let buttonStyle = "";
@@ -26,9 +24,10 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task, onClick}) => {
         ...task,
         status: task.status || "в работе",
       }}
-      onClick={onClick}
+      onClickTask={onClickTask}
       pinned={pinned}
       backgroundColor={buttonStyle}
+      isTaskSelected={isTaskSelected}
     />
   );
 });
