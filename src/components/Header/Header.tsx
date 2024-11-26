@@ -21,9 +21,6 @@ export const Header: FC = () => {
         <NavLink to={"/task-page"} className={styles.navLink}>
           Задачи
         </NavLink>
-        <NavLink to={"/calendar-page"} className={styles.navLink}>
-          Календарь
-        </NavLink>
       </nav>
     </header>
   );

@@ -79,6 +79,11 @@
   left: 43%;
 }
 
+.buttonCalendar {
+  top: -7px;
+  left: 27%;
+}
+
 .button.active {
   background-color: #FF4500; 
   transform: translateY(2px); 

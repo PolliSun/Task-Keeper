@@ -1,0 +1,27 @@
+import React, { FC, useCallback } from "react";
+import { TDay } from "../../types/type";
+import { useDispatch } from "react-redux";
+import { DayCardUI } from "../ui/day-card/day-card";
+
+type DayCardProps = {
+  day: TDay;
+  onClickDay: () => void;
+};
+
+export const DayCard: FC<DayCardProps> = ({ day, onClickDay }) => {
+  const dispatch = useDispatch();
+  const today = new Date();
+  const isToday = 
+    day.day === today.getDate() &&
+    day.month === today.getMonth() &&
+    day.year === today.getFullYear();
+
+
+  return (
+    <DayCardUI
+      day={day}
+      isToday={isToday}
+      onClickDay={onClickDay}
+    />
+  );
+};

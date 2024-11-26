@@ -1,0 +1,15 @@
+.taskList {
+    border-radius: calc(0.5rem - 2px);
+    background-color: #252221;
+}
+
+.taskItem {
+  margin: 20px 0;
+  background-color: #fbe9e7;
+  padding: 10px;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.title {
+  font-size: 10px;
+}

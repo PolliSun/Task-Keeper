@@ -9,6 +9,8 @@ type TaskHeaderProps = {
   isCreateActive: boolean;
   onFavoritesClick: () => void;
   isFavoritesVisible: boolean;
+  onCalendarClick: () => void;
+  isCalendarVisible: boolean;
 };
 
 export const TaskHeader: FC<TaskHeaderProps> = ({
@@ -16,6 +18,8 @@ export const TaskHeader: FC<TaskHeaderProps> = ({
   isCreateActive,
   onFavoritesClick,
   isFavoritesVisible,
+  onCalendarClick,
+  isCalendarVisible,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -77,6 +81,8 @@ export const TaskHeader: FC<TaskHeaderProps> = ({
       isSortOpen={isSortOpen}
       isSearchVisible={isSearchVisible}
       isFavoritesVisible={isFavoritesVisible}
+      onCalendarClick={onCalendarClick}
+      isCalendarVisible={isCalendarVisible}
     />
   );
 };

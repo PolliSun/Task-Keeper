@@ -1,8 +1,8 @@
 export type TTask = {
   id: string;
   date: string;
-  startDate?: string;
-  endDate?: string;
+  startDate: string;
+  endDate: string;
   status: string;
   title: string;
   description: string;
@@ -12,6 +12,17 @@ export type TTask = {
 };
 
 export type TCalendar = {
+  days: TDay[];
+  currentDate: {
+    month: number;
+    year: number;
+  };
+};
+
+export type TDay = {
+  id: string;
+  day: number;
   month: number;
   year: number;
-};
+  tasks: TTask[];
+}

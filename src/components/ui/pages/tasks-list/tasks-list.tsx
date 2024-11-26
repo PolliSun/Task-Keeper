@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { TaskCard } from "../../../task-card/task-card";
 import styles from "./tasks-list.module.css";
-import { TTask } from "../../../../types/type";
+import { TDay, TTask } from "../../../../types/type";
 import { TaskDetails } from "../../../task-details/task-details";
 import { CgCloseR } from "react-icons/cg";
 import { TaskForm } from "../../../task-form/task-form";
+import { Calendar } from "../../../calendar/calendar";
+import { DayDetails } from "../../../day-details/day-details";
 
 type TasksListUIProps = {
   totalTasks: number;
@@ -21,6 +23,11 @@ type TasksListUIProps = {
   editedTask: boolean;
   onEditTask: (editedTask: TTask) => void;
   handleEditClick: () => void;
+  visibleCalendar: boolean;
+  onDaySelect: (id: string) => void;
+  selectedDay: TDay | null;
+  filteredDataTasks: TTask[];
+  // visibleSelectedDay: boolean;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
@@ -38,6 +45,10 @@ export const TasksListUI: FC<TasksListUIProps> = ({
   editedTask,
   onEditTask,
   handleEditClick,
+  visibleCalendar,
+  onDaySelect,
+  selectedDay,
+  filteredDataTasks,
 }) => {
   return (
     <section className={styles.content}>
@@ -56,6 +67,7 @@ export const TasksListUI: FC<TasksListUIProps> = ({
             isTaskSelected={isTaskSelected}
           />
         ))}
+        {visibleCalendar && <Calendar onDaySelect={onDaySelect}/>}
       </ul>
       <div className={styles.noteBookHoles}>
         {[...Array(7)].map((_, index) => (
@@ -65,7 +77,7 @@ export const TasksListUI: FC<TasksListUIProps> = ({
       <ul className={styles.data}>
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>{titleData}</h2>
-          {(selectedTask || createdTask || editedTask) && (
+          {(selectedTask || createdTask || editedTask || selectedDay) && (
             <button className={styles.button} onClick={onClose}>
               <CgCloseR size={23} />
             </button>
@@ -77,6 +89,12 @@ export const TasksListUI: FC<TasksListUIProps> = ({
           selectedTask && (
             <TaskDetails task={selectedTask} onEditTask={handleEditClick} />
           )
+        )}
+        {visibleCalendar && selectedDay && (
+          <DayDetails
+            tasks={filteredDataTasks}
+            selectedDay={selectedDay}
+          />
         )}
         {createdTask && <TaskForm onSubmit={onCreateTask} />}
       </ul>

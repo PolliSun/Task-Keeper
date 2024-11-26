@@ -4,6 +4,7 @@ import { RiStickyNoteAddLine } from "react-icons/ri";
 import { RiSearchLine } from "react-icons/ri";
 import { LuChevronDownSquare } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
+import { BiCalendar } from "react-icons/bi";
 
 type TaskHeaderUIProps = {
   onCreateTask: () => void;
@@ -21,6 +22,8 @@ type TaskHeaderUIProps = {
   isSortOpen: boolean;
   onSortClick: () => void;
   onSortSelect: (sortBy: "date" | "alphabet" | "priority" | "status") => void;
+  onCalendarClick: () => void;
+  isCalendarVisible: boolean;
 };
 
 export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
@@ -39,6 +42,8 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
   isSortOpen,
   onSortClick,
   onSortSelect,
+  onCalendarClick,
+  isCalendarVisible,
 }) => {
   return (
     <>
@@ -83,6 +88,14 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
               size={23}
               className={isSortOpen ? styles.iconRotated : styles.icon}
             />
+          </button>
+          <button
+            className={`${styles.button} ${styles.buttonCalendar} ${
+              isCalendarVisible ? styles.active : ""
+            }`}
+            onClick={onCalendarClick}
+          >
+            <BiCalendar size={23} />
           </button>
           <button
             onClick={onFavoritesClick}
