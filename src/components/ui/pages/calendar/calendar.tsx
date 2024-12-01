@@ -12,6 +12,7 @@ type CalendarUIProps = {
   onNextMonth: () => void;
   days: TDay[];
   onDaySelect: (id: string) => void;
+  isDaySelected: (id: string) => boolean;
 };
 
 export const CalendarUI: FC<CalendarUIProps> = ({
@@ -23,6 +24,7 @@ export const CalendarUI: FC<CalendarUIProps> = ({
   weekdays,
   days,
   onDaySelect,
+  isDaySelected,
 }) => {
   return (
     <div className={styles.content}>
@@ -35,21 +37,24 @@ export const CalendarUI: FC<CalendarUIProps> = ({
           <button onClick={onNextMonth}>▶</button>
         </div>
       </header>
-      <section className={styles.weekdays}>
-        {weekdays.map((weekday) => (
-          <div key={weekday} className={styles.weekday}>
-            {weekday}
-          </div>
-        ))}
-      </section>
-      <section className={styles.days}>
-        {days.map((day) => (
-          <DayCard
-            key={day.id}
-            day={day}
-            onClickDay={() => onDaySelect(day.id)}
-          />
-        ))}
+      <section>
+        <div className={styles.weekdays}>
+          {weekdays.map((weekday) => (
+            <div key={weekday} className={styles.weekday}>
+              {weekday}
+            </div>
+          ))}
+        </div>
+        <div className={styles.days}>
+          {days.map((day) => (
+            <DayCard
+              key={day.id}
+              day={day}
+              onClickDay={() => onDaySelect(day.id)}
+              isDaySelected={isDaySelected}
+            />
+          ))}
+        </div>
       </section>
     </div>
   );

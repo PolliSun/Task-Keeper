@@ -9,8 +9,6 @@ import { Calendar } from "../../../calendar/calendar";
 import { DayDetails } from "../../../day-details/day-details";
 
 type TasksListUIProps = {
-  totalTasks: number;
-  completedTasks: number;
   tasks: TTask[];
   selectedTask: TTask | null;
   onTaskSelect: (taskId: string) => void;
@@ -27,12 +25,11 @@ type TasksListUIProps = {
   onDaySelect: (id: string) => void;
   selectedDay: TDay | null;
   filteredDataTasks: TTask[];
-  // visibleSelectedDay: boolean;
+  isDaySelected: (dayId: string) => boolean;
+  visibleSelectedDay: boolean;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
-  totalTasks,
-  completedTasks,
   tasks,
   selectedTask,
   onTaskSelect,
@@ -49,55 +46,58 @@ export const TasksListUI: FC<TasksListUIProps> = ({
   onDaySelect,
   selectedDay,
   filteredDataTasks,
+  isDaySelected,
+  visibleSelectedDay,
 }) => {
   return (
     <section className={styles.content}>
-      <ul className={styles.tasks}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.title}>{title}</h2>
-          <div className={styles.counter}>
-            {completedTasks}/{totalTasks}
+      <div className={styles.tasks}>
+        <ul className={styles.list}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.title}>{title}</h2>
           </div>
-        </div>
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onClickTask={() => onTaskSelect(task.id)}
-            isTaskSelected={isTaskSelected}
-          />
-        ))}
-        {visibleCalendar && <Calendar onDaySelect={onDaySelect}/>}
-      </ul>
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              onClickTask={() => onTaskSelect(task.id)}
+              isTaskSelected={isTaskSelected}
+            />
+          ))}
+          {visibleCalendar && <Calendar onDaySelect={onDaySelect} isDaySelected={isDaySelected} />}
+        </ul>
+      </div>
       <div className={styles.noteBookHoles}>
         {[...Array(7)].map((_, index) => (
           <div key={index} className={styles.hole} />
         ))}
       </div>
-      <ul className={styles.data}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.title}>{titleData}</h2>
-          {(selectedTask || createdTask || editedTask || selectedDay) && (
-            <button className={styles.button} onClick={onClose}>
-              <CgCloseR size={23} />
-            </button>
+      <div className={styles.data}>
+        <ul className={styles.list}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.title}>{titleData}</h2>
+            {(selectedTask || createdTask || editedTask || visibleSelectedDay) && (
+              <button className={styles.button} onClick={onClose}>
+                <CgCloseR size={23} />
+              </button>
+            )}
+          </div>
+          {editedTask && selectedTask ? (
+            <TaskForm onSubmit={onEditTask} initialData={selectedTask} />
+          ) : (
+            selectedTask && (
+              <TaskDetails task={selectedTask} onEditTask={handleEditClick} />
+            )
           )}
-        </div>
-        {editedTask && selectedTask ? (
-          <TaskForm onSubmit={onEditTask} initialData={selectedTask} />
-        ) : (
-          selectedTask && (
-            <TaskDetails task={selectedTask} onEditTask={handleEditClick} />
-          )
-        )}
-        {visibleCalendar && selectedDay && (
-          <DayDetails
-            tasks={filteredDataTasks}
-            selectedDay={selectedDay}
-          />
-        )}
-        {createdTask && <TaskForm onSubmit={onCreateTask} />}
-      </ul>
+          {visibleCalendar && selectedDay && visibleSelectedDay && (
+            <DayDetails
+              tasks={filteredDataTasks}
+              selectedDay={selectedDay}
+            />
+          )}
+          {createdTask && <TaskForm onSubmit={onCreateTask} />}
+        </ul>
+      </div>
     </section>
   );
 };

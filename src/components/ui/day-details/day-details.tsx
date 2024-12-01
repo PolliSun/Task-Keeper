@@ -7,28 +7,27 @@ type DayDetailsUIProps = {
   selectedDay: TDay;
 };
 
-export const DayDetailsUI: FC<DayDetailsUIProps> = ({
-  tasks,
-  selectedDay,
-}) => {
+export const DayDetailsUI: FC<DayDetailsUIProps> = ({ tasks, selectedDay }) => {
   return (
     <div className={styles.container}>
-      {/* <h3 className={styles.title}>
-      {selectedDay.day}.{selectedDay.month + 1}.{selectedDay.year}
-      </h3> */}
+      {tasks.length > 0 ? (
         <ul className={styles.taskList}>
           {tasks.map((task) => (
             <li key={task.id} className={styles.taskItem}>
               <div className={styles.taskInfo}>
-                <h2 className={styles.title}>{task.title}</h2>
+                <h2 className={styles.titleInfo}>{task.title}</h2>
                 <p>
-                  {new Date(task.startDate).toLocaleDateString()} - 
-                  {new Date(task.endDate).toLocaleDateString()}
+                  Дата начала: {new Date(task.startDate).toLocaleDateString()}
                 </p>
+                <p>
+                  Дата окончания: {new Date(task.endDate).toLocaleDateString()}
+                </p>
+                <p>Дата создания: {new Date(task.date).toLocaleDateString()}</p>
               </div>
             </li>
           ))}
         </ul>
+      ) : null}
     </div>
   );
 };

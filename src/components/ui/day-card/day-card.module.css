@@ -3,11 +3,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fbe9e7;
+  background-color: #b9c6d79e;
   color: #000;
   border-radius: calc(0.5rem - 2px);
 }
 
 .today {
-  background-color: #f7e47b;
+  background-color: #f1eabe;
+  font-weight: bold;
+}
+
+.selectedDay {
+  background-color: #adbdd1;
 }

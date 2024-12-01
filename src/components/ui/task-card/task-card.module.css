@@ -5,14 +5,14 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 20px 0;
-  background-color: #fbe9e7;
+  /*   background-color: #fbe9e7; */
+  background-color: #b9c6d79e;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
 }
 
 .selectedCard {
-  background-color: #fff9d9;
-  box-shadow: 5px 5px #ffbe86bf;
+  background-color: #adbdd1;
 }
 
 .dataContainer {

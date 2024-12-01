@@ -6,9 +6,15 @@ type DayCardUIProps = {
   day: TDay;
   onClickDay: () => void;
   isToday: boolean;
+  isDaySelected: (dayId: string) => boolean;
 };
 
-export const DayCardUI: FC<DayCardUIProps> = ({ day, onClickDay, isToday }) => {
+export const DayCardUI: FC<DayCardUIProps> = ({
+  day,
+  onClickDay,
+  isToday,
+  isDaySelected,
+}) => {
   return (
     <>
       {day.day === 0 ? (
@@ -18,7 +24,9 @@ export const DayCardUI: FC<DayCardUIProps> = ({ day, onClickDay, isToday }) => {
           key={day.id}
           onClick={onClickDay}
           className={`${styles.day} 
-      ${isToday ? styles.today : ""} `}
+      ${isToday ? styles.today : ""} ${
+            isDaySelected(day.id) ? styles.selectedDay : ""
+          }`}
         >
           <span>{day.day}</span>
         </li>

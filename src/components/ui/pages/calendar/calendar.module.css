@@ -1,7 +1,7 @@
 .header {
   margin: 40px 0 10px;
   color: #000;
-  background-color: #917972b8;
+  background-color: #b9c6d79e;
   border-radius: calc(0.5rem - 2px);
   padding: 5px 20px;
 }
@@ -14,10 +14,11 @@
 .content {
   display: flex;
   flex-direction: column;
-  background-color: #917972b8;
+  background-color: #b9c6d79e;
   border-radius: calc(0.5rem - 2px);
   padding: 20px;
   flex-grow: 1;
+  margin: 20px 0;
 }
 
 .weekdaysDay {
@@ -35,6 +36,7 @@
   background-color: #b7b7b7de;
   width: 100%;
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .weekday {

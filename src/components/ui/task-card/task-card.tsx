@@ -35,13 +35,11 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
         <div className={styles.endDateContainer}>
           <LuCalendarX size={14} />
           <h3 className={styles.endDate}>
-            {task.endDate
-              ? new Date(task.endDate).toLocaleDateString("ru-RU", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })
-              : null}
+            {new Date(task.date).toLocaleDateString("ru-RU", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
           </h3>
         </div>
         <TaskPriority priority={task.priority} />

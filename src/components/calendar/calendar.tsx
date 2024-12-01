@@ -5,8 +5,6 @@ import {
   goToPreviousMonth,
   goToNextMonth,
 } from "../../services/slices/calendarSlice";
-import { DayCard } from "../day-card/day-card";
-import { TDay } from "../../types/type";
 
 const months = [
   "Январь",
@@ -27,18 +25,17 @@ const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 type Props = {
   onDaySelect: (id: string) => void;
+  isDaySelected: (dayId: string) => boolean;
 }
 
-export const Calendar: FC<Props> = ({onDaySelect}) => {
+export const Calendar: FC<Props> = ({onDaySelect, isDaySelected}) => {
   const dispatch = useDispatch();
-  const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
 
   const currentDate = useSelector((state: RootState) => state.calendar.currentDate);
   const days = useSelector((state: RootState) => state.calendar.days);
 
   const handleDayClick  = (id: string) => {
     onDaySelect(id);
-    setSelectedDayId(id);
   }
 
   const handlePreviousMonth = () => {
@@ -59,6 +56,7 @@ export const Calendar: FC<Props> = ({onDaySelect}) => {
       weekdays={weekdays}
       days={days}
       onDaySelect={handleDayClick}
+      isDaySelected={isDaySelected}
     />
   );
 };

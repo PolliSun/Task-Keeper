@@ -2,7 +2,8 @@
   display: flex;
   gap: 20px;
   flex-direction: column;
-  background-color: #fbe9e7;
+  background-color: #efe2ecc9;
+  box-shadow: 5px 5px #b1b1b1bf;
   padding: 25px;
   border-radius: calc(0.5rem - 2px);
   margin: 20px 0;

@@ -12,24 +12,6 @@ export const DayDetails: FC<DayDetailsProps> = ({
   selectedDay,
 }) => {
 
-  // const filteredTasks = useMemo(() => {
-  //   return tasks.filter(task => {
-  //     const selectedDate = new Date(
-  //       selectedDay.year, 
-  //       selectedDay.month, 
-  //       selectedDay.day
-  //     );
-  //     const taskStartDate = new Date(task.startDate);
-  //     const taskEndDate = new Date(task.endDate);
-
-  //     return (
-  //       (taskStartDate.toDateString() === selectedDate.toDateString()) ||
-  //       (taskEndDate.toDateString() === selectedDate.toDateString()) ||
-  //       (selectedDate >= taskStartDate && selectedDate <= taskEndDate)
-  //     );
-  //   });
-  // }, [tasks, selectedDay]);
-
   return (
     <DayDetailsUI
       tasks={tasks}

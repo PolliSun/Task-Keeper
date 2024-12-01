@@ -1,15 +1,24 @@
 .taskList {
-    border-radius: calc(0.5rem - 2px);
-    background-color: #252221;
+  border-radius: calc(0.5rem - 2px);
+  background-color: #efe2ecc9;
+  box-shadow: 5px 5px #b1b1b1bf;
+  padding: 20px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .taskItem {
-  margin: 20px 0;
-  background-color: #fbe9e7;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
+  background-color: #b9c6d79e;
 }
 
 .title {
+  font-size: 16px;
+}
+
+.titleInfo {
   font-size: 10px;
 }

@@ -18,6 +18,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
   const [isCreateActive, setIsCreateActive] = useState(false);
   const [isFavoritesVisible, setIsFavoritesVisible] = useState(false);
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [visibleSelectedDay, setVisibleSelectedDay] = useState(false);
 
   const searchResults = useSelector(
     (state: RootState) => state.tasks.searchResults
@@ -31,11 +32,82 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
   const isTaskSelected = (taskId: string) => selectedTaskId === taskId;
 
   const selectedDay = days.find((day) => day.id === selectedDayId) || null;
+  const isDaySelected = (dayId: string) => selectedDayId === dayId;
+
+  const filteredDataTasks = useMemo(() => {
+    if (!selectedDay) return [];
+
+    const selectedDate = new Date(
+      selectedDay.year,
+      selectedDay.month,
+      selectedDay.day
+    );
+
+    return tasks.filter((task) => {
+      const taskStartDate = new Date(task.startDate);
+      const taskEndDate = new Date(task.endDate);
+      const taskDate = new Date(task.date);
+
+      return (
+        taskStartDate.toDateString() === selectedDate.toDateString() ||
+        taskEndDate.toDateString() === selectedDate.toDateString() ||
+        taskDate.toDateString() === selectedDate.toDateString() ||
+        (selectedDate >= taskStartDate && selectedDate <= taskEndDate) ||
+        selectedDate === taskDate
+      );
+    });
+  }, [tasks, selectedDay]);
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(
     (task) => task.status === "выполнен"
   ).length;
+
+  const title = useMemo(() => {
+    if (isSearching) {
+      return searchResults.length > 0
+        ? `Найдено задач: ${searchResults.length} из ${totalTasks}`
+        : "Задачи по вашему запросу не найдены.";
+    }
+    if (isFavoritesVisible) {
+      const favoriteTasks = tasks.filter((task) => task.pinned).length;
+      return `Избранные задачи: ${favoriteTasks} из ${totalTasks}`;
+    }
+    if (isCalendarVisible) {
+      return "Календарь";
+    }
+    if (tasks.length === 0) {
+      return "Сейчас у вас нет задач, давайте создадим их!";
+    }
+    return `Ваши задачи: ${completedTasks} / ${totalTasks}`;
+  }, [
+    isSearching,
+    isFavoritesVisible,
+    isCalendarVisible,
+    searchResults,
+    tasks,
+    totalTasks,
+  ]);
+
+  const titleData = useMemo(() => {
+    if (showEditForm) return "Редактирование задачи:";
+    if (selectedTask) return "Детали задачи:";
+    if (showCreateForm) return "Создание задачи:";
+    if (selectedDay && visibleSelectedDay) {
+      if (filteredDataTasks.length === 0) {
+        return `Задачи за выбранный день: ${selectedDay.day}.${selectedDay.month}.${selectedDay.year} отсутствуют.`;
+      }
+      return `Задачи за выбранный день: ${selectedDay.day}.${selectedDay.month}.${selectedDay.year} г.`;
+    }
+    return "Выберите задачу для просмотра или создайте новую!";
+  }, [
+    showEditForm,
+    selectedTask,
+    showCreateForm,
+    selectedDay,
+    visibleSelectedDay,
+    filteredDataTasks,
+  ]);
 
   const handleSelectTask = (id: string) => {
     setSelectedTaskId(id);
@@ -47,6 +119,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
 
   const handleSelectDay = (id: string) => {
     setSelectedDayId(id);
+    setVisibleSelectedDay(true);
     setShowCreateForm(false);
     setIsCreateActive(false);
     setIsFavoritesVisible(false);
@@ -71,9 +144,11 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
 
   const handleCloseTask = () => {
     setSelectedTaskId(null);
+    setSelectedDayId(null);
     setShowCreateForm(false);
     setIsCreateActive(false);
     setShowEditForm(false);
+    setVisibleSelectedDay(false);
   };
 
   const handleFavoritesClick = () => {
@@ -83,8 +158,9 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
 
   const handleCalendarClick = () => {
     setIsCalendarVisible((prev) => !prev);
-    setSelectedTaskId(null);
+    setSelectedDayId(null);
     setIsFavoritesVisible(false);
+    setVisibleSelectedDay(false);
   };
 
   const handleEditClick = () => {
@@ -99,35 +175,17 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
 
   const filteredTasks = isFavoritesVisible
     ? tasks.filter((task) => task.pinned)
-    : isCalendarVisible ? [] 
+    : isCalendarVisible
+    ? []
     : tasks;
 
   const displayedTasks = isCalendarVisible ? [] : filteredTasks;
 
-  // const filteredTasks = selectedDay 
-  // ? tasks.filter(task => task.id === selectedDay.id) 
+  // const filteredTasks = selectedDay
+  // ? tasks.filter(task => task.id === selectedDay.id)
   // : tasks;
 
-  const filteredDataTasks = useMemo(() => {
-    if (!selectedDay) return [];
   
-    const selectedDate = new Date(
-      selectedDay.year, 
-      selectedDay.month, 
-      selectedDay.day
-    );
-  
-    return tasks.filter(task => {
-      const taskStartDate = new Date(task.startDate);
-      const taskEndDate = new Date(task.endDate);
-  
-      return (
-        (taskStartDate.toDateString() === selectedDate.toDateString()) ||
-        (taskEndDate.toDateString() === selectedDate.toDateString()) ||
-        (selectedDate >= taskStartDate && selectedDate <= taskEndDate)
-      );
-    });
-  }, [tasks, selectedDay]);
 
   return (
     <>
@@ -140,33 +198,9 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
         isCalendarVisible={isCalendarVisible}
       />
       <TasksListUI
-        totalTasks={totalTasks}
-        completedTasks={completedTasks}
-        title={
-          isSearching && searchResults.length === 0
-            ? "Нет задач по вашему запросу."
-            : isSearching && searchResults.length > 0
-            ? "Задачи по вашему запросу:"
-            : tasks.length === 0
-            ? "Сейчас у вас нет задач, давайте создадим их!"
-            : isCalendarVisible
-            ? "Календарь"
-            : isFavoritesVisible
-            ? "Избранные задачи"
-            : "Ваши задачи:"
-        }
-        titleData={
-          showEditForm
-            ? "Редактирование задачи:"
-            : selectedTask
-            ? "Детали задачи:"
-            : showCreateForm
-            ? "Создание задачи:"
-            : selectedDay
-            ? `Текущие задачи на ${selectedDay.day}.${selectedDay.month + 1}.${selectedDay.year}`
-            : "Выберите задачу для просмотра или создайте новую!"
-        }
-        tasks={isSearching ? searchResults : filteredTasks}
+        title={title}
+        titleData={titleData}
+        tasks={isSearching ? searchResults : displayedTasks}
         selectedTask={selectedTask}
         isTaskSelected={isTaskSelected}
         onTaskSelect={handleSelectTask}
@@ -180,6 +214,8 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
         onDaySelect={handleSelectDay}
         selectedDay={selectedDay}
         filteredDataTasks={filteredDataTasks}
+        isDaySelected={isDaySelected}
+        visibleSelectedDay={visibleSelectedDay}
       />
     </>
   );
