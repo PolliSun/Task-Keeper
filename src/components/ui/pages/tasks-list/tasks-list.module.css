@@ -6,27 +6,56 @@
   padding: 7px;
   color: #000;
   width: 50%;
-  border: 5px solid transparent;
+  border: 5px solid #7b575754;
 }
 
-.list {
-  background-color: #ffffffd4;
+.page,
+.pageData {
+  display: flex;
+  flex-direction: column;
   border-radius: calc(1rem - 2px);
   padding: 20px;
   width: 100%;
   background: repeating-linear-gradient(#fff9f2, #fff9f2 20px, #00000000 22px), repeating-linear-gradient(90deg, #fff9f2, #fff9f2 20px, #00000000 22px);
 }
 
-/* .list::before {
-  content: '';
-  top: 0;
-  left: 0;
-  filter: grayscale(#fff);
-} */
+.page {
+  padding: 20px 20px 10px;
+}
+
+.pageData {
+  height: calc(100vh - 222px);
+  overflow-y: scroll;
+  /* scrollbar-width: thin; */
+  /* scrollbar-color: #888 #f1f1f1;  */
+}
+
+.pageData::-webkit-scrollbar {
+  width: 5px;
+}
+
+.pageData::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: calc(1rem - 2px);
+  margin: 10px 0;
+}
+
+.pageData::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: calc(1rem - 2px);
+}
+
+.pageData::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+}
 
 .tasks {
   margin-right: 10px;
-  /* border: 5px solid #FF4500; */
 }
 
 .counter {
@@ -43,7 +72,6 @@
   border-radius: calc(0.5rem - 2px);
   background-color: #D8EAD7;
   padding: 10px;
-  min-height: 43px;
 }
 
 .button {
@@ -82,5 +110,38 @@
   height: 16px;
   font-style: italic;
 }
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.paginationButton {
+  display: flex;
+  align-items: center;
+  background-color: #FF7F50;
+  border-radius: calc(0.5rem - 2px);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.paginationButton:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #979797ba;
+}
+
+.pageInfo {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 10px;
+  color: #979797ba;
+}
+
 
 

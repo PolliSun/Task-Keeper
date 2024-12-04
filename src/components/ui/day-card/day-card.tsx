@@ -23,12 +23,13 @@ export const DayCardUI: FC<DayCardUIProps> = ({
         <li
           key={day.id}
           onClick={onClickDay}
-          className={`${styles.day} 
+          className={`${styles.day}
       ${isToday ? styles.today : ""} ${
             isDaySelected(day.id) ? styles.selectedDay : ""
           }`}
         >
           <span>{day.day}</span>
+          {day.tasks?.length > 0 && <span className={styles.haveTasks}>T</span>}
         </li>
       )}
     </>

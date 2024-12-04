@@ -1,0 +1,25 @@
+.factsContainer {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7d3bc9c;
+  border-radius: calc(0.5rem - 2px);
+  width: 100%;
+}
+
+.factsTitle {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.factsParagraph {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: calc(0.5rem - 2px);
+  padding: 5px;
+  font-style: italic;
+}

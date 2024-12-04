@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from "react";
 import { TDay } from "../../types/type";
-import { useDispatch } from "react-redux";
 import { DayCardUI } from "../ui/day-card/day-card";
 
 type DayCardProps = {

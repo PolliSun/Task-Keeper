@@ -5,22 +5,22 @@ type TaskPriorityProps = {
   priority: string;
 };
 
-export const TaskPriority: FC<TaskPriorityProps> = ({ priority}) => {
-  let buttonStyle = "";
+export const TaskPriority: FC<TaskPriorityProps> = ({ priority }) => {
+  let buttonColor = "";
   switch (priority) {
     case "высокий":
-            buttonStyle = "#fba4a4";
-            break;
-        case "средний":
-            buttonStyle = "#ffd375";
-            break;
-        case "низкий":
-            buttonStyle = "#a2d3a2";
-            break;
-        case "без приоритета":
-            buttonStyle = "#BDBDBD";
-            break;
+      buttonColor = "#f77";
+      break;
+    case "средний":
+      buttonColor = "#e7a70f";
+      break;
+    case "низкий":
+      buttonColor = "#54c154";
+      break;
+    case "без приоритета":
+      buttonColor = "#9f9f9f";
+      break;
   }
 
-  return <TaskPriorityUI priority={priority} backgroundColor={buttonStyle} />;
+  return <TaskPriorityUI priority={priority} color={buttonColor} />;
 };

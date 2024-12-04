@@ -23,20 +23,22 @@
 .textareaSubtask {
   border-radius: calc(0.5rem - 2px);
   height: 2.5rem;
-  border: 2px solid #8585858a;
+  border: 2px solid #85858542;
   width: 100%;
   padding: 5px;
   resize: none;
   font-size: 14px;
+  background-color: #ffffffa1;
 }
 
 .formDate {
   border-radius: calc(0.5rem - 2px);
   height: 2rem;
-  border: 2px solid #8585858a;
+  border: 2px solid #85858542;
   width: 100%;
   font-size: 14px;
   padding: 5px;
+  background-color: #ffffffa1;
 }
 
 .buttonForm {
@@ -45,14 +47,14 @@
   align-items: center;
   border-radius: calc(0.5rem - 2px);
   padding: 5px;
-  background-color: #e3d5d5;
+  background-color: #ffffffa1;
   font-weight: bold;
   font-size: 14px;
 }
 
 .buttonSubmit {
   border-radius: calc(0.5rem - 2px);
-  background-color: #ffd800;
+  background-color: #f7e47b;
   width: 100%;
   height: 30px;
   font-weight: bolder;
@@ -76,9 +78,10 @@
   padding: 6px 10px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
-  background-color: #e3d5d5;
+  background-color: #ffffffa1;
+  border: 2px solid #85858542;
   transition: background-color 0.3s;
-  font-size: 14px;
+  font-size: 13px;
   flex: 1;
   justify-content: center;
   text-transform: lowercase;

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styles from "./calendar.module.css";
 import { TDay } from "../../../../types/type";
 import { DayCard } from "../../../day-card/day-card";
+import { HolidayWidget } from "../../../holiday-widget/holiday-widget";
 
 type CalendarUIProps = {
   months: string[];
@@ -27,6 +28,7 @@ export const CalendarUI: FC<CalendarUIProps> = ({
   isDaySelected,
 }) => {
   return (
+    <>
     <div className={styles.content}>
       <header className={styles.header}>
         <div className={styles.navigation}>
@@ -55,7 +57,10 @@ export const CalendarUI: FC<CalendarUIProps> = ({
             />
           ))}
         </div>
+        
       </section>
     </div>
+    < HolidayWidget />
+    </>
   );
 };

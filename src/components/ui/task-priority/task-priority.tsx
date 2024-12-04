@@ -3,16 +3,16 @@ import styles from "./task-priority.module.css";
 
 type TaskPriorityUIProps = {
   priority: string;
-  backgroundColor: string;
+  color: string;
 };
 
 export const TaskPriorityUI: FC<TaskPriorityUIProps> = ({
   priority,
-  backgroundColor,
+  color,
 }) => {
   return (
-    <div className={styles.priority} style={{ backgroundColor }}>
-      <h3 className={styles.title}>{priority}</h3>
+    <div className={styles.priority} >
+      <h3 className={styles.title} style={{ color }}>{priority}</h3>
     </div>
   );
 };

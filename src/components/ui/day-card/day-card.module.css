@@ -3,16 +3,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #b9c6d79e;
   color: #000;
   border-radius: calc(0.5rem - 2px);
+  border: 3px solid #ffffff00;
 }
 
 .today {
-  background-color: #f1eabe;
+  background-color: #ffa7a778;
   font-weight: bold;
 }
 
 .selectedDay {
-  background-color: #adbdd1;
+  border: 3px solid #fd9191de;
 }
+
+.haveTasks {
+  display: inline-block; 
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgb(32, 240, 95);
+}
+

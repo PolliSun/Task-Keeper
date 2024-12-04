@@ -6,18 +6,18 @@ type TaskStatusProps = {
 }
 
 export const TaskStatus: FC<TaskStatusProps> = ({status}) => {
-    let buttonStyle = "";
+    let colorStyle = "";
     switch (status) {
         case "выполнен":
-            buttonStyle = "#a2d3a2";
+            colorStyle = "#54c154";
             break;
         case "в работе":
-            buttonStyle = "#a5e3ff";
+            colorStyle = "#4bc7ff";
             break;
         case "отложен":
-            buttonStyle = "#fba4a4";
+            colorStyle = "#f77";
             break;
     }
 
-    return < TaskStatusUI status={status} backgroundColor={buttonStyle}/>
+    return < TaskStatusUI status={status} color={colorStyle}/>
 }

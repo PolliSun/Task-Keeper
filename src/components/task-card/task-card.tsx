@@ -11,9 +11,9 @@ type TaskCardProps = {
 export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSelected}) => {
   const pinned = task.pinned ? "избранный" : null;
 
-  let buttonStyle = "";
+  let colorStyle = "";
   if (pinned === "избранный") {
-    buttonStyle = "#f7acea";
+    colorStyle = "#ff8fec";
   }
 
   if (!task) return null;
@@ -26,7 +26,7 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSele
       }}
       onClickTask={onClickTask}
       pinned={pinned}
-      backgroundColor={buttonStyle}
+      color={colorStyle}
       isTaskSelected={isTaskSelected}
     />
   );

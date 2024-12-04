@@ -3,16 +3,16 @@ import styles from "./task-status.module.css";
 
 type TaskStatusUIProps = {
   status: string;
-  backgroundColor: string;
+  color: string;
 };
 
 export const TaskStatusUI: FC<TaskStatusUIProps> = ({
   status,
-  backgroundColor,
+  color,
 }) => {
   return (
-    <div className={styles.status} style={{ backgroundColor }}>
-      <h3 className={styles.title}>{status}</h3>
+    <div className={styles.status} >
+      <h3 className={styles.title} style={{ color }}>{status}</h3>
     </div>
   );
 };

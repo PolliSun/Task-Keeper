@@ -3,12 +3,12 @@ import { TTask } from "../../../types/type";
 import styles from "./task-card.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { TaskStatus } from "../../task-status/task-status";
-import { LuCalendarX } from "react-icons/lu";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 type TaskCardUIProps = {
   task: TTask;
   pinned: string | null;
-  backgroundColor: string;
+  color: string;
   isTaskSelected: (taskId: string) => boolean;
   onClickTask: () => void;
 };
@@ -16,7 +16,7 @@ type TaskCardUIProps = {
 export const TaskCardUI: FC<TaskCardUIProps> = ({
   task,
   pinned,
-  backgroundColor,
+  color,
   isTaskSelected,
   onClickTask,
 }) => {
@@ -33,7 +33,7 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
       </div>
       <div className={styles.buttonContainer}>
         <div className={styles.endDateContainer}>
-          <LuCalendarX size={14} />
+          <FaRegCalendarAlt size={14} />
           <h3 className={styles.endDate}>
             {new Date(task.date).toLocaleDateString("ru-RU", {
               day: "2-digit",
@@ -45,8 +45,10 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
         <TaskPriority priority={task.priority} />
         <TaskStatus status={task.status} />
         {pinned && (
-          <div className={styles.pinned} style={{ backgroundColor }}>
-            <h3 className={styles.pinnedTitle}>{pinned}</h3>
+          <div className={styles.pinned}>
+            <h3 className={styles.pinnedTitle} style={{ color }}>
+              {pinned}
+            </h3>
           </div>
         )}
       </div>
