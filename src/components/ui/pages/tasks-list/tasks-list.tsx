@@ -28,12 +28,7 @@ type TasksListUIProps = {
   selectedDay: TDay | null;
   filteredDataTasks: TTask[];
   isDaySelected: (dayId: string) => boolean;
-  totalTasks: number;
   visibleSelectedDay: boolean;
-  currentPage: number;
-  totalPages: number;
-  nextPage: () => void;
-  prevPage: () => void;
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({
@@ -55,11 +50,6 @@ export const TasksListUI: FC<TasksListUIProps> = ({
   filteredDataTasks,
   isDaySelected,
   visibleSelectedDay,
-  totalTasks,
-  currentPage,
-  totalPages,
-  nextPage,
-  prevPage,
 }) => {
   return (
     <section className={styles.content}>
@@ -84,27 +74,6 @@ export const TasksListUI: FC<TasksListUIProps> = ({
               />
             )}
           </ul>
-          {totalTasks > 5 && !visibleCalendar && (
-            <div className={styles.pagination}>
-              <button
-                onClick={prevPage}
-                disabled={currentPage === 1}
-                className={styles.paginationButton}
-              >
-                <GrPrevious size={12}/> предыдущая 
-              </button>
-              <span className={styles.pageInfo}>
-                {currentPage} / {totalPages}
-              </span>
-              <button
-                onClick={nextPage}
-                disabled={currentPage === totalPages}
-                className={styles.paginationButton}
-              >
-                следующая <GrNext size={12}/>
-              </button>
-            </div>
-          )}
         </div>
       </div>
 

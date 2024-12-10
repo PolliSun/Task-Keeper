@@ -20,17 +20,8 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [visibleSelectedDay, setVisibleSelectedDay] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const totalTasks = tasks.length;
   const tasksPerPage = 5;
-
-  const nextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
 
   const searchResults = useSelector(
     (state: RootState) => state.tasks.searchResults
@@ -90,7 +81,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
     if (tasks.length === 0) {
       return "Сейчас у вас нет задач, давайте создадим их!";
     }
-    return `Ваши задачи: ${completedTasks} / ${totalTasks}`;
+    return `Ваши задачи: выполнено ${completedTasks} из ${totalTasks}`;
   }, [
     isSearching,
     isFavoritesVisible,
@@ -185,42 +176,13 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
     setSelectedTaskId(updatedTask.id);
   };
 
-  const filteredTasks = useMemo(() => {
-    return tasks
-      .filter((task) => {
-        if (isSearching) {
-          return searchResults.includes(task);
-        }
-        if (isFavoritesVisible) {
-          return task.pinned;
-        }
-        if (isCalendarVisible) {
-          return false;
-        }
-        return true;
-      })
-      .slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
-  }, [
-    tasks,
-    isSearching,
-    isFavoritesVisible,
-    isCalendarVisible,
-    searchResults,
-    currentPage,
-    tasksPerPage,
-  ]);
+  const filteredTasks = isFavoritesVisible
+  ? tasks.filter((task) => task.pinned)
+  : isCalendarVisible
+  ? []
+  : tasks;
+const displayedTasks = isCalendarVisible ? [] : filteredTasks;
 
-  const totalPages = useMemo(
-    () =>
-      Math.ceil(
-        (isSearching
-          ? searchResults.length
-          : isFavoritesVisible
-          ? tasks.filter((task) => task.pinned).length
-          : tasks.length) / tasksPerPage
-      ),
-    [tasks, isSearching, isFavoritesVisible, searchResults, tasksPerPage]
-  );
 
   return (
     <>
@@ -235,7 +197,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
       <TasksListUI
         title={title}
         titleData={titleData}
-        tasks={filteredTasks}
+        tasks={isSearching ? searchResults : displayedTasks}
         selectedTask={selectedTask}
         isTaskSelected={isTaskSelected}
         onTaskSelect={handleSelectTask}
@@ -251,11 +213,6 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
         filteredDataTasks={filteredDataTasks}
         isDaySelected={isDaySelected}
         visibleSelectedDay={visibleSelectedDay}
-        totalTasks={totalTasks}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        nextPage={nextPage}
-        prevPage={prevPage}
       />
     </>
   );
