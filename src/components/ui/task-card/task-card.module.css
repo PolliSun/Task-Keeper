@@ -5,14 +5,14 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 20px 0 0;
-  /*   background-color: #fbe9e7; */
-  background-color: #4b608b75;
+  background-color: #ffffff;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
+  border: 1px solid #e3e3e3;
 }
 
 .selectedCard {
-  background-color:  #0084ff57;
+  background-color:  #e3e3e3;
 }
 
 .dataContainer {
@@ -136,7 +136,6 @@
   padding: 2px 4px;
   font-size: 12px;
   background-color: #ffffffa3;
-  border: 2px solid #85858563;
   gap: 3px;
 }
 

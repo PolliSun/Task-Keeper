@@ -1,7 +1,8 @@
 .factsContainer {
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f7d3bc9c;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
   border-radius: calc(0.5rem - 2px);
   width: 100%;
 }

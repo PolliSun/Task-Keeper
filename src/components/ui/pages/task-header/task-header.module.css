@@ -49,7 +49,7 @@
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
-  background-color: #ff9c9c; 
+  background-color: #ff7e7e; 
   border: none;
   border-radius: 10px 10px 0 0 ; 
   cursor: pointer;
@@ -85,10 +85,11 @@
 }
 
 .button.active {
-  background-color: #FF4500; 
+  /* background-color: #616161;  */
   transform: translateY(2px); 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   height: 57px;
+  color: #000000;
 }
 
 .buttonSearch.active {

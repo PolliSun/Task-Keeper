@@ -1,8 +1,4 @@
 .taskList {
-  border-radius: calc(0.5rem - 2px);
-  background-color: #efe2ecc9;
-  box-shadow: 5px 5px #b1b1b1bf;
-  padding: 20px;
   margin: 20px 0;
   display: flex;
   flex-direction: column;
@@ -12,7 +8,7 @@
 .taskItem {
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
-  background-color: #b9c6d79e;
+  border: 1px solid #e3e3e3;
 }
 
 .title {
@@ -20,5 +16,9 @@
 }
 
 .titleInfo {
-  font-size: 10px;
+  font-size: 14px;
+}
+
+.dataInfo {
+  font-size: 12px;
 }

@@ -16,13 +16,12 @@ export const DayDetailsUI: FC<DayDetailsUIProps> = ({ tasks, selectedDay }) => {
             <li key={task.id} className={styles.taskItem}>
               <div className={styles.taskInfo}>
                 <h2 className={styles.titleInfo}>{task.title}</h2>
-                <p>
+                <p className={styles.dataInfo}>
                   Дата начала: {new Date(task.startDate).toLocaleDateString()}
                 </p>
-                <p>
+                <p className={styles.dataInfo}>
                   Дата окончания: {new Date(task.endDate).toLocaleDateString()}
                 </p>
-                <p>Дата создания: {new Date(task.date).toLocaleDateString()}</p>
               </div>
             </li>
           ))}

@@ -49,14 +49,11 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
     return tasks.filter((task) => {
       const taskStartDate = new Date(task.startDate);
       const taskEndDate = new Date(task.endDate);
-      const taskDate = new Date(task.date);
 
       return (
         taskStartDate.toDateString() === selectedDate.toDateString() ||
         taskEndDate.toDateString() === selectedDate.toDateString() ||
-        taskDate.toDateString() === selectedDate.toDateString() ||
-        (selectedDate >= taskStartDate && selectedDate <= taskEndDate) ||
-        selectedDate === taskDate
+        (selectedDate >= taskStartDate && selectedDate <= taskEndDate)
       );
     });
   }, [tasks, selectedDay]);

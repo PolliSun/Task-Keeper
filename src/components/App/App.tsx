@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
 import { Tasks } from "../../pages/tasks/tasks";
-import { Header } from "../Header/Header";
+import { Header } from "../header/Header";
 import { Footer } from "../ui/footer/footer";
 
 import styles from "./app.module.css";
@@ -19,7 +19,7 @@ export const App: FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/task-page" element={<Tasks />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .header {
   margin: 10px 0;
   color: #000;
-  background-color: #fd91917d;
+  background-color: #ffffff;
   border-radius: calc(0.5rem - 2px);
   padding: 5px 20px;
 }
@@ -14,8 +14,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  background-color: #ffc8f947;
-  border: 5px solid #ff7d7d29;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
   border-radius: calc(0.5rem - 2px);
   padding: 20px;
   flex-grow: 1;
@@ -25,7 +25,7 @@
 .weekdaysDay {
   display: flex;
   flex-direction: column;
-  background-color: #917972b8;
+  background-color: #ffffff;
   border-radius: calc(0.5rem - 2px);
   padding: 20px;
   gap: 10px;
@@ -34,7 +34,6 @@
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background-color: #fce2c5de;
   width: 100%;
   text-align: center;
   margin-bottom: 5px;

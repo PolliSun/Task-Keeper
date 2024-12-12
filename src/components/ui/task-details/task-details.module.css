@@ -2,12 +2,10 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 20px 0;
   border-radius: calc(0.5rem - 2px);
-  padding: 20px;
+  margin: 10px;
   gap: 20px;
-  background-color: #efe2ecc9;
-  box-shadow: 5px 5px #b1b1b1bf;
+  background-color: #fdfdfd;
 }
 
 .titleContainer {
@@ -66,7 +64,7 @@
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #a2d3a2;
+  background-color: #ff8989;
 }
 
 .customCheckbox::after {
@@ -77,7 +75,7 @@
   top: 2px;
   width: 4px;
   height: 8px;
-  border: solid #837f7f;
+  border: solid #000000;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }

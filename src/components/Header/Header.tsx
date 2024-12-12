@@ -19,7 +19,7 @@ export const Header: FC = () => {
       </a>
       <nav className={styles.navigation}>
         <NavLink to={"/task-page"} className={styles.navLink}>
-          Задачи
+          =
         </NavLink>
       </nav>
     </header>

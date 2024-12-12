@@ -2,17 +2,15 @@
   display: flex;
   gap: 20px;
   flex-direction: column;
-  background-color: #efe2ecc9;
-  box-shadow: 5px 5px #b1b1b1bf;
-  padding: 25px;
+  background-color: #ffffff;
   border-radius: calc(0.5rem - 2px);
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .formInput {
   border-radius: calc(0.5rem - 2px);
   height: 2.25rem;
-  border: 2px solid #8585858a;
+  border: 1px solid #e3e3e3;
   width: 100%;
   padding: 5px;
   resize: none;
@@ -23,7 +21,7 @@
 .textareaSubtask {
   border-radius: calc(0.5rem - 2px);
   height: 2.5rem;
-  border: 2px solid #85858542;
+  border: 1px solid #e3e3e3;
   width: 100%;
   padding: 5px;
   resize: none;
@@ -34,7 +32,7 @@
 .formDate {
   border-radius: calc(0.5rem - 2px);
   height: 2rem;
-  border: 2px solid #85858542;
+  border: 1px solid #e3e3e3;
   width: 100%;
   font-size: 14px;
   padding: 5px;
@@ -79,7 +77,7 @@
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
   background-color: #ffffffa1;
-  border: 2px solid #85858542;
+  border: 1px solid #e3e3e3;
   transition: background-color 0.3s;
   font-size: 13px;
   flex: 1;
