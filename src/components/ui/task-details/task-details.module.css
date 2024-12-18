@@ -19,20 +19,17 @@
   display: grid;
   grid-template-columns: repeat(2, max-content);
   column-gap: 5px;
+  align-items: center;
 }
 
 .titleColumn {
-  background-color: #8f8f8f2e;
   margin: 4px;
-  border-radius: calc(0.5rem - 2px);
-  padding: 2px 4px;
   font-size: 12px;
 }
 
 .title {
   font-size: 16px;
   font-family: "Caveat", sans-serif;
-  font-style: italic;
 }
 
 .customCheckboxContainer {
@@ -64,7 +61,7 @@
 }
 
 .hiddenCheckbox:checked + .customCheckbox {
-  background-color: #ff8989;
+  background-color: #ffdcab;
 }
 
 .customCheckbox::after {
@@ -108,13 +105,13 @@
   display: flex;
   justify-content: center;
   border-radius: calc(0.5rem - 2px);
-  background-color: #8f8f8f2e;
+  background-color: #ffdcab;
   padding: 5px 0;
   flex: 1;
 }
 
 .buttonСlip.active {
-  background: radial-gradient(#ffffff00, #f7bff4);
+  background: #FFB69B;
 }
 
 .buttonEdit {
@@ -146,9 +143,12 @@
 }
 
 .createDate {
-  background-color: #d1c9ed80;
-  border-radius: calc(0.5rem - 2px);
-  padding: 2px 4px;
+  color: #d1d1d1;
+  cursor: default;
+}
+
+.createDate:hover {
+  color: #000000;
 }
 
 .createDate,
@@ -175,21 +175,25 @@
   margin: 4px;
   border-radius: calc(0.5rem - 2px);
   cursor: pointer;
-  background-color: #8f8f8f2e;
-  transition: background-color 0.3s;
-  font-size: 12px;
+  transition: color 0.3s;
+  font-size: 12px;    
+  border: 1px solid #e3e3e3;
+}
+
+.statusGroup label.active {
+  border: 1px solid #b1b1b1;
 }
 
 .statusGroup label.active:nth-child(1) {
-  background-color: #a2d3a2;
+  color: #54c154;
 }
 
 .statusGroup label.active:nth-child(2) {
-  background-color: #a5e3ff;
+  color: #4bc7ff;
 }
 
 .statusGroup label.active:nth-child(3) {
-  background-color: #fba4a4;
+  color: #ff7777;
 }
 
 .buttonContainer {
@@ -205,7 +209,7 @@
   margin: 4px;
   font-size: 12px;
   border-radius: calc(0.5rem - 2px);
-  background-color: #e4e0f3;
+  /* border: 1px solid #e3e3e3; */
 }
 
 .description {

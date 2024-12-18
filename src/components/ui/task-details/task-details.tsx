@@ -56,7 +56,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
         </div>
         <div className={styles.titleContainer}>
           <p className={styles.createDate}>
-            {new Date(task.date).toLocaleDateString()}
+            создан: {new Date(task.date).toLocaleDateString()}
           </p>
           <h2 className={styles.title}>{task.title}</h2>
         </div>
@@ -89,7 +89,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                   year: "numeric",
                 })
               : "не назначено"}{" "}
-            /{" "}
+            -{" "}
             {task.endDate
               ? new Date(task.endDate).toLocaleDateString("ru-RU", {
                   day: "2-digit",

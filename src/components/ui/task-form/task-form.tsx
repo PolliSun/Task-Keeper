@@ -46,7 +46,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   return (
     <>
       <div className={styles.taskForm}>
+        <label className={styles.label} htmlFor="title">Придумайте заголовок задачи *</label>
         <textarea
+          id="title"
           name="title"
           value={task.title}
           placeholder="Заголовок задачи"
@@ -54,7 +56,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           onChange={onTitleChange}
           ref={titleRef}
         />
+        <label className={styles.label} htmlFor="description">Придумайте описание задачи</label>
         <textarea
+          id="description"
           name="description"
           value={task.description}
           placeholder="Описание задачи"
@@ -62,7 +66,8 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           onChange={onDescriptionChange}
           ref={descriptionRef}
         />
-        <div className={styles.priorityGroup}>
+        <label className={styles.label} htmlFor="priorityGroup">Выберите приоритет *</label>
+        <div id="priorityGroup" className={styles.priorityGroup}>
           {["высокий", "средний", "низкий", "без приоритета"].map((label) => (
             <label
               key={label}
@@ -80,9 +85,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             </label>
           ))}
         </div>
-
-        <div className={styles.dateContainer}>
-          <label htmlFor="startDate">Дата начала:</label>
+        <label className={styles.label} htmlFor="dateContainer">Выберите период активности задачи по необходимости</label>
+        <div id="dateContainer" className={styles.dateContainer}>
+          <label htmlFor="startDate">дата начала:</label>
           <input
             id="startDate"
             type="date"
@@ -90,7 +95,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             className={styles.formDate}
             onChange={onStartDateChange}
           />
-          <label htmlFor="endDate">Дата окончания:</label>
+          <label htmlFor="endDate">дата окончания:</label>
           <input
             id="endDate"
             type="date"
@@ -99,13 +104,17 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             onChange={onEndDateChange}
           />
         </div>
-
+        <label className={styles.label} htmlFor="subtasks">Создайте список подзадач по необходимости</label>
         {task.subtasks.map((subtask, index) => (
-          <div key={index} className={styles.buttonSubtaskContainer}>
+          <div
+            id="subtasks"
+            key={index}
+            className={styles.buttonSubtaskContainer}
+          >
             <textarea
               name="subtasks"
               value={subtask.title}
-              placeholder={`Подзадача ${index + 1}`}
+              placeholder={`подзадача ${index + 1}`}
               className={styles.textareaSubtask}
               onChange={(e) => onSubtaskChange(index, e.target.value)}
               ref={(e) => {
@@ -122,6 +131,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             </button>
           </div>
         ))}
+
         <button className={styles.buttonForm} onClick={onSubtaskAdd}>
           + Добавить пункт
         </button>
