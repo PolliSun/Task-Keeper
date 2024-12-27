@@ -36,8 +36,8 @@ const taskSlice = createSlice({
     addSubtask(
       state,
       action: PayloadAction<{
-        taskId: string;
-        subtask: { id: string; title: string };
+        taskId: number;
+        subtask: { id: number; title: string };
       }>
     ) {
       const task = state.tasks.find(
@@ -49,13 +49,13 @@ const taskSlice = createSlice({
         saveTasksToStorage(state.tasks);
       }
     },
-    deliteTask(state, action: PayloadAction<string>) {
+    deliteTask(state, action: PayloadAction<number>) {
       state.tasks = state.tasks.filter((tasks) => tasks.id !== action.payload);
       saveTasksToStorage(state.tasks);
     },
     deliteSubtask(
       state,
-      action: PayloadAction<{ taskId: string; subtaskId: string }>
+      action: PayloadAction<{ taskId: number; subtaskId: number }>
     ) {
       const task = state.tasks.find(
         (task) => task.id === action.payload.taskId
@@ -69,7 +69,7 @@ const taskSlice = createSlice({
     },
     toggleTaskStatus(
       state,
-      action: PayloadAction<{ taskId: string; newStatus: string }>
+      action: PayloadAction<{ taskId: number; newStatus: string }>
     ) {
       const { taskId, newStatus } = action.payload;
       const task = state.tasks.find((task) => task.id === taskId);
@@ -81,8 +81,8 @@ const taskSlice = createSlice({
     toggleSubtaskStatus(
       state,
       action: PayloadAction<{
-        taskId: string;
-        subtaskId: string;
+        taskId: number;
+        subtaskId: number;
         completed: boolean;
       }>
     ) {
@@ -96,7 +96,7 @@ const taskSlice = createSlice({
         }
       }
     },
-    pinTask(state, action: PayloadAction<string>) {
+    pinTask(state, action: PayloadAction<number>) {
       const task = state.tasks.find((task) => task.id === action.payload);
       if (task) {
         task.pinned = !task.pinned;

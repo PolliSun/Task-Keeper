@@ -9,7 +9,7 @@ type TaskCardUIProps = {
   task: TTask;
   pinned: string | null;
   color: string;
-  isTaskSelected: (taskId: string) => boolean;
+  isTaskSelected: (taskId: number) => boolean;
   onClickTask: () => void;
 };
 

@@ -9,10 +9,10 @@ import { FiEdit2 } from "react-icons/fi";
 
 type TaskDetailsUIProps = {
   task: TTask;
-  onDelete: (id: string) => void;
-  onPin: (id: string) => void;
+  onDelete: (id: number) => void;
+  onPin: (id: number) => void;
   onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onToggle: (taskId: string, subtaskId: string, completed: boolean) => void;
+  onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
   onEditTask: () => void;
 };
 
@@ -55,10 +55,10 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           </button>
         </div>
         <div className={styles.titleContainer}>
+          <p className={styles.createDate}>номер задачи: {task.id}</p>
           <p className={styles.createDate}>
             создан: {new Date(task.date).toLocaleDateString()}
           </p>
-          <h2 className={styles.title}>{task.title}</h2>
         </div>
         <div className={styles.priorityContainer}>
           <span className={styles.titleColumn}>статус:</span>
@@ -101,6 +101,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <span className={styles.titleColumn}>приоритет:</span>
           <TaskPriority priority={task.priority} />
         </div>
+        <h2 className={styles.title}>{task.title}</h2>
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>{task.description}</p>
         </div>

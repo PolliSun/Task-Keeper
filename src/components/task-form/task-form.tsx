@@ -21,7 +21,7 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
   );
-  const [subtasks, setSubtasks] = useState<{ id: string; title: string; }[]>(
+  const [subtasks, setSubtasks] = useState<{ id: number; title: string; }[]>(
     initialData?.subtasks || []
   );
   const [pinned, setPinned] = useState(false);
@@ -70,8 +70,9 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   };
 
   const handleSubtaskAdd = () => {
+    const generateFourDigitId = () => Math.floor(1000 + Math.random() * 9000);
     const newSubtask = {
-      id: Math.random().toString(),
+      id: generateFourDigitId(),
       title: "",
     };
     setSubtasks([...subtasks, newSubtask]);
@@ -81,7 +82,7 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
     }
   };
 
-  const handleSubtaskDelete = (subtaskId: string) => {
+  const handleSubtaskDelete = (subtaskId: number) => {
     const indexToRemove = subtasks.findIndex((subtask) => subtask.id === subtaskId);
     setSubtasks((prevSubtasks) => prevSubtasks.filter((subtask) => subtask.id !== subtaskId));
     subtasksRefs.current.splice(indexToRemove, 1);
@@ -97,8 +98,9 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   };
 
   const handleSubmit = () => {
+    const generateFourDigitId = () => Math.floor(1000 + Math.random() * 9000);
     const taskData: TTask = {
-      id: initialData?.id || Math.random().toString(),
+      id: initialData?.id || generateFourDigitId(),
       title,
       description,
       date: initialData?.date || new Date().toISOString(),

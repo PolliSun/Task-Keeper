@@ -17,18 +17,31 @@
 
 .textareaTitle,
 .textareaDescription,
-.textareaSubtask {
+.textareaSubtask,
+.formDate {
   border-radius: calc(0.5rem - 2px);
   height: 2.5rem;
   border: 1px solid #e3e3e3;
   width: 100%;
   padding: 5px;
   resize: none;
-  font-size: 14px;
+  font-size: 13px;
   background-color: #ffffffa1;
+  color: #717171;
 }
 
 .formDate {
+
+  height: 2rem;
+}
+
+.textareaTitle::placeholder,
+.textareaDescription::placeholder,
+.textareaSubtask::placeholder {
+  color: #bbbbbb;
+}
+
+/* .formDate {
   border-radius: calc(0.5rem - 2px);
   height: 2rem;
   border: 1px solid #e3e3e3;
@@ -36,6 +49,12 @@
   font-size: 14px;
   padding: 5px;
   background-color: #ffffffa1;
+} */
+
+.subtasksContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
 }
 
 .buttonForm {
@@ -43,20 +62,30 @@
   justify-content: center;
   align-items: center;
   border-radius: calc(0.5rem - 2px);
-  padding: 5px;
-  background-color: #e3e3e3;
+  padding: 5px 15px;
+  background-color: #ffdacd;
   font-weight: bold;
   font-size: 14px;
 }
 
+.buttonFormDelite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: calc(0.5rem - 2px);
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
 .buttonSubmit {
   border-radius: calc(0.5rem - 2px);
-  background-color: #ffdcab;
+  background-color: #ffebce;
   width: 100%;
   height: 30px;
   font-weight: bolder;
   font-size: 14px;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .priorityGroup {
@@ -82,27 +111,34 @@
   flex: 1;
   justify-content: center;
   text-transform: lowercase;
+  font-weight: bold;
+  color: #6d6d6d;
 }
 
 .priorityGroup label.active {
-  background-color: #e3e3e3;
+  border: 1px solid #000000b3;
+  color: #356ca8;
 }
 
 .label {
   font-size: 14px;
   margin-bottom: 10px;
   margin-top: 10px;
+  color: #755c4d;
+  font-weight: bold;
 }
 
 .dateContainer {
   display: grid;
   align-items: center;
+  justify-items: end;
   grid-template-columns: repeat(2, 2fr);
-  gap: 10px;
+  gap: 3px;
 }
 
 .dateContainer label {
-  font-size: 14px;
+  font-size: 13px;
+  color: #bbbbbb;
 }
 
 .buttonSubtaskContainer {

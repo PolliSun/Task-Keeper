@@ -10,7 +10,7 @@ type TaskFormUIProps = {
     status: string;
     endDate: string;
     priority: string;
-    subtasks: { id: string; title: string }[];
+    subtasks: { id: number; title: string }[];
   };
   isEditing: boolean;
   titleRef: React.RefObject<HTMLTextAreaElement>;
@@ -22,7 +22,7 @@ type TaskFormUIProps = {
   onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPriorityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubtaskAdd: () => void;
-  onSubtaskDelite: (id: string) => void;
+  onSubtaskDelite: (id: number) => void;
   onSubtaskChange: (index: number, value: string) => void;
   onSubmit: () => void;
 };
@@ -46,7 +46,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   return (
     <>
       <div className={styles.taskForm}>
-        <label className={styles.label} htmlFor="title">Придумайте заголовок задачи *</label>
+        <label className={styles.label} htmlFor="title">
+          Придумайте заголовок задачи *
+        </label>
         <textarea
           id="title"
           name="title"
@@ -56,7 +58,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           onChange={onTitleChange}
           ref={titleRef}
         />
-        <label className={styles.label} htmlFor="description">Придумайте описание задачи</label>
+        <label className={styles.label} htmlFor="description">
+          Придумайте описание задачи
+        </label>
         <textarea
           id="description"
           name="description"
@@ -66,7 +70,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           onChange={onDescriptionChange}
           ref={descriptionRef}
         />
-        <label className={styles.label} htmlFor="priorityGroup">Выберите приоритет *</label>
+        <label className={styles.label} htmlFor="priorityGroup">
+          Выберите приоритет *
+        </label>
         <div id="priorityGroup" className={styles.priorityGroup}>
           {["высокий", "средний", "низкий", "без приоритета"].map((label) => (
             <label
@@ -85,7 +91,9 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             </label>
           ))}
         </div>
-        <label className={styles.label} htmlFor="dateContainer">Выберите период активности задачи по необходимости</label>
+        <label className={styles.label} htmlFor="dateContainer">
+          Выберите период активности задачи
+        </label>
         <div id="dateContainer" className={styles.dateContainer}>
           <label htmlFor="startDate">дата начала:</label>
           <input
@@ -104,7 +112,14 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             onChange={onEndDateChange}
           />
         </div>
-        <label className={styles.label} htmlFor="subtasks">Создайте список подзадач по необходимости</label>
+        <div className={styles.subtasksContainer}>
+          <label className={styles.label} htmlFor="subtasks">
+            Создайте список подзадач
+          </label>
+          <button className={styles.buttonForm} onClick={onSubtaskAdd}>
+            +
+          </button>
+        </div>
         {task.subtasks.map((subtask, index) => (
           <div
             id="subtasks"
@@ -124,17 +139,13 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
               }}
             />
             <button
-              className={styles.buttonForm}
+              className={styles.buttonFormDelite}
               onClick={() => onSubtaskDelite(subtask.id)}
             >
               <CgCloseR size={20} />
             </button>
           </div>
         ))}
-
-        <button className={styles.buttonForm} onClick={onSubtaskAdd}>
-          + Добавить пункт
-        </button>
 
         <button
           type="submit"

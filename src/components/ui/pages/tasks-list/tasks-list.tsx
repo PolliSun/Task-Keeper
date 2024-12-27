@@ -13,8 +13,8 @@ import { GrPrevious } from "react-icons/gr";
 type TasksListUIProps = {
   tasks: TTask[];
   selectedTask: TTask | null;
-  onTaskSelect: (taskId: string) => void;
-  isTaskSelected: (taskId: string) => boolean;
+  onTaskSelect: (taskId: number) => void;
+  isTaskSelected: (taskId: number) => boolean;
   title?: string;
   titleData?: string;
   onCreateTask: (newTask: TTask) => void;

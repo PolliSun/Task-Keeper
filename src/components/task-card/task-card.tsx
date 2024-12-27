@@ -5,7 +5,7 @@ import { TTask } from "../../types/type";
 type TaskCardProps = {
   task: TTask;
   onClickTask: () => void;
-  isTaskSelected: (taskId: string) => boolean;
+  isTaskSelected: (taskId: number) => boolean;
 };
 
 export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSelected}) => {

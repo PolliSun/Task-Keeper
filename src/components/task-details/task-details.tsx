@@ -20,7 +20,7 @@ export const TaskDetails: FC<TaskDetailsProps> = memo(
     const [status, setStatus] = useState(task.status || "в работе");
 
     const handleDeleteTask = useCallback(
-      (id: string) => {
+      (id: number) => {
         dispatch(deliteTask(id));
       },
       [dispatch]
@@ -31,7 +31,7 @@ export const TaskDetails: FC<TaskDetailsProps> = memo(
     }, [dispatch, task.id]);
 
     const handleSubtaskToggle = useCallback(
-      (taskId: string, subtaskId: string, completed: boolean) => {
+      (taskId: number, subtaskId: number, completed: boolean) => {
         dispatch(toggleSubtaskStatus({ taskId, subtaskId, completed }));
       },
       [dispatch]

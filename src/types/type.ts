@@ -1,5 +1,5 @@
 export type TTask = {
-  id: string;
+  id: number;
   date: string;
   startDate: string;
   endDate: string;
@@ -8,7 +8,7 @@ export type TTask = {
   description: string;
   priority: string;
   pinned: boolean;
-  subtasks?: { id: string; title: string; completed?: boolean;}[];
+  subtasks?: { id: number; title: string; completed?: boolean;}[];
 };
 
 export type TCalendar = {

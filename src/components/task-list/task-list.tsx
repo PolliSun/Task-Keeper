@@ -11,7 +11,7 @@ type TaskListProps = {
 };
 
 export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
-  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -21,7 +21,6 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
   const [visibleSelectedDay, setVisibleSelectedDay] = useState(false);
 
   const totalTasks = tasks.length;
-  const tasksPerPage = 5;
 
   const searchResults = useSelector(
     (state: RootState) => state.tasks.searchResults
@@ -32,7 +31,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
   const dispatch = useDispatch();
 
   const selectedTask = tasks.find((task) => task.id === selectedTaskId) || null;
-  const isTaskSelected = (taskId: string) => selectedTaskId === taskId;
+  const isTaskSelected = (taskId: number) => selectedTaskId === taskId;
 
   const selectedDay = days.find((day) => day.id === selectedDayId) || null;
   const isDaySelected = (dayId: string) => selectedDayId === dayId;
@@ -108,7 +107,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks, days }) => {
     filteredDataTasks,
   ]);
 
-  const handleSelectTask = (id: string) => {
+  const handleSelectTask = (id: number) => {
     setSelectedTaskId(id);
     setShowCreateForm(false);
     setIsCreateActive(false);

@@ -10,12 +10,12 @@
 }
 
 .today {
-  background-color: #ff7e7e;
-  color: #fff;
+  background-color: #ffdacd;
+  color: #000000;
 }
 
 .selectedDay {
-  border: 2px solid #ffa7a7;
+  border: 2px solid #f9bda7;
 }
 
 .haveTasks {
