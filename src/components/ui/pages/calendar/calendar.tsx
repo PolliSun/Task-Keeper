@@ -3,6 +3,7 @@ import styles from "./calendar.module.css";
 import { TDay } from "../../../../types/type";
 import { DayCard } from "../../../day-card/day-card";
 import { HolidayWidget } from "../../../holiday-widget/holiday-widget";
+import { Outlet } from "react-router-dom";
 
 type CalendarUIProps = {
   months: string[];
@@ -12,8 +13,6 @@ type CalendarUIProps = {
   onPreviousMonth: () => void;
   onNextMonth: () => void;
   days: TDay[];
-  onDaySelect: (id: string) => void;
-  isDaySelected: (id: string) => boolean;
 };
 
 export const CalendarUI: FC<CalendarUIProps> = ({
@@ -24,8 +23,6 @@ export const CalendarUI: FC<CalendarUIProps> = ({
   onNextMonth,
   weekdays,
   days,
-  onDaySelect,
-  isDaySelected,
 }) => {
   return (
     <>
@@ -52,8 +49,7 @@ export const CalendarUI: FC<CalendarUIProps> = ({
             <DayCard
               key={day.id}
               day={day}
-              onClickDay={() => onDaySelect(day.id)}
-              isDaySelected={isDaySelected}
+              isToday={day.isToday}
             />
           ))}
         </div>
@@ -61,6 +57,9 @@ export const CalendarUI: FC<CalendarUIProps> = ({
       </section>
     </div>
     < HolidayWidget />
+    {/* <section>
+      
+    </section> */}
     </>
   );
 };

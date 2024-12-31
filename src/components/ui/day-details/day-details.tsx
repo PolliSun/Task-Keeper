@@ -3,16 +3,18 @@ import { TDay, TTask } from "../../../types/type";
 import styles from "./day-details.module.css";
 
 type DayDetailsUIProps = {
-  tasks: TTask[];
-  selectedDay: TDay;
+  day:TDay;
+  tasks?: TTask[];
 };
 
-export const DayDetailsUI: FC<DayDetailsUIProps> = ({ tasks, selectedDay }) => {
+export const DayDetailsUI: FC<DayDetailsUIProps> = ({ day, tasks }) => {
   return (
     <div className={styles.container}>
-      {tasks.length > 0 ? (
+      <h3>{day.id}</h3>
+      <p>{day.tasks.length} задач</p>
+      {/* {tasks.length > 0 ? ( */}
         <ul className={styles.taskList}>
-          {tasks.map((task) => (
+          {tasks?.map((task) => (
             <li key={task.id} className={styles.taskItem}>
               <div className={styles.taskInfo}>
                 <h2 className={styles.titleInfo}>{task.title}</h2>
@@ -26,7 +28,7 @@ export const DayDetailsUI: FC<DayDetailsUIProps> = ({ tasks, selectedDay }) => {
             </li>
           ))}
         </ul>
-      ) : null}
+      {/* ) : null} */}
     </div>
   );
 };

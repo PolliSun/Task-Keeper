@@ -5,129 +5,136 @@ import { RiSearchLine } from "react-icons/ri";
 import { LuChevronDownSquare } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 import { BiCalendar } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
 type TaskHeaderUIProps = {
-  onCreateTask: () => void;
-  isCreateActive: boolean;
   onSearch: (searchTerm: string) => void;
-  isSearchVisible: boolean;
-  onSearchClick: () => void;
-  onFavoritesClick: () => void;
-  isFavoritesVisible: boolean;
   searchTerm: string;
   searchInputRef: RefObject<HTMLInputElement>;
-  isFocused: boolean;
-  onFocus: () => void;
-  onBlur: () => void;
-  isSortOpen: boolean;
+  onSearchClick: () => void;
+  isSearchVisible: boolean;
   onSortClick: () => void;
+  isSortOpen: boolean;
   onSortSelect: (sortBy: "date" | "alphabet" | "priority" | "status") => void;
-  onCalendarClick: () => void;
-  isCalendarVisible: boolean;
+  onFilterSelect: (sortBy: "favorites" | "completed" | "search" | "all") => void;
+  activeFilter: string;
+  onClickCalendar: () => void;
 };
 
 export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
-  onCreateTask,
-  isCreateActive,
   onSearch,
-  isSearchVisible,
-  isFavoritesVisible,
-  onSearchClick,
-  onFavoritesClick,
   searchTerm,
   searchInputRef,
-  isFocused,
-  onFocus,
-  onBlur,
-  isSortOpen,
+  onSearchClick,
+  isSearchVisible,
   onSortClick,
+  isSortOpen,
   onSortSelect,
-  onCalendarClick,
-  isCalendarVisible,
+  onClickCalendar,
+  onFilterSelect,
+  activeFilter,
 }) => {
   return (
-    <>
-      <header className={styles.header}>
-        <div
-          className={`${styles.searchContainer} ${
+    <header className={styles.header}>
+      
+      <button
+        className={`${styles.button} ${styles.buttonSearch} ${
+          isSearchVisible ? styles.active : ""
+        }`}
+        onClick={onSearchClick}
+      >
+        <input
+          type="text"
+          ref={searchInputRef}
+          value={searchTerm}
+          onChange={(e) => onSearch(e.target.value)}
+          className={`${styles.searchInput} ${
             isSearchVisible ? styles.active : ""
           }`}
+          placeholder="Поиск по заметкам..."
+        />
+      </button>
+
+      <div className={styles.filters}>
+        <button
+          className={`${styles.button} ${styles.filterButton} ${
+            activeFilter === "all" ? styles.active : ""
+          }`}
+          onClick={() => onFilterSelect("all")}
         >
-          <button
-            className={`${styles.button} ${styles.buttonSearch} ${
-              isSearchVisible ? styles.active : ""
-            }`}
-            onClick={onSearchClick}
-          >
-            <RiSearchLine
-              size={23}
-              className={isFocused ? styles.rotateIconSearch : ""}
-            />
-          </button>
-          <input
-            ref={searchInputRef}
-            type="text"
-            value={searchTerm}
-            onChange={(e) => onSearch(e.target.value)}
-            className={`${styles.searchInput} ${
-              isSearchVisible ? styles.active : ""
-            }`}
-            placeholder="Поиск по заметкам..."
-            onFocus={onFocus}
-            onBlur={onBlur}
+          Все
+        </button>
+        <button
+          className={`${styles.button} ${styles.filterButton} ${
+            activeFilter === "favorites" ? styles.active : ""
+          }`}
+          onClick={() => onFilterSelect("favorites")}
+        >
+          Избранное
+        </button>
+        <button
+          className={`${styles.button} ${styles.filterButton} ${
+            activeFilter === "completed" ? styles.active : ""
+          }`}
+          onClick={() => onFilterSelect("completed")}
+        >
+          Выполненные
+        </button>
+      </div>
+
+      <button
+          onClick={onSortClick}
+          className={`${styles.button} ${styles.sortButton} ${
+            isSortOpen ? styles.active : ""
+          }`}
+        >
+          <LuChevronDownSquare
+            size={23}
+            className={isSortOpen ? styles.iconRotated : styles.icon}
           />
+        </button>
+      {isSortOpen && (
+        <div className={styles.sortDropdown}>
+          <button onClick={() => onSortSelect("date")}>По дате</button>
+          <button onClick={() => onSortSelect("alphabet")}>По алфавиту</button>
+          <button onClick={() => onSortSelect("priority")}>
+            По приоритету
+          </button>
+          <button onClick={() => onSortSelect("status")}>По статусу</button>
         </div>
-        <div className={styles.buttonContainer}>
-          <button
-            onClick={onSortClick}
-            className={`${styles.button} ${styles.sortButton} ${
-              isSortOpen ? styles.active : ""
-            }`}
-          >
-            <LuChevronDownSquare
-              size={23}
-              className={isSortOpen ? styles.iconRotated : styles.icon}
-            />
-          </button>
-          <button
-            className={`${styles.button} ${styles.buttonCalendar} ${
-              isCalendarVisible ? styles.active : ""
-            }`}
-            onClick={onCalendarClick}
-          >
-            <BiCalendar size={23} />
-          </button>
-          <button
-            onClick={onFavoritesClick}
-            className={`${styles.button} ${styles.favoritesButton} ${
-              isFavoritesVisible ? styles.active : ""
-            }`}
-          >
-            <FaRegHeart size={22} />
-          </button>
-          <button
-            className={`${styles.button} ${styles.buttonCreate} ${
-              isCreateActive ? styles.active : ""
-            }`}
-            onClick={onCreateTask}
-          >
-            <RiStickyNoteAddLine size={23} />
-          </button>
-        </div>
-        {isSortOpen && (
-          <div className={styles.sortDropdown}>
-            <button onClick={() => onSortSelect("date")}>По дате</button>
-            <button onClick={() => onSortSelect("alphabet")}>
-              По алфавиту
-            </button>
-            <button onClick={() => onSortSelect("priority")}>
-              По приоритету
-            </button>
-            <button onClick={() => onSortSelect("status")}>По статусу</button>
-          </div>
-        )}
-        {}
-      </header>
-    </>
+      )}
+
+
+      <NavLink
+        to="/create"
+        className={({ isActive }) =>
+          `${styles.button} ${styles.buttonCreate} ${
+            isActive ? styles.active : ""
+          }`
+        }
+      >
+        <RiStickyNoteAddLine size={23} />
+      </NavLink>
+      <NavLink
+        to="/calendar"
+        className={({ isActive }) =>
+          `${styles.button} ${styles.buttonCalendar} ${
+            isActive ? styles.active : ""
+          }`
+        }
+      >
+        <BiCalendar size={23} />
+      </NavLink>
+      <NavLink
+        to="/faq"
+        className={({ isActive }) =>
+          `${styles.button} ${styles.buttonTasks} ${
+            isActive ? styles.active : ""
+          }`
+        }
+      >
+        ?
+      </NavLink>
+    </header>
   );
 };

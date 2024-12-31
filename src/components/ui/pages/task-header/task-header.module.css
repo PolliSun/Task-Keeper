@@ -45,7 +45,7 @@
 }
 
 .button {
-  position: absolute;
+  /* position: absolute; */
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
@@ -93,7 +93,7 @@
 }
 
 .buttonSearch.active {
-  padding-right: 250px;
+  /* padding-right: 250px; */
 }
 
 .searchContainer {
@@ -108,9 +108,8 @@
   background-color: #FFF8EB;
   border-radius: calc(0.5rem - 2px);
   outline: none;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  /* transform: translateX(100%);
+  transition: transform 0.4s ease, opacity 0.4s ease; */
   margin-left: 63px;
   cursor: default;
 }

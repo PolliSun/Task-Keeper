@@ -10,12 +10,35 @@ const generateDaysInMonth = (month: number, year: number): TDay[] => {
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const days: TDay[] = [];
 
+  const today = new Date();
+  const todayFormatted = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
   for (let i = 0; i < (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1); i++) {
-    days.push({ id: `empty-${i}`, day: 0, month, year, tasks: [] });
+    days.push({
+      id: `empty-${i}`,
+      day: 0,
+      month,
+      year,
+      tasks: [],
+      isToday: false,
+    });
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
-    days.push({ id: `${year}-${month}-${i}`, day: i, month, year, tasks: [] });
+    const dayFormatted = `${String(i).padStart(2, "0")}-${String(
+      month + 1
+    ).padStart(2, "0")}-${year}`;
+
+    days.push({
+      id: `${year}-${month}-${i}`,
+      day: i,
+      month,
+      year,
+      tasks: [],
+      isToday: dayFormatted === todayFormatted,
+    });
   }
 
   return days;
@@ -25,7 +48,6 @@ interface CalendarState {
   currentDate: { month: number; year: number };
   days: TDay[];
   selectedDate: { day: number; month: number; year: number } | null;
-  // filterPeriod: { startPeriod: string | null; endPeriod: string | null };
 }
 
 const defaultDate = {
@@ -35,9 +57,10 @@ const defaultDate = {
 
 const initialState: CalendarState = {
   currentDate: getCalendarFromStorage()?.currentDate || defaultDate,
-  days: getCalendarFromStorage()?.days || generateDaysInMonth(defaultDate.month, defaultDate.year),
+  days:
+    getCalendarFromStorage()?.days ||
+    generateDaysInMonth(defaultDate.month, defaultDate.year),
   selectedDate: null,
-  // filterPeriod: { startPeriod: null, endPeriod: null },
 };
 
 const calendarSlice = createSlice({
@@ -46,22 +69,36 @@ const calendarSlice = createSlice({
   reducers: {
     setMonth(state, action: PayloadAction<number>) {
       state.currentDate.month = action.payload;
-      state.days = generateDaysInMonth(state.currentDate.month, state.currentDate.year);
-      saveCalendarToStorage({ currentDate: state.currentDate, days: state.days });
+      state.days = generateDaysInMonth(
+        state.currentDate.month,
+        state.currentDate.year
+      );
+      saveCalendarToStorage({
+        currentDate: state.currentDate,
+        days: state.days,
+      });
     },
     setYear(state, action: PayloadAction<number>) {
       state.currentDate.year = action.payload;
-      state.days = generateDaysInMonth(state.currentDate.month, state.currentDate.year);
-      saveCalendarToStorage({ currentDate: state.currentDate, days: state.days });
+      state.days = generateDaysInMonth(
+        state.currentDate.month,
+        state.currentDate.year
+      );
+      saveCalendarToStorage({
+        currentDate: state.currentDate,
+        days: state.days,
+      });
     },
-    setDate(state, action: PayloadAction<{ day: number; month: number; year: number }>) {
+    setDate(
+      state,
+      action: PayloadAction<{ day: number; month: number; year: number }>
+    ) {
       state.selectedDate = action.payload;
-      saveCalendarToStorage({ currentDate: state.currentDate, days: state.days });
+      saveCalendarToStorage({
+        currentDate: state.currentDate,
+        days: state.days,
+      });
     },
-    // setFilterPeriod(state, action: PayloadAction<{ startPeriod: string; endPeriod: string }>) {
-    //   state.filterPeriod.startPeriod = action.payload.startPeriod;
-    //   state.filterPeriod.endPeriod = action.payload.endPeriod;
-    // },
     goToPreviousMonth(state) {
       if (state.currentDate.month === 0) {
         state.currentDate.month = 11;
@@ -69,8 +106,14 @@ const calendarSlice = createSlice({
       } else {
         state.currentDate.month -= 1;
       }
-      state.days = generateDaysInMonth(state.currentDate.month, state.currentDate.year);
-      saveCalendarToStorage({ currentDate: state.currentDate, days: state.days });
+      state.days = generateDaysInMonth(
+        state.currentDate.month,
+        state.currentDate.year
+      );
+      saveCalendarToStorage({
+        currentDate: state.currentDate,
+        days: state.days,
+      });
     },
     goToNextMonth(state) {
       if (state.currentDate.month === 11) {
@@ -79,19 +122,19 @@ const calendarSlice = createSlice({
       } else {
         state.currentDate.month += 1;
       }
-      state.days = generateDaysInMonth(state.currentDate.month, state.currentDate.year);
-      saveCalendarToStorage({ currentDate: state.currentDate, days: state.days });
+      state.days = generateDaysInMonth(
+        state.currentDate.month,
+        state.currentDate.year
+      );
+      saveCalendarToStorage({
+        currentDate: state.currentDate,
+        days: state.days,
+      });
     },
   },
 });
 
-export const {
-  setMonth,
-  setYear,
-  setDate,
-  goToPreviousMonth,
-  goToNextMonth,
-  // setFilterPeriod,
-} = calendarSlice.actions;
+export const { setMonth, setYear, setDate, goToPreviousMonth, goToNextMonth } =
+  calendarSlice.actions;
 
 export default calendarSlice.reducer;

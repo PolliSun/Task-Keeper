@@ -4,11 +4,9 @@ import { TTask } from "../../types/type";
 
 type TaskCardProps = {
   task: TTask;
-  onClickTask: () => void;
-  isTaskSelected: (taskId: number) => boolean;
 };
 
-export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSelected}) => {
+export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
   const pinned = task.pinned ? "избранный" : null;
 
   let colorStyle = "";
@@ -24,10 +22,8 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task, onClickTask, isTaskSele
         ...task,
         status: task.status || "в работе",
       }}
-      onClickTask={onClickTask}
       pinned={pinned}
       color={colorStyle}
-      isTaskSelected={isTaskSelected}
     />
   );
 });

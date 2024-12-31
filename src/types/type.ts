@@ -25,4 +25,5 @@ export type TDay = {
   month: number;
   year: number;
   tasks: TTask[];
+  isToday: boolean;
 }

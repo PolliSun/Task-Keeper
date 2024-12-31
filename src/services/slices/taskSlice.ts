@@ -9,16 +9,16 @@ interface TaskState {
   tasks: TTask[];
   searchResults: TTask[];
   searchTerm: string;
-  isSearching: boolean;
   sortBy: "date" | "alphabet" | "priority" | "status" | null;
+  filter: "all" | "favorites" | "completed" | "search"; 
 }
 
 const initialState: TaskState = {
   tasks: getTasksFromStorage(),
   searchResults: [],
   searchTerm: "",
-  isSearching: false,
   sortBy: null,
+  filter: "all",
 };
 
 const taskSlice = createSlice({
@@ -116,7 +116,6 @@ const taskSlice = createSlice({
       state.searchTerm = searchTerm;
       if (searchTerm === "") {
         state.searchResults = [];
-        state.isSearching = false;
       } else {
         state.searchResults = state.tasks.filter((task) => {
           const taskTitle = task.title?.toLowerCase() || "";
@@ -127,8 +126,10 @@ const taskSlice = createSlice({
             task.date.includes(searchTerm)
           );
         });
-        state.isSearching = true;
       }
+    },
+    setFilter(state, action: PayloadAction<"all" | "favorites" | "completed" | "search">) {
+      state.filter = action.payload;
     },
     sortTasks(
       state,
@@ -218,6 +219,7 @@ export const {
   toggleSubtaskStatus,
   editTask,
   searchTasks,
+  setFilter,
   sortTasks,
   pinTask,
 } = taskSlice.actions;

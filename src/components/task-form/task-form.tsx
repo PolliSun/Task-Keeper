@@ -1,27 +1,34 @@
 import React, { FC, useState, useRef, useEffect } from "react";
 import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
-import { addSubtask, deliteSubtask, editTask } from "../../services/slices/taskSlice";
+import {
+  addSubtask,
+  addTask,
+  deliteSubtask,
+  editTask,
+} from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type TaskFormProps = {
-  onSubmit: (task: TTask) => void;
   initialData?: TTask;
 };
 
-export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
+export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [title, setTitle] = useState(initialData?.title || "");
-  const [description, setDescription] = useState(initialData?.description || "");
+  const [description, setDescription] = useState(
+    initialData?.description || ""
+  );
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
-  const [status, setStatus] = useState(
-    initialData?.status || "в работе"
-  );
+  const [status, setStatus] = useState(initialData?.status || "в работе");
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
   );
-  const [subtasks, setSubtasks] = useState<{ id: number; title: string; }[]>(
+  const [subtasks, setSubtasks] = useState<{ id: number; title: string }[]>(
     initialData?.subtasks || []
   );
   const [pinned, setPinned] = useState(false);
@@ -56,7 +63,9 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
   };
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setDescription(e.target.value);
   };
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,8 +92,12 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
   };
 
   const handleSubtaskDelete = (subtaskId: number) => {
-    const indexToRemove = subtasks.findIndex((subtask) => subtask.id === subtaskId);
-    setSubtasks((prevSubtasks) => prevSubtasks.filter((subtask) => subtask.id !== subtaskId));
+    const indexToRemove = subtasks.findIndex(
+      (subtask) => subtask.id === subtaskId
+    );
+    setSubtasks((prevSubtasks) =>
+      prevSubtasks.filter((subtask) => subtask.id !== subtaskId)
+    );
     subtasksRefs.current.splice(indexToRemove, 1);
     if (initialData?.id) {
       dispatch(deliteSubtask({ taskId: initialData.id, subtaskId }));
@@ -103,7 +116,13 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
       id: initialData?.id || generateFourDigitId(),
       title,
       description,
-      date: initialData?.date || new Date().toISOString(),
+      date:
+        initialData?.date ||
+        new Date().toLocaleDateString("ru-RU", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }),
       pinned,
       status,
       startDate,
@@ -114,15 +133,28 @@ export const TaskForm: FC<TaskFormProps> = ({ onSubmit, initialData }) => {
 
     if (initialData?.id) {
       dispatch(editTask(taskData));
-      onSubmit(taskData);
     } else {
-      onSubmit(taskData);
+      dispatch(addTask(taskData));
     }
+
+    navigate("/tasks");
   };
+
+  // const handleSaveTaskSubmit = (newTask: TTask) => {
+  //   dispatch(addTask(newTask));
+  // };
 
   return (
     <TaskFormUI
-      task={{ title, description, startDate, status, endDate, priority, subtasks }}
+      task={{
+        title,
+        description,
+        startDate,
+        status,
+        endDate,
+        priority,
+        subtasks,
+      }}
       isEditing={!!initialData}
       onTitleChange={handleTitleChange}
       onStartDateChange={handleStartDateChange}

@@ -8,6 +8,10 @@
   width: 50%;
 }
 
+.content {
+  display: flex;
+}
+
 .page,
 .pageData {
   display: flex;

@@ -5,6 +5,8 @@ import {
   goToPreviousMonth,
   goToNextMonth,
 } from "../../services/slices/calendarSlice";
+import { useParams } from "react-router-dom";
+import { DayDetailsUI } from "../ui/day-details/day-details";
 
 const months = [
   "Январь",
@@ -23,20 +25,12 @@ const months = [
 
 const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-type Props = {
-  onDaySelect: (id: string) => void;
-  isDaySelected: (dayId: string) => boolean;
-}
-
-export const Calendar: FC<Props> = ({onDaySelect, isDaySelected}) => {
+export const Calendar: FC = () => {
   const dispatch = useDispatch();
-
+  
   const currentDate = useSelector((state: RootState) => state.calendar.currentDate);
   const days = useSelector((state: RootState) => state.calendar.days);
-
-  const handleDayClick  = (id: string) => {
-    onDaySelect(id);
-  }
+  const { id } = useParams<{ id: string }>();
 
   const handlePreviousMonth = () => {
     dispatch(goToPreviousMonth());
@@ -46,17 +40,27 @@ export const Calendar: FC<Props> = ({onDaySelect, isDaySelected}) => {
     dispatch(goToNextMonth());
   };
 
+  const dayData =
+    id
+      ? days.find((day) => String(day.id) === id)
+      : days.find((day) => day.isToday);
+
   return (
-    <CalendarUI
-      months={months}
-      currentMonth={currentDate.month}
-      currentYear={currentDate.year}
-      onPreviousMonth={handlePreviousMonth}
-      onNextMonth={handleNextMonth}
-      weekdays={weekdays}
-      days={days}
-      onDaySelect={handleDayClick}
-      isDaySelected={isDaySelected}
-    />
+    <>
+      <CalendarUI
+        months={months}
+        currentMonth={currentDate.month}
+        currentYear={currentDate.year}
+        onPreviousMonth={handlePreviousMonth}
+        onNextMonth={handleNextMonth}
+        weekdays={weekdays}
+        days={days}
+      />
+      {dayData ? (
+        <DayDetailsUI day={dayData} />
+      ) : (
+        <p>День не найден</p>
+      )}
+    </>
   );
 };

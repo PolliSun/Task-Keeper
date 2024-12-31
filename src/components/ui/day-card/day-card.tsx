@@ -1,36 +1,34 @@
 import React, { FC } from "react";
 import styles from "./day-card.module.css";
 import { TDay } from "../../../types/type";
+import { Link } from "react-router-dom";
 
 type DayCardUIProps = {
   day: TDay;
-  onClickDay: () => void;
   isToday: boolean;
-  isDaySelected: (dayId: string) => boolean;
 };
 
-export const DayCardUI: FC<DayCardUIProps> = ({
-  day,
-  onClickDay,
-  isToday,
-  isDaySelected,
-}) => {
+export const DayCardUI: FC<DayCardUIProps> = ({ day, isToday }) => {
   return (
     <>
       {day.day === 0 ? (
         <div className={styles.emptyDay} />
       ) : (
-        <li
-          key={day.id}
-          onClick={onClickDay}
-          className={`${styles.day}
-      ${isToday ? styles.today : ""} ${
-            isDaySelected(day.id) ? styles.selectedDay : ""
-          }`}
+        <Link
+          to={`/calendar/day/${day.id}`}
+          state={{ background: location.pathname }}
         >
-          <span>{day.day}</span>
-          {day.tasks?.length > 0 && <span className={styles.haveTasks}>T</span>}
-        </li>
+          <li
+            key={day.id}
+            className={`${styles.day}
+          ${isToday ? styles.today : ""} `}
+          >
+            <span>{day.day}</span>
+            {/* {day.tasks?.length > 0 && (
+              <span className={styles.haveTasks}>T</span>
+            )} */}
+          </li>
+        </Link>
       )}
     </>
   );

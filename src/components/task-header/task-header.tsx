@@ -2,29 +2,19 @@ import React, { FC, useState, useRef, useCallback, useEffect } from "react";
 import { TaskHeaderUI } from "../../components/ui/pages/task-header/task-header";
 import { useDispatch } from "../../services/store";
 import { useLocation } from "react-router-dom";
-import { searchTasks, sortTasks } from "../../services/slices/taskSlice";
+import {
+  searchTasks,
+  setFilter,
+  sortTasks,
+} from "../../services/slices/taskSlice";
 
-type TaskHeaderProps = {
-  onCreateTask: () => void;
-  isCreateActive: boolean;
-  onFavoritesClick: () => void;
-  isFavoritesVisible: boolean;
-  onCalendarClick: () => void;
-  isCalendarVisible: boolean;
-};
-
-export const TaskHeader: FC<TaskHeaderProps> = ({
-  onCreateTask,
-  isCreateActive,
-  onFavoritesClick,
-  isFavoritesVisible,
-  onCalendarClick,
-  isCalendarVisible,
-}) => {
+export const TaskHeader: FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
@@ -34,12 +24,14 @@ export const TaskHeader: FC<TaskHeaderProps> = ({
     (term: string) => {
       setSearchTerm(term);
       dispatch(searchTasks(term));
+      if (term) {
+        dispatch(setFilter("search"));
+      } else {
+        dispatch(setFilter("all"));
+      }
     },
     [dispatch]
   );
-
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
 
   const handleSearchClick = () => {
     if (!isSearchVisible) {
@@ -49,40 +41,53 @@ export const TaskHeader: FC<TaskHeaderProps> = ({
       setSearchTerm("");
       dispatch(searchTasks(""));
       setIsSearchVisible(false);
+      dispatch(setFilter("all"));
     }
   };
 
-  useEffect(() => {
-    setSearchTerm("");
-    dispatch(searchTasks(""));
-  }, [location]);
-
-  const handleSortClick = () => setIsSortOpen((prev) => !prev);
-
-  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority" | "status") => {
-    dispatch(sortTasks(sortBy));
-    setIsSortOpen(false);
+  const handleSortClick = () => {
+    setIsSortOpen((prev) => !prev);
   };
+
+  const handleFilterChange = (
+    sortBy: "favorites" | "completed" | "search" | "all"
+  ) => {
+    dispatch(setFilter(sortBy));
+  };
+
+  const handleCalendarClick = () => {
+    setIsCalendarOpen((prev) => !prev);
+  };
+
+  const handleSortSelect = (
+    sortBy: "date" | "alphabet" | "priority" | "status"
+  ) => {
+    dispatch(sortTasks(sortBy));
+  };
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setSearchTerm("");
+      setIsSearchVisible(false);
+      setIsSortOpen(false);
+      dispatch(searchTasks(""));
+      dispatch(setFilter("all"));
+    }
+  }, [location.pathname, dispatch]);
 
   return (
     <TaskHeaderUI
-      onCreateTask={onCreateTask}
-      isCreateActive={isCreateActive}
       onSearch={handleSearch}
       searchTerm={searchTerm}
       searchInputRef={searchInputRef}
-      isFocused={isFocused}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      isSearchVisible={isSearchVisible}
       onSearchClick={handleSearchClick}
       onSortClick={handleSortClick}
       onSortSelect={handleSortSelect}
-      onFavoritesClick={onFavoritesClick}
       isSortOpen={isSortOpen}
-      isSearchVisible={isSearchVisible}
-      isFavoritesVisible={isFavoritesVisible}
-      onCalendarClick={onCalendarClick}
-      isCalendarVisible={isCalendarVisible}
+      onFilterSelect={handleFilterChange}
+      activeFilter={activeFilter}
+      onClickCalendar={handleCalendarClick}
     />
   );
 };

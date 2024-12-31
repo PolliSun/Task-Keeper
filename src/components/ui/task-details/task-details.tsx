@@ -13,7 +13,7 @@ type TaskDetailsUIProps = {
   onPin: (id: number) => void;
   onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
-  onEditTask: () => void;
+  onEditTask: (id: number) => void;
 };
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
@@ -42,7 +42,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <button
             aria-label="Редактировать заметку"
             className={styles.buttonEdit}
-            onClick={onEditTask}
+            onClick={() => onEditTask(task.id)}
           >
             <FiEdit2 size={20} />
           </button>
