@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { Header } from "../header/Header";
+import { Header } from "../Header/Header";
 import { useDispatch } from "../../services/store";
 
 import styles from "./app.module.css";
@@ -12,6 +12,7 @@ import { setTasks } from "../../services/slices/taskSlice";
 import { ModalUI } from "../ui/modal/modal";
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
+import { DatasPage } from "../../pages/datas/datas";
 
 export const App: FC = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ export const App: FC = () => {
       <Header />
       <ModalUI>
         <Routes location={location}>
-          <Route path="/" element={<ModalUI />} />
+          <Route path="/" element={null} />
           <Route path="/faq" element={<HomePage />} />
           <Route path="/create" element={<TaskForm />} />
           <Route path="/calendar" element={<Calendar />} />

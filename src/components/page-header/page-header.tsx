@@ -1,8 +1,31 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import { useDispatch } from "../../services/store";
+import { setFilter, sortTasks } from "../../services/slices/taskSlice";
+import { PageHeaderUI } from "../ui/page-header/page-header";
 import { RootState, useSelector } from "../../services/store";
-import { TasksListUI } from "../../components/ui/pages/tasks-list/tasks-list";
 
-export const TasksPage: FC = () => {
+export const PageHeader: FC = () => {
+  const dispatch = useDispatch();
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const handleSortClick = () => {
+    setIsSortOpen((prev) => !prev);
+  };
+
+  const handleSortSelect = (sortBy: "date" | "alphabet" | "priority") => {
+    dispatch(sortTasks(sortBy));
+    setIsSortOpen(false);
+  };
+
+  const handleFilterChange = (
+    sortBy: "favorites" | "overdue" | "search" | "all"
+  ) => {
+    dispatch(setFilter(sortBy));
+    /*         setSearchTerm("");
+        setIsSearchVisible(false); */
+  };
+
   const { tasks, searchResults, searchTerm, filter } = useSelector(
     (state: RootState) => state.tasks
   );
@@ -66,12 +89,15 @@ export const TasksPage: FC = () => {
   const { tasks: tasksToDisplay, title, noTasksTitle } = filteredTasks();
 
   return (
-    <>
-      <TasksListUI
-/*         title={title} */
-        tasks={tasksToDisplay}
-/*         noTasksTitle={noTasksTitle} */
-      />
-    </>
+    <PageHeaderUI
+      title={title}
+      tasks={tasksToDisplay}
+      noTasksTitle={noTasksTitle}
+      onSortClick={handleSortClick}
+      onSortSelect={handleSortSelect}
+      isSortOpen={isSortOpen}
+      onFilterSelect={handleFilterChange}
+      activeFilter={activeFilter}
+    />
   );
 };

@@ -1,0 +1,35 @@
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #ff8989;
+}
+
+.title,
+.titleData {
+  font-size: 18px;
+  color: #6d6d6d;
+  font-style: italic;
+}
+
+.button {
+  background-color: #ffebce;
+  border-radius: 0 0 10px 10px;
+  padding: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.button.disabled {
+  background-color: #e3e3e3;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}

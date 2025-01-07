@@ -3,21 +3,21 @@ import styles from "./modal.module.css";
 import { TaskHeader } from "../../task-header/task-header";
 import { TasksPage } from "../../../pages/tasks-list/tasks-list";
 import { DatasPage } from "../../../pages/datas/datas";
-import { HomePage } from "../../../pages/home-page";
-import { useLocation } from "react-router-dom";
+import { PageHeader } from "../../page-header/page-header";
+import { SecondPageHeader } from "../../second-page-header/second-page-header";
 
 type ModalUIProps = {
   children?: ReactNode;
 };
 
 export const ModalUI: FC<ModalUIProps> = ({ children }) => {
-  const location = useLocation();
   return (
     <main className={styles.mainContent}>
       <TaskHeader />
       <div className={styles.content}>
         <section className={styles.tasks}>
           <div className={styles.page}>
+            <PageHeader />
             <ul className={styles.list}>
               <TasksPage />
             </ul>
@@ -29,9 +29,11 @@ export const ModalUI: FC<ModalUIProps> = ({ children }) => {
           ))}
         </div>
         <section className={styles.data}>
-          <div className={styles.page}>
+          <div className={styles.pageData}>
+            <SecondPageHeader />
             <ul className={styles.list}>
-              {location.pathname === "/" ? <DatasPage /> : children}
+              <DatasPage />
+              {children}
             </ul>
           </div>
         </section>

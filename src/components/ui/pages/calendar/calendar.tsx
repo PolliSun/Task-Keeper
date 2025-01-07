@@ -57,9 +57,6 @@ export const CalendarUI: FC<CalendarUIProps> = ({
       </section>
     </div>
     < HolidayWidget />
-    {/* <section>
-      
-    </section> */}
     </>
   );
 };

@@ -40,10 +40,7 @@ export const Calendar: FC = () => {
     dispatch(goToNextMonth());
   };
 
-  const dayData =
-    id
-      ? days.find((day) => String(day.id) === id)
-      : days.find((day) => day.isToday);
+  const dayData = days.find((day) => String(day.id) === id);
 
   return (
     <>
@@ -58,9 +55,7 @@ export const Calendar: FC = () => {
       />
       {dayData ? (
         <DayDetailsUI day={dayData} />
-      ) : (
-        <p>День не найден</p>
-      )}
+      ) : null}
     </>
   );
 };

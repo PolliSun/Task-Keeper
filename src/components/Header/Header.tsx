@@ -2,13 +2,18 @@ import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { IoBookOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { searchTasks, setFilter } from "../../services/slices/taskSlice";
+import { useDispatch } from "../../services/store";
 
 export const Header: FC = () => {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleNavigation = () => {
     navigate("/");
+    dispatch(setFilter("all"));
+    dispatch(searchTasks(""));
   };
 
   return (

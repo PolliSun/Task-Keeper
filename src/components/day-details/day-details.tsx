@@ -11,14 +11,6 @@ type DayDetailsProps = {
 };
 
 export const DayDetails: FC<DayDetailsProps> = ({ day, tasks }) => {
-  // const days = useSelector((state: RootState) => state.calendar.days);
-
-  // const { id } = useParams<{ id: string }>();
-  // const dayData = days.find((i) => String(i.id) === id);
-
-  // if (!dayData) {
-  //   return <p>День не найден</p>;
-  // }
 
   return  <DayDetailsUI day={day} tasks={tasks} />;
 };

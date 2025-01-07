@@ -10,11 +10,8 @@ import {
 
 export const TaskHeader: FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
@@ -27,7 +24,7 @@ export const TaskHeader: FC = () => {
       if (term) {
         dispatch(setFilter("search"));
       } else {
-        dispatch(setFilter("all"));
+        dispatch(setFilter("search"));
       }
     },
     [dispatch]
@@ -35,6 +32,7 @@ export const TaskHeader: FC = () => {
 
   const handleSearchClick = () => {
     if (!isSearchVisible) {
+      dispatch(setFilter("search"));
       setIsSearchVisible(true);
       searchInputRef.current?.focus();
     } else {
@@ -45,31 +43,10 @@ export const TaskHeader: FC = () => {
     }
   };
 
-  const handleSortClick = () => {
-    setIsSortOpen((prev) => !prev);
-  };
-
-  const handleFilterChange = (
-    sortBy: "favorites" | "completed" | "search" | "all"
-  ) => {
-    dispatch(setFilter(sortBy));
-  };
-
-  const handleCalendarClick = () => {
-    setIsCalendarOpen((prev) => !prev);
-  };
-
-  const handleSortSelect = (
-    sortBy: "date" | "alphabet" | "priority" | "status"
-  ) => {
-    dispatch(sortTasks(sortBy));
-  };
-
   useEffect(() => {
     if (location.pathname === "/") {
       setSearchTerm("");
       setIsSearchVisible(false);
-      setIsSortOpen(false);
       dispatch(searchTasks(""));
       dispatch(setFilter("all"));
     }
@@ -82,12 +59,6 @@ export const TaskHeader: FC = () => {
       searchInputRef={searchInputRef}
       isSearchVisible={isSearchVisible}
       onSearchClick={handleSearchClick}
-      onSortClick={handleSortClick}
-      onSortSelect={handleSortSelect}
-      isSortOpen={isSortOpen}
-      onFilterSelect={handleFilterChange}
-      activeFilter={activeFilter}
-      onClickCalendar={handleCalendarClick}
     />
   );
 };

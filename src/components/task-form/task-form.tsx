@@ -24,7 +24,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   );
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
-  const [status, setStatus] = useState(initialData?.status || "в работе");
+  const [status, setStatus] = useState(initialData?.status || "новый");
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
   );
@@ -116,13 +116,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
       id: initialData?.id || generateFourDigitId(),
       title,
       description,
-      date:
-        initialData?.date ||
-        new Date().toLocaleDateString("ru-RU", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        }),
+      date: initialData?.date || new Date().toISOString(),
       pinned,
       status,
       startDate,
@@ -137,7 +131,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
       dispatch(addTask(taskData));
     }
 
-    navigate("/tasks");
+    navigate(-1);
   };
 
   // const handleSaveTaskSubmit = (newTask: TTask) => {

@@ -24,11 +24,15 @@
   display: flex;
   flex-direction: column;
   border-radius: calc(1rem - 2px);
-  padding: 20px 10px 20px 20px;
+  padding: 0px 10px 20px 20px;
   width: 100%;
   /*  background: repeating-linear-gradient(#fff9f2, #fff9f2 20px, #00000000 22px), repeating-linear-gradient(90deg, #fff9f2, #fff9f2 20px, #00000000 22px); */
   height: calc(100vh - 180px);
   background-color: #fff;
+}
+
+.page {
+  padding: 0px 10px 20px 20px;
 }
 
 .list {
@@ -36,6 +40,8 @@
   flex-direction: column;
   overflow-y: scroll;
   padding-right: 10px;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .list::-webkit-scrollbar {

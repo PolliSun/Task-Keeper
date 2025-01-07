@@ -1,0 +1,14 @@
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #ff8989;
+}
+
+.title,
+.titleData {
+  font-size: 18px;
+  color: #6d6d6d;
+  font-style: italic;
+}

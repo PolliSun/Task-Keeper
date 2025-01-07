@@ -9,7 +9,11 @@ export const EditPage: FC = () => {
   const taskData = tasks.find((task) => task.id === parseInt(id || ""));
 
   if (!taskData) {
-    return <p>Задача не найдена</p>;
+    return (
+      <p>
+        Задача не найдена id: {id}
+      </p>
+    );
   }
 
   return <TaskForm initialData={taskData} />;

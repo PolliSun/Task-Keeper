@@ -10,7 +10,7 @@ type DayDetailsUIProps = {
 export const DayDetailsUI: FC<DayDetailsUIProps> = ({ day, tasks }) => {
   return (
     <div className={styles.container}>
-      <h3>{day.id}</h3>
+      <h3>{day.day}</h3>
       <p>{day.tasks.length} задач</p>
       {/* {tasks.length > 0 ? ( */}
         <ul className={styles.taskList}>

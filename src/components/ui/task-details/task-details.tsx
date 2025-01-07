@@ -4,20 +4,24 @@ import styles from "./task-details.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
-import { TaskStatus } from "../../task-status/task-status";
+import { TbClockExclamation } from "react-icons/tb";
+import { FaRegCircleCheck } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
+import { SlStar } from "react-icons/sl";
 
 type TaskDetailsUIProps = {
   task: TTask;
+  isOverdue: boolean;
   onDelete: (id: number) => void;
   onPin: (id: number) => void;
-  onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onStatusChange: (newStatus: string) => void;
   onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
   onEditTask: (id: number) => void;
 };
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   task,
+  isOverdue,
   onDelete,
   onPin,
   onStatusChange,
@@ -56,28 +60,42 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
         </div>
         <div className={styles.titleContainer}>
           <p className={styles.createDate}>номер задачи: {task.id}</p>
+          {isOverdue && (
+            <div className={styles.overdueContainer}>
+              <p className={styles.text}>Задача просрочена</p>
+              <TbClockExclamation size={16} />
+            </div>
+          )}
+          {task.status === "выполнен" && (
+            <div className={styles.checkContainer}>
+              <p className={styles.text}>Задача выполнена</p>
+              <FaRegCircleCheck size={16} />
+            </div>
+          )}
+          {task.status === "новый" && (
+            <div className={styles.newContainer}>
+              <p className={styles.text}>Новая задача</p>
+              <SlStar size={16} />
+            </div>
+          )}
           <p className={styles.createDate}>
-            создан: {new Date(task.date).toLocaleDateString()}
+            создана: {new Date(task.date).toLocaleDateString()}
           </p>
         </div>
         <div className={styles.priorityContainer}>
           <span className={styles.titleColumn}>статус:</span>
           <div className={styles.statusGroup}>
-            {["выполнен", "в работе", "отложен"].map((label) => (
-              <label
-                key={label}
-                className={task.status === label ? styles.active : ""}
+            {["выполнен", "в работе", "отложен"].map((button) => (
+              <button
+                key={button}
+                className={`${styles.statusButton} ${
+                  task.status === button ? styles.active : ""
+                }`}
+                onClick={() => onStatusChange(button)}
               >
-                <input
-                  type="radio"
-                  name="status"
-                  value={label}
-                  checked={task.status === label}
-                  onChange={onStatusChange}
-                  className={styles.radioInput}
-                />
-                {label.charAt(0).toUpperCase() + label.slice(1)}
-              </label>
+                {button.charAt(0).toUpperCase() + button.slice(1)}
+              </button>
+              /*               )) */
             ))}
           </div>
           <span className={styles.titleColumn}>период:</span>

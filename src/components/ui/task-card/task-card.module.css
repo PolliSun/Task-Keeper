@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 20px 0 0;
+/*   margin: 20px 0 0; */
   background-color: #ffffff;
   padding: 10px;
   border-radius: calc(0.5rem - 2px);
@@ -141,4 +141,36 @@
 
 .endDate {
   font-size: 12px;
+}
+
+.overdueIcon,
+.checkedIcon,
+.newIcon,
+.pinnedIcon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  padding: 2px 4px;
+  top: 5px;
+  right: 5px;
+}
+
+.overdueIcon {
+  color: #e72323a6;
+}
+
+.checkedIcon {
+  color: #48a358a6;
+}
+
+.newIcon {
+  color: #ffc928;
+}
+
+.pinnedIcon{
+  color: #ff8fec;
+  top: 30px;
+  right: 5px;
 }

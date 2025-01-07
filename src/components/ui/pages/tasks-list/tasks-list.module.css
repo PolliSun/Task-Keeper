@@ -65,13 +65,7 @@
   font-style: italic;
 }
 
-.titleContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 2px solid #ff8989;
-}
+
 
 .button {
   display: flex;
@@ -102,12 +96,20 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.title,
+/* .title,
 .titleData {
   font-size: 18px;
   color: #6d6d6d;
   font-style: italic;
 }
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #ff8989;
+} */
 
 .pagination {
   display: flex;

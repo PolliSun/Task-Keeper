@@ -1,0 +1,62 @@
+.iconRotated {
+  transform: rotate(-180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.filterButton {
+  padding: 5px;
+  font-size: 16px;
+  color: #000000;
+  background-color: #ffebce;
+  border-radius: 0 0 10px 10px;
+}
+
+.title,
+.titleData {
+  font-size: 18px;
+  color: #6d6d6d;
+  font-style: italic;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #ff8989;
+}
+
+.sortDropdown {
+  position: absolute;
+  top: 60px;
+  left: 370px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f7e47b;
+  width: 100px;
+  border-radius: calc(0.5rem - 2px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sortDropdown button {
+  display: flex;
+  width: 100%;
+  background-color: #fff8eb;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+}

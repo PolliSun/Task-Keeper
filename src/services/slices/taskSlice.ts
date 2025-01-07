@@ -9,8 +9,8 @@ interface TaskState {
   tasks: TTask[];
   searchResults: TTask[];
   searchTerm: string;
-  sortBy: "date" | "alphabet" | "priority" | "status" | null;
-  filter: "all" | "favorites" | "completed" | "search"; 
+  sortBy: "date" | "alphabet" | "priority" | null;
+  filter: "all" | "favorites" | "overdue" | "search";
 }
 
 const initialState: TaskState = {
@@ -105,7 +105,9 @@ const taskSlice = createSlice({
     },
     editTask(state, action: PayloadAction<TTask>) {
       const editedTask = action.payload;
-      const taskIndex = state.tasks.findIndex((task) => task.id === editedTask.id);
+      const taskIndex = state.tasks.findIndex(
+        (task) => task.id === editedTask.id
+      );
       if (taskIndex !== -1) {
         state.tasks[taskIndex] = editedTask;
         saveTasksToStorage(state.tasks);
@@ -119,21 +121,38 @@ const taskSlice = createSlice({
       } else {
         state.searchResults = state.tasks.filter((task) => {
           const taskTitle = task.title?.toLowerCase() || "";
+          const taskParagraf = task.title?.toLowerCase() || "";
           const taskPriority = task.priority?.toLowerCase() || "";
+          const taskStatus = task.status?.toLowerCase() || "";
+          const taskId = task.id.toString();
+          const taskDate = new Date(task.date).toISOString().slice(0, 10);
+
+          const isDateSearch = !isNaN(Date.parse(searchTerm));
+          const matchesDate = isDateSearch
+        ? taskDate === searchTerm 
+        : false;
+
           return (
             taskTitle.includes(searchTerm) ||
+            taskParagraf.includes(searchTerm) ||
             taskPriority.includes(searchTerm) ||
-            task.date.includes(searchTerm)
+            taskStatus.includes(searchTerm) ||
+            task.date.includes(searchTerm) ||
+            taskId.includes(searchTerm) ||
+            matchesDate
           );
         });
       }
     },
-    setFilter(state, action: PayloadAction<"all" | "favorites" | "completed" | "search">) {
+    setFilter(
+      state,
+      action: PayloadAction<"all" | "favorites" | "overdue" | "search">
+    ) {
       state.filter = action.payload;
     },
     sortTasks(
       state,
-      action: PayloadAction<"date" | "alphabet" | "priority" | "status">
+      action: PayloadAction<"date" | "alphabet" | "priority">
     ) {
       state.sortBy = action.payload;
 
@@ -142,12 +161,6 @@ const taskSlice = createSlice({
         средний: 2,
         низкий: 3,
         "без приоритета": 4,
-      };
-
-      const priorityStatus: Record<string, number> = {
-        отложен: 1,
-        "в работе": 2,
-        выполнен: 3,
       };
 
       switch (action.payload) {
@@ -171,14 +184,6 @@ const taskSlice = createSlice({
             return priorityDiff !== 0 ? priorityDiff : 0;
           });
           break;
-        case "status":
-          state.tasks = state.tasks.slice().sort((a, b) => {
-            const priorityDiffStatus =
-              (priorityStatus[a.status] || 3) -
-              (priorityStatus[b.status] || 3);
-            return priorityDiffStatus !== 0 ? priorityDiffStatus : 0;
-          });
-          break;
         default:
           break;
       }
@@ -195,11 +200,6 @@ const taskSlice = createSlice({
                 (priorityOrder[a.priority] || 4) -
                 (priorityOrder[b.priority] || 4);
               return priorityDiff !== 0 ? priorityDiff : 0;
-            case "status":
-              const priorityDiffStatus =
-                (priorityStatus[a.status] || 3) -
-                (priorityStatus[b.status] || 3);
-              return priorityDiffStatus !== 0 ? priorityDiffStatus : 0;
             default:
               return 0;
           }
