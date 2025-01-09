@@ -6,7 +6,7 @@ import {
   goToNextMonth,
 } from "../../services/slices/calendarSlice";
 import { useParams } from "react-router-dom";
-import { DayDetailsUI } from "../ui/day-details/day-details";
+import { DayDetails } from "../day-details/day-details";
 
 const months = [
   "Январь",
@@ -27,9 +27,12 @@ const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 export const Calendar: FC = () => {
   const dispatch = useDispatch();
-  
-  const currentDate = useSelector((state: RootState) => state.calendar.currentDate);
+
+  const currentDate = useSelector(
+    (state: RootState) => state.calendar.currentDate
+  );
   const days = useSelector((state: RootState) => state.calendar.days);
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id } = useParams<{ id: string }>();
 
   const handlePreviousMonth = () => {
@@ -53,9 +56,7 @@ export const Calendar: FC = () => {
         weekdays={weekdays}
         days={days}
       />
-      {dayData ? (
-        <DayDetailsUI day={dayData} />
-      ) : null}
+      {dayData ? <DayDetails /> : null}
     </>
   );
 };

@@ -5,6 +5,8 @@ import { TasksPage } from "../../../pages/tasks-list/tasks-list";
 import { DatasPage } from "../../../pages/datas/datas";
 import { PageHeader } from "../../page-header/page-header";
 import { SecondPageHeader } from "../../second-page-header/second-page-header";
+import { useLocation } from "react-router-dom";
+import { DayDetails } from "../../day-details/day-details";
 
 type ModalUIProps = {
   children?: ReactNode;
@@ -18,7 +20,7 @@ export const ModalUI: FC<ModalUIProps> = ({ children }) => {
         <section className={styles.tasks}>
           <div className={styles.page}>
             <PageHeader />
-            <ul className={styles.list}>
+            <ul className={`${styles.list} ${styles.listFirst}`}>
               <TasksPage />
             </ul>
           </div>
@@ -31,7 +33,7 @@ export const ModalUI: FC<ModalUIProps> = ({ children }) => {
         <section className={styles.data}>
           <div className={styles.pageData}>
             <SecondPageHeader />
-            <ul className={styles.list}>
+            <ul className={`${styles.list} ${styles.listSecond}`}>
               <DatasPage />
               {children}
             </ul>

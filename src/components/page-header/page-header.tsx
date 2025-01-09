@@ -3,9 +3,11 @@ import { useDispatch } from "../../services/store";
 import { setFilter, sortTasks } from "../../services/slices/taskSlice";
 import { PageHeaderUI } from "../ui/page-header/page-header";
 import { RootState, useSelector } from "../../services/store";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const PageHeader: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
 
@@ -19,12 +21,15 @@ export const PageHeader: FC = () => {
   };
 
   const handleFilterChange = (
-    sortBy: "favorites" | "overdue" | "search" | "all"
+    sortBy: "favorites" | "overdue" | "search" | "all" | "day"
   ) => {
     dispatch(setFilter(sortBy));
     /*         setSearchTerm("");
         setIsSearchVisible(false); */
   };
+
+  const calendarDays = useSelector((state: RootState) => state.calendar.days);
+  const { id } = useParams<{ id: string }>();
 
   const { tasks, searchResults, searchTerm, filter } = useSelector(
     (state: RootState) => state.tasks
@@ -74,6 +79,28 @@ export const PageHeader: FC = () => {
           noTasksTitle = `По вашему запросу "${searchTerm}" ничего не найдено.`;
         }
         break;
+      // case "day":
+      //   const selectedDay = calendarDays.find((day) => String(day.id) === id);
+      //   if (selectedDay) {
+      //   filteredTasksData = tasks.filter((task) => {
+      //     const taskStartDate = new Date(task.startDate);
+      //     const taskEndDate = new Date(task.endDate);
+      //     const currentDay = new Date(
+      //       selectedDay.year,
+      //       selectedDay.month,
+      //       selectedDay.day
+      //     );
+      //     taskStartDate.setHours(0, 0, 0, 0);
+      //     return taskStartDate <= currentDay && taskEndDate >= currentDay;
+      //   });
+      //   title = `Задачи на дату`;
+      //   noTasksTitle = "Добавьте задачи, чтобы начать!";
+      // } else {
+      //   filteredTasksData = [];
+      //   title = "Выбранная дата не найдена.";
+      //   noTasksTitle = "Выберите другую дату.";
+      // }
+      // break;
       default:
         filteredTasksData = tasks;
         title = `Ваши задачи: выполнено ${

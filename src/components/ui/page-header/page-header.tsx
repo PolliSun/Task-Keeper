@@ -14,7 +14,9 @@ type PageHeaderUIProps = {
   onSortClick: () => void;
   isSortOpen: boolean;
   onSortSelect: (sortBy: "date" | "alphabet" | "priority") => void;
-  onFilterSelect: (sortBy: "favorites" | "overdue" | "search" | "all") => void;
+  onFilterSelect: (
+    sortBy: "favorites" | "overdue" | "search" | "all" | "day"
+  ) => void;
   activeFilter: string;
 };
 

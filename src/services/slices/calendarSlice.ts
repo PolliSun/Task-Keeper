@@ -6,16 +6,18 @@ import {
 } from "../../utils/calendarStorage";
 
 const generateDaysInMonth = (month: number, year: number): TDay[] => {
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = new Date(year, month, 1).getDay();
   const days: TDay[] = [];
 
   const today = new Date();
-  const todayFormatted = `${today.getFullYear()}-${String(
-    today.getMonth() + 1
-  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
 
-  for (let i = 0; i < (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1); i++) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const emptyDays = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
+  for (let i = 0; i < emptyDays; i++) {
     days.push({
       id: `empty-${i}`,
       day: 0,
@@ -27,17 +29,18 @@ const generateDaysInMonth = (month: number, year: number): TDay[] => {
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
-    const dayFormatted = `${String(i).padStart(2, "0")}-${String(
-      month + 1
-    ).padStart(2, "0")}-${year}`;
+    const dayFormatted = String(i).padStart(2, "0");
+    const monthFormatted = String(month + 1).padStart(2, "0");
+    const id = `${dayFormatted}.${monthFormatted}.${year}`;
 
     days.push({
-      id: `${year}-${month}-${i}`,
+      id,
       day: i,
       month,
       year,
       tasks: [],
-      isToday: dayFormatted === todayFormatted,
+      isToday:
+        i === currentDay && month === currentMonth && year === currentYear,
     });
   }
 

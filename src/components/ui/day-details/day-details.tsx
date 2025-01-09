@@ -1,34 +1,26 @@
 import React, { FC } from "react";
 import { TDay, TTask } from "../../../types/type";
 import styles from "./day-details.module.css";
+import { TaskCard } from "../../task-card/task-card";
 
 type DayDetailsUIProps = {
-  day:TDay;
+  day: TDay;
   tasks?: TTask[];
 };
 
 export const DayDetailsUI: FC<DayDetailsUIProps> = ({ day, tasks }) => {
   return (
     <div className={styles.container}>
-      <h3>{day.day}</h3>
-      <p>{day.tasks.length} задач</p>
-      {/* {tasks.length > 0 ? ( */}
-        <ul className={styles.taskList}>
-          {tasks?.map((task) => (
-            <li key={task.id} className={styles.taskItem}>
-              <div className={styles.taskInfo}>
-                <h2 className={styles.titleInfo}>{task.title}</h2>
-                <p className={styles.dataInfo}>
-                  Дата начала: {new Date(task.startDate).toLocaleDateString()}
-                </p>
-                <p className={styles.dataInfo}>
-                  Дата окончания: {new Date(task.endDate).toLocaleDateString()}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      {/* ) : null} */}
+      {tasks && tasks.length > 0 ? (
+        <>
+          <p>колличество задач: {tasks.length}</p>
+          {/* {tasks?.map((task) => (
+            <TaskCard task={task} />
+          ))} */}
+        </>
+      ) : (
+        <p className={styles.title}>нет задач на {day.id} г.</p>
+      )}
     </div>
   );
 };

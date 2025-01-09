@@ -1,12 +1,17 @@
 import React, { FC } from "react";
 import { RootState, useSelector } from "../../services/store";
 import { TasksListUI } from "../../components/ui/pages/tasks-list/tasks-list";
+import { useParams } from "react-router-dom";
+import { DayDetails } from "../../components/day-details/day-details";
+import { TTask } from "../../types/type";
 
 export const TasksPage: FC = () => {
   const { tasks, searchResults, searchTerm, filter } = useSelector(
     (state: RootState) => state.tasks
   );
-  const totalTasks = tasks.length;
+  const calendarDays = useSelector((state: RootState) => state.calendar.days);
+  const { id } = useParams<{ id: string }>();
+
   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -18,15 +23,11 @@ export const TasksPage: FC = () => {
   };
 
   const filteredTasks = () => {
-    let filteredTasksData;
-    let title = "";
-    let noTasksTitle = "";
+    let filteredTasksData : TTask[] | [];
 
     switch (filter) {
       case "favorites":
         filteredTasksData = tasks.filter((task) => task.pinned);
-        title = `Избранные задачи: ${filteredTasksData.length} из ${totalTasks}`;
-        noTasksTitle = "У вас нет избранных задач.";
         break;
       case "overdue":
         filteredTasksData = tasks.filter(
@@ -35,43 +36,44 @@ export const TasksPage: FC = () => {
             task.status !== "выполнен" &&
             task.status !== "новый"
         );
-        title = `Просроченые задачи: ${filteredTasksData.length} из ${totalTasks}`;
-        noTasksTitle = "У вас нет просроченных задач.";
         break;
       case "search":
         filteredTasksData = searchResults;
-        if (searchTerm.trim() === "") {
-          title = "";
-          noTasksTitle = "Начните вводить текст для поиска...";
-        } else if (searchResults.length > 0) {
-          title = `Найдено задач по вашему запросу "${searchTerm}": ${searchResults.length} из ${totalTasks}`;
-          noTasksTitle = "";
+        break;
+      case "day":
+        // Фильтрация задач по выбранному дню
+        const selectedDay = calendarDays.find((day) => String(day.id) === id);
+        if (!selectedDay) {
+          filteredTasksData = [];
+            console.error(`Selected day not found for id: ${id}`);
         } else {
-          title = "";
-          noTasksTitle = `По вашему запросу "${searchTerm}" ничего не найдено.`;
+          filteredTasksData = tasks.filter((task) => {
+            const taskStartDate = new Date(task.startDate);
+            const taskEndDate = new Date(task.endDate);
+            const currentDay = new Date(
+              selectedDay.year,
+              selectedDay.month,
+              selectedDay.day
+            );
+            taskStartDate.setHours(0, 0, 0, 0);
+            taskEndDate.setHours(0, 0, 0, 0);
+            return taskStartDate <= currentDay && taskEndDate >= currentDay;
+          });
         }
         break;
       default:
         filteredTasksData = tasks;
-        title = `Ваши задачи: выполнено ${
-          tasks.filter((task) => task.status === "выполнен").length
-        } из ${totalTasks}`;
-        noTasksTitle = "Добавьте задачи, чтобы начать!";
         break;
     }
 
-    return { tasks: filteredTasksData, title, noTasksTitle };
+    return filteredTasksData;
   };
 
-  const { tasks: tasksToDisplay, title, noTasksTitle } = filteredTasks();
+  const tasksToDisplay = filteredTasks();
 
   return (
     <>
-      <TasksListUI
-/*         title={title} */
-        tasks={tasksToDisplay}
-/*         noTasksTitle={noTasksTitle} */
-      />
+      <TasksListUI tasks={tasksToDisplay} />
     </>
   );
 };

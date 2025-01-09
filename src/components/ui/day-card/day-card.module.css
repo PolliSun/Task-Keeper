@@ -9,13 +9,13 @@
   border: 2px solid #ffffff00;
 }
 
+.active {
+  border: 1px solid #f9bda7;
+}
+
 .today {
   background-color: #ffdacd;
   color: #000000;
-}
-
-.selectedDay {
-  border: 2px solid #f9bda7;
 }
 
 .haveTasks {

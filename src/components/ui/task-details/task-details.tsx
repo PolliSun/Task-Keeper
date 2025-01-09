@@ -31,59 +31,61 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   return (
     <>
       <li className={styles.content}>
-        <div className={styles.buttonContainer}>
-          <button
-            aria-label="Закрепить заметку"
-            className={`${styles.buttonСlip} ${
-              task.pinned ? styles.active : ""
-            }`}
-            onClick={() => {
-              onPin && onPin(task.id);
-            }}
-          >
-            <FaRegHeart size={20} />
-          </button>
-          <button
-            aria-label="Редактировать заметку"
-            className={styles.buttonEdit}
-            onClick={() => onEditTask(task.id)}
-          >
-            <FiEdit2 size={20} />
-          </button>
-          <button
-            aria-label="Удалить заметку"
-            className={styles.buttonDelete}
-            onClick={() => onDelete(task.id)}
-          >
-            <RiDeleteBin5Line size={20} />
-          </button>
-        </div>
-        <div className={styles.titleContainer}>
-          <p className={styles.createDate}>номер задачи: {task.id}</p>
-          {isOverdue && (
-            <div className={styles.overdueContainer}>
-              <p className={styles.text}>Задача просрочена</p>
-              <TbClockExclamation size={16} />
+        <div className={styles.headerContainer}>
+          <div className={styles.titleContainer}>
+            <div className={styles.stateContainer}>
+            <p className={styles.numberTask}>Задача №{task.id}</p>
+            {isOverdue && (
+              <div className={styles.overdueContainer}>
+                <p className={styles.text}>просрочена</p>
+                {/* <TbClockExclamation size={16} /> */}
+              </div>
+            )}
+            {task.status === "выполнен" && (
+              <div className={styles.checkContainer}>
+                <p className={styles.text}>выполнена</p>
+                {/* <FaRegCircleCheck size={16} /> */}
+              </div>
+            )}
+            {task.status === "новый" && (
+              <div className={styles.newContainer}>
+                <p className={styles.text}>новая</p>
+                {/* <SlStar size={16} /> */}
+              </div>
+            )}
             </div>
-          )}
-          {task.status === "выполнен" && (
-            <div className={styles.checkContainer}>
-              <p className={styles.text}>Задача выполнена</p>
-              <FaRegCircleCheck size={16} />
+            <h2 className={styles.title}>{task.title}</h2>
             </div>
-          )}
-          {task.status === "новый" && (
-            <div className={styles.newContainer}>
-              <p className={styles.text}>Новая задача</p>
-              <SlStar size={16} />
+            <div className={styles.buttonContainer}>
+              <button
+                aria-label="Закрепить заметку"
+                className={`${styles.buttonСlip} ${
+                  task.pinned ? styles.active : ""
+                }`}
+                onClick={() => {
+                  onPin && onPin(task.id);
+                }}
+              >
+                <FaRegHeart size={20} />
+              </button>
+              <button
+                aria-label="Редактировать заметку"
+                className={styles.buttonEdit}
+                onClick={() => onEditTask(task.id)}
+              >
+                <FiEdit2 size={20} />
+              </button>
+              <button
+                aria-label="Удалить заметку"
+                className={styles.buttonDelete}
+                onClick={() => onDelete(task.id)}
+              >
+                <RiDeleteBin5Line size={20} />
+              </button>
             </div>
-          )}
-          <p className={styles.createDate}>
-            создана: {new Date(task.date).toLocaleDateString()}
-          </p>
         </div>
         <div className={styles.priorityContainer}>
-          <span className={styles.titleColumn}>статус:</span>
+          {/* <span className={styles.titleColumn}>статус:</span>
           <div className={styles.statusGroup}>
             {["выполнен", "в работе", "отложен"].map((button) => (
               <button
@@ -95,9 +97,12 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
               >
                 {button.charAt(0).toUpperCase() + button.slice(1)}
               </button>
-              /*               )) */
             ))}
-          </div>
+          </div> */}
+          <span className={styles.titleColumn}>создан:</span>
+          <p className={styles.createDate}>
+            {new Date(task.date).toLocaleDateString()}
+          </p>
           <span className={styles.titleColumn}>период:</span>
           <p className={styles.date}>
             {task.startDate
@@ -118,8 +123,9 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           </p>
           <span className={styles.titleColumn}>приоритет:</span>
           <TaskPriority priority={task.priority} />
+          
         </div>
-        <h2 className={styles.title}>{task.title}</h2>
+
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>{task.description}</p>
         </div>

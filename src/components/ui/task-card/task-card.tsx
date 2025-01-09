@@ -11,13 +11,13 @@ import { Link } from "react-router-dom";
 
 type TaskCardUIProps = {
   task: TTask;
-  pinned: string | null;
+  // pinned: string | null;
   isOverdue: boolean;
 };
 
 export const TaskCardUI: FC<TaskCardUIProps> = ({
   task,
-  pinned,
+  // pinned,
   isOverdue,
 }) => {
   return (
@@ -38,13 +38,13 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
             </h3>
           </div>
           <TaskPriority priority={task.priority} />
-          <TaskStatus status={task.status} />
-          {pinned && (
+          {/* <TaskStatus status={task.status} /> */}
+          {/* {pinned && (
             <div className={styles.pinnedIcon}>
               <FaRegHeart size={16} />
             </div>
-          )}
-          {isOverdue && (
+          )} */}
+          {/* {isOverdue && (
             <div className={styles.overdueIcon}>
               <TbClockExclamation size={16} />
             </div>
@@ -58,7 +58,7 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
             <div className={styles.newIcon}>
               <SlStar size={16} />
             </div>
-          )}
+          )} */}
         </div>
       </li>
     </Link>

@@ -4,6 +4,7 @@ import { TDay } from "../../../../types/type";
 import { DayCard } from "../../../day-card/day-card";
 import { HolidayWidget } from "../../../holiday-widget/holiday-widget";
 import { Outlet } from "react-router-dom";
+import { DayCardUI } from "../../day-card/day-card";
 
 type CalendarUIProps = {
   months: string[];
@@ -49,7 +50,6 @@ export const CalendarUI: FC<CalendarUIProps> = ({
             <DayCard
               key={day.id}
               day={day}
-              isToday={day.isToday}
             />
           ))}
         </div>

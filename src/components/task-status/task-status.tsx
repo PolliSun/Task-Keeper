@@ -14,11 +14,11 @@ export const TaskStatus: FC<TaskStatusProps> = ({ status }) => {
     case "в работе":
       colorStyle = "#4bc7ff";
       break;
-    case "отложен":
-      colorStyle = "#f77";
+    case "просрочен":
+      colorStyle = "#ff7777";
       break;
     case "новый":
-      colorStyle = "#e7a70f";
+      colorStyle = "#ea580c";
       break;
   }
 

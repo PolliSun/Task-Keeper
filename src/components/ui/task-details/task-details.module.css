@@ -3,16 +3,31 @@
   flex-direction: column;
   position: relative;
   border-radius: calc(0.5rem - 2px);
-  margin: 10px;
-  gap: 20px;
+  padding: 10px;
+  /* gap: 20px; */
   background-color: #ffffff;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
 }
 
 .titleContainer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.stateContainer {
+  display: flex;
+  gap: 10px;
   align-items: center;
-  gap: 5px;
+  margin-bottom: 4px;
 }
 
 .priorityContainer {
@@ -20,6 +35,7 @@
   grid-template-columns: repeat(2, max-content);
   column-gap: 5px;
   align-items: center;
+  margin-bottom: 24px;
 }
 
 .titleColumn {
@@ -30,8 +46,7 @@
 .title {
   font-size: 16px;
   font-family: "Caveat", sans-serif;
-  color: #356CA8;
-  
+  color: #000000;
 }
 
 .customCheckboxContainer {
@@ -107,17 +122,14 @@
   display: flex;
   justify-content: center;
   border-radius: calc(0.5rem - 2px);
-  background-color: #ffebce;
-  padding: 5px 0;
-  flex: 1;
+  /* background-color: #ffebce; */
+  /* padding: 5px 0; */
+  /* flex: 1; */
+  color: #9ca3af;
 }
 
 .buttonСlip.active {
   background: #ffdacd;
-}
-
-.buttonEdit {
-  flex: 5;
 }
 
 .subtaskTitle {
@@ -144,16 +156,14 @@
   font-size: 12px;
 }
 
+.numberTask {
+  font-size: 14px;
+}
+
 .createDate {
-  color: #d1d1d1;
-  cursor: default;
+  font-size: 12px;
 }
 
-.createDate:hover {
-  color: #000000;
-}
-
-.createDate,
 .startDate,
 .endDate {
   font-size: 12px;
@@ -182,30 +192,14 @@
   padding: 2px 4px;
   margin: 4px;
   border-radius: calc(0.5rem - 2px);
-  
+
   transition: color 0.3s;
-  font-size: 12px;    
+  font-size: 12px;
   border: 1px solid #e3e3e3;
 }
 
 .statusButton {
   cursor: pointer;
-}
-
-.statusGroup button.active {
-  border: 1px solid #b1b1b1;
-}
-
-.statusGroup button.active:nth-child(1) {
-  color: #54c154;
-}
-
-.statusGroup button.active:nth-child(2) {
-  color: #4bc7ff;
-}
-
-.statusGroup button.active:nth-child(3) {
-  color: #ff7777;
 }
 
 .overdueButton {
@@ -215,7 +209,7 @@
 .buttonContainer {
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 10px;
 }
 
 .date {
@@ -228,12 +222,19 @@
   /* border: 1px solid #e3e3e3; */
 }
 
+.descriptionContainer {
+  margin-bottom: 24px;
+  background-color: #f7fafd;
+  border-radius: calc(0.5rem - 2px);
+  padding: 7px;
+}
+
 .description {
   font-size: 14px;
   max-width: 540px;
   text-align: justify;
-  white-space: pre-wrap; 
-  font-family: monospace; 
+  white-space: pre-wrap;
+  font-family: monospace;
   word-wrap: break-word;
 }
 
@@ -242,6 +243,9 @@
 .newContainer {
   display: flex;
   gap: 10px;
+  border-radius: calc(0.5rem - 2px);
+  padding: 2px 6px;
+  
 }
 
 .text {
@@ -250,12 +254,17 @@
 
 .overdueContainer {
   color: #ff7777;
+  background-color: #fee2e2;
+  
 }
 
 .checkContainer {
   color: #54c154;
+  background-color: #dcfce7;
 }
 
 .newContainer {
-  color: #e7a70f;
+  color: #ea580c;
+  background-color: #ffedd5;
+  
 }

@@ -33,7 +33,7 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
         ...task,
         status,
       }}
-      pinned={pinned}
+      // pinned={pinned}
       isOverdue={isOverdue}
     />
   );

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { Header } from "../Header/Header";
+import { Header } from "../header/Header";
 import { useDispatch } from "../../services/store";
 
 import styles from "./app.module.css";
@@ -13,6 +13,8 @@ import { ModalUI } from "../ui/modal/modal";
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
 import { DatasPage } from "../../pages/datas/datas";
+import { TasksPage } from "../../pages/tasks-list/tasks-list";
+import { DayDetails } from "../day-details/day-details";
 
 export const App: FC = () => {
   const location = useLocation();

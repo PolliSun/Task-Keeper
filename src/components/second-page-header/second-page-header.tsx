@@ -7,6 +7,8 @@ export const SecondPageHeader: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const matchDay = matchPath("/calendar/day/:id", location.pathname);
+
   const getTitlePage = (path: string): string => {
     switch (true) {
       case path === "/create":
@@ -24,8 +26,8 @@ export const SecondPageHeader: FC = () => {
       case matchPath("/task/:id/edit", path) !== null:
         return `Редактирование задачи`;
 
-      case matchPath("/calendar/day/:id", path) !== null:
-        return `Задачи на сегодняшний день`;
+      case matchDay !== null:
+        return `Выбран день: ${matchDay.params.id} г.`;
 
       default:
         return `Выберите задачу для просмотра или создайте новую!`;

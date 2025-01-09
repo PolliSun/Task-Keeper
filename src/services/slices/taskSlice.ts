@@ -10,7 +10,7 @@ interface TaskState {
   searchResults: TTask[];
   searchTerm: string;
   sortBy: "date" | "alphabet" | "priority" | null;
-  filter: "all" | "favorites" | "overdue" | "search";
+  filter: "all" | "favorites" | "overdue" | "search" | "day";
 }
 
 const initialState: TaskState = {
@@ -146,7 +146,7 @@ const taskSlice = createSlice({
     },
     setFilter(
       state,
-      action: PayloadAction<"all" | "favorites" | "overdue" | "search">
+      action: PayloadAction<"all" | "favorites" | "overdue" | "search" | "day">
     ) {
       state.filter = action.payload;
     },
