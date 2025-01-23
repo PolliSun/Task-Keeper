@@ -4,7 +4,7 @@
   background-color: #ffffff;
   border-radius: calc(0.5rem - 2px);
   margin: 10px 0;
-  max-height: 100vh;
+  height: calc(100vh - 20px);
 }
 
 .formInput {

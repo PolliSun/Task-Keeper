@@ -24,7 +24,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   );
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
-  const [status, setStatus] = useState(initialData?.status || "новый");
+  const [status, setStatus] = useState(initialData?.status || "в работе");
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
   );
@@ -39,7 +39,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
 
   useEffect(() => {
     if (titleRef.current) {
-      titleRef.current.style.height = "2.5rem";
+      titleRef.current.style.height = "3.0rem";
       titleRef.current.style.height = `${titleRef.current.scrollHeight}px`;
     }
   }, [title]);

@@ -60,8 +60,7 @@ export const PageHeader: FC = () => {
         filteredTasksData = tasks.filter(
           (task) =>
             isTaskOverdue(task.endDate) &&
-            task.status !== "выполнен" &&
-            task.status !== "новый"
+            task.status !== "выполнена"
         );
         title = `Просроченые задачи: ${filteredTasksData.length} из ${totalTasks}`;
         noTasksTitle = "У вас нет просроченных задач.";
@@ -104,7 +103,7 @@ export const PageHeader: FC = () => {
       default:
         filteredTasksData = tasks;
         title = `Ваши задачи: выполнено ${
-          tasks.filter((task) => task.status === "выполнен").length
+          tasks.filter((task) => task.status === "выполнена").length
         } из ${totalTasks}`;
         noTasksTitle = "Добавьте задачи, чтобы начать!";
         break;

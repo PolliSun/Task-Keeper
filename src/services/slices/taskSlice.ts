@@ -67,7 +67,7 @@ const taskSlice = createSlice({
         saveTasksToStorage(state.tasks);
       }
     },
-    toggleTaskStatus(
+/*     toggleTaskStatus(
       state,
       action: PayloadAction<{ taskId: number; newStatus: string }>
     ) {
@@ -77,7 +77,7 @@ const taskSlice = createSlice({
         task.status = newStatus;
         saveTasksToStorage(state.tasks);
       }
-    },
+    }, */
     toggleSubtaskStatus(
       state,
       action: PayloadAction<{
@@ -215,7 +215,7 @@ export const {
   addSubtask,
   deliteSubtask,
   deliteTask,
-  toggleTaskStatus,
+/*   toggleTaskStatus, */
   toggleSubtaskStatus,
   editTask,
   searchTasks,

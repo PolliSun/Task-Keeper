@@ -4,8 +4,23 @@
   align-items: center;
   margin: 4px;
   border-radius: calc(0.5rem - 2px);
-  padding: 2px 4px;
+  padding:  4px 12px;
   background-color: #ffffff;
+}
+
+.statusCompleted {
+  color: #16a34a;
+  background-color: #dcfce7;
+}
+
+.statusOverdue {
+  color: #dc2626;
+  background-color: #fee2e2;
+}
+
+.statusProgress {
+  color: #2563eb;
+  background-color: #dbeafe;
 }
 
 .title {

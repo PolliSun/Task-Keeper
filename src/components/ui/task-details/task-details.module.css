@@ -158,6 +158,8 @@
 
 .numberTask {
   font-size: 14px;
+  color: #6b7280;
+  font-weight: bold;
 }
 
 .createDate {

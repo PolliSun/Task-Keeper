@@ -23,7 +23,7 @@ export const TasksPage: FC = () => {
   };
 
   const filteredTasks = () => {
-    let filteredTasksData : TTask[] | [];
+    let filteredTasksData: TTask[] | [];
 
     switch (filter) {
       case "favorites":
@@ -31,21 +31,17 @@ export const TasksPage: FC = () => {
         break;
       case "overdue":
         filteredTasksData = tasks.filter(
-          (task) =>
-            isTaskOverdue(task.endDate) &&
-            task.status !== "выполнен" &&
-            task.status !== "новый"
+          (task) => isTaskOverdue(task.endDate) && task.status !== "выполнена"
         );
         break;
       case "search":
         filteredTasksData = searchResults;
         break;
-      case "day":
-        // Фильтрация задач по выбранному дню
+/*       case "day":
         const selectedDay = calendarDays.find((day) => String(day.id) === id);
         if (!selectedDay) {
           filteredTasksData = [];
-            console.error(`Selected day not found for id: ${id}`);
+          console.error(`Selected day not found for id: ${id}`);
         } else {
           filteredTasksData = tasks.filter((task) => {
             const taskStartDate = new Date(task.startDate);
@@ -60,7 +56,7 @@ export const TasksPage: FC = () => {
             return taskStartDate <= currentDay && taskEndDate >= currentDay;
           });
         }
-        break;
+        break; */
       default:
         filteredTasksData = tasks;
         break;

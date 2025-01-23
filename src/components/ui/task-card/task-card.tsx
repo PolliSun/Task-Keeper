@@ -11,24 +11,22 @@ import { Link } from "react-router-dom";
 
 type TaskCardUIProps = {
   task: TTask;
-  // pinned: string | null;
-  isOverdue: boolean;
 };
 
-export const TaskCardUI: FC<TaskCardUIProps> = ({
-  task,
-  // pinned,
-  isOverdue,
-}) => {
+export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
   return (
     <Link to={`/task/${task.id}`} state={{ background: location.pathname }}>
       <li key={task.id} className={styles.card}>
         <div className={styles.dataContainer}>
+          <TaskStatus
+            status={task.status}
+            displayMode="icon"
+            endDate={task.endDate}
+          />
           <h2 className={styles.title}>{task.title}</h2>
         </div>
         <div className={styles.buttonContainer}>
           <div className={styles.endDateContainer}>
-            <FaRegCalendarAlt size={14} />
             <h3 className={styles.endDate}>
               {new Date(task.date).toLocaleDateString("ru-RU", {
                 day: "2-digit",
@@ -38,27 +36,6 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({
             </h3>
           </div>
           <TaskPriority priority={task.priority} />
-          {/* <TaskStatus status={task.status} /> */}
-          {/* {pinned && (
-            <div className={styles.pinnedIcon}>
-              <FaRegHeart size={16} />
-            </div>
-          )} */}
-          {/* {isOverdue && (
-            <div className={styles.overdueIcon}>
-              <TbClockExclamation size={16} />
-            </div>
-          )}
-          {task.status === "выполнен" && (
-            <div className={styles.checkedIcon}>
-              <FaRegCircleCheck size={16} />
-            </div>
-          )}
-          {task.status === "новый" && (
-            <div className={styles.newIcon}>
-              <SlStar size={16} />
-            </div>
-          )} */}
         </div>
       </li>
     </Link>

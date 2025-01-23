@@ -3,7 +3,7 @@ export type TTask = {
   date: string;
   startDate: string;
   endDate: string;
-  status: string;
+  status: "просрочена" | "выполнена" | "в работе";
   title: string;
   description: string;
   priority: string;

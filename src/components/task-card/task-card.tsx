@@ -7,7 +7,6 @@ type TaskCardProps = {
 };
 
 export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
-  const pinned = task.pinned ? "избранный" : null;
 
   if (!task) return null;
 
@@ -21,20 +20,11 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
     return taskEndDate < today;
   };
 
-  const isOverdue =
-    isTaskOverdue(task.endDate) &&
-    task.status !== "выполнен" &&
-    task.status !== "новый";
-  const status = task.status;
+  const isOverdue = isTaskOverdue(task.endDate) && task.status !== "выполнена";
 
   return (
     <TaskCardUI
-      task={{
-        ...task,
-        status,
-      }}
-      // pinned={pinned}
-      isOverdue={isOverdue}
+      task={task}
     />
   );
 });

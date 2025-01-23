@@ -4,7 +4,7 @@ import { useDispatch } from "../../services/store";
 import { RootState, useSelector } from "../../services/store";
 import {
   deliteTask,
-  toggleTaskStatus,
+/*   toggleTaskStatus, */
   toggleSubtaskStatus,
   pinTask,
 } from "../../services/slices/taskSlice";
@@ -40,11 +40,11 @@ export const TaskDetails: FC = () => {
     [dispatch]
   );
 
-  const handleStatusChange = (newStatus: string) => {
+/*   const handleStatusChange = (newStatus: string) => {
     if (taskData) {
       dispatch(toggleTaskStatus({ taskId: taskData.id, newStatus }));
     }
-  };
+  }; */
 
   const handleEditTask = useCallback(() => {
     if (taskData) {
@@ -68,8 +68,7 @@ export const TaskDetails: FC = () => {
 
   const isOverdue =
     isTaskOverdue(taskData.endDate) &&
-    taskData.status !== "выполнен" &&
-    taskData.status !== "новый";
+    taskData.status !== "выполнена";
 
   return (
     <>
@@ -77,7 +76,7 @@ export const TaskDetails: FC = () => {
         task={taskData}
         isOverdue={isOverdue}
         onDelete={handleDeleteTask}
-        onStatusChange={handleStatusChange}
+/*         onStatusChange={handleStatusChange} */
         onToggle={handleSubtaskToggle}
         onPin={handlePin}
         onEditTask={handleEditTask}
