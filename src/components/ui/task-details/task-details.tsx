@@ -16,6 +16,7 @@ type TaskDetailsUIProps = {
   onDelete: (id: number) => void;
   onPin: (id: number) => void;
   onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
+  onTaskComplete: (taskId: number, completed: boolean) => void;
   onEditTask: (id: number) => void;
 };
 
@@ -25,6 +26,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   onDelete,
   onPin,
   onToggle,
+  onTaskComplete,
   onEditTask,
 }) => {
   return (
@@ -34,7 +36,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <div className={styles.titleContainer}>
             <div className={styles.stateContainer}>
               <p className={styles.numberTask}>Задача №{task.id}</p>
-              <TaskStatus 
+              <TaskStatus
                 status={task.status}
                 displayMode="text"
                 endDate={task.endDate}
@@ -42,32 +44,44 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
             </div>
             <h2 className={styles.title}>{task.title}</h2>
           </div>
-          <div className={styles.buttonContainer}>
-            <button
-              aria-label="Закрепить заметку"
-              className={`${styles.buttonСlip} ${
-                task.pinned ? styles.active : ""
-              }`}
-              onClick={() => {
-                onPin && onPin(task.id);
-              }}
-            >
-              <FaRegHeart size={20} />
-            </button>
-            <button
-              aria-label="Редактировать заметку"
-              className={styles.buttonEdit}
-              onClick={() => onEditTask(task.id)}
-            >
-              <FiEdit2 size={20} />
-            </button>
-            <button
-              aria-label="Удалить заметку"
-              className={styles.buttonDelete}
-              onClick={() => onDelete(task.id)}
-            >
-              <RiDeleteBin5Line size={20} />
-            </button>
+          <div className={styles.actionsContainer}>
+            <div className={styles.buttonContainer}>
+              <button
+                aria-label="Закрепить заметку"
+                className={`${styles.buttonСlip} ${
+                  task.pinned ? styles.active : ""
+                }`}
+                onClick={() => {
+                  onPin && onPin(task.id);
+                }}
+              >
+                <FaRegHeart size={20} />
+              </button>
+              <button
+                aria-label="Редактировать заметку"
+                className={styles.buttonEdit}
+                onClick={() => onEditTask(task.id)}
+              >
+                <FiEdit2 size={20} />
+              </button>
+              <button
+                aria-label="Удалить заметку"
+                className={styles.buttonDelete}
+                onClick={() => onDelete(task.id)}
+              >
+                <RiDeleteBin5Line size={20} />
+              </button>
+            </div>
+            <div className={styles.completeContainer}> 
+              <button
+                className={`${styles.completeButton} ${
+                  task.completed ? styles.completed : ""
+                }`}
+                onClick={() => onTaskComplete(task.id, !task.completed)}
+              >
+                {task.completed ? "открыть" : "выполнить"}
+              </button>
+            </div>
           </div>
         </div>
         <div className={styles.priorityContainer}>

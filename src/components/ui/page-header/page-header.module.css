@@ -20,6 +20,7 @@
   color: #000000;
   background-color: #ffebce;
   border-radius: 0 0 10px 10px;
+  position: relative;
 }
 
 .title,
@@ -39,24 +40,21 @@
 
 .sortDropdown {
   position: absolute;
-  top: 60px;
-  left: 370px;
+  top: 0;
+  right: 30px;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #f7e47b;
-  width: 100px;
-  border-radius: calc(0.5rem - 2px);
+  display: grid;
+  grid-template-columns: repeat(1, max-content);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .sortDropdown button {
   display: flex;
-  width: 100%;
-  background-color: #fff8eb;
-  border: none;
-  padding: 5px;
+  justify-content: center;
+  background-color: #ffebce;
+  border: 1px solid #ffffff;
+  padding: 3px 5px;
   cursor: pointer;
-  text-align: left;
   font-size: 12px;
+  border-radius: calc(0.5rem - 2px);
 }

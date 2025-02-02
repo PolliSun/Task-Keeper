@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 10px;
+  margin: 0 10px 0 20px;
 }
 
 .buttonContainer {
@@ -12,8 +12,6 @@
 }
 
 .button {
-  /* position: absolute; */
-  /*   position: relative; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,10 +22,7 @@
   border: none;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
-  /*   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
   transition: all 0.5s ease;
-  /*   overflow: hidden; */
-  /*   height: 45px; */
 }
 
 .buttonSearch {
@@ -73,10 +68,15 @@
 }
 
 .buttonSearch.active .searchInput {
-  /*   display: block;  */
   margin-left: 10px;
   padding: 5px;
   width: 100%;
   opacity: 1;
   flex: 1;
+}
+
+@media (min-width: 768px) {
+  .header {
+    margin: 0 10px;
+  }
 }

@@ -38,6 +38,17 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
             size={20}
             className={isSortOpen ? styles.iconRotated : styles.icon}
           />
+          {isSortOpen && (
+            <div className={styles.sortDropdown}>
+              <button onClick={() => onSortSelect("date")}>По дате</button>
+              <button onClick={() => onSortSelect("alphabet")}>
+                По алфавиту
+              </button>
+              <button onClick={() => onSortSelect("priority")}>
+                По приоритету
+              </button>
+            </div>
+          )}
         </button>
         <button
           className={`${styles.filterButton} ${
@@ -65,15 +76,6 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
         </button>
       </div>
 
-      {isSortOpen && (
-        <div className={styles.sortDropdown}>
-          <button onClick={() => onSortSelect("date")}>По дате</button>
-          <button onClick={() => onSortSelect("alphabet")}>По алфавиту</button>
-          <button onClick={() => onSortSelect("priority")}>
-            По приоритету
-          </button>
-        </div>
-      )}
       <div className={styles.titleContainer}>
         <h3 className={styles.title}>
           {tasks.length > 0 ? title : noTasksTitle}

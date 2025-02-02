@@ -67,17 +67,18 @@ const taskSlice = createSlice({
         saveTasksToStorage(state.tasks);
       }
     },
-/*     toggleTaskStatus(
+    toggleTaskCompletion(
       state,
-      action: PayloadAction<{ taskId: number; newStatus: string }>
+      action: PayloadAction<{ taskId: number; completed: boolean }>
     ) {
-      const { taskId, newStatus } = action.payload;
+      const { taskId, completed } = action.payload;
       const task = state.tasks.find((task) => task.id === taskId);
       if (task) {
-        task.status = newStatus;
+        task.completed = completed;
+        task.status = completed ? "выполнена" : "в работе";
         saveTasksToStorage(state.tasks);
       }
-    }, */
+    },
     toggleSubtaskStatus(
       state,
       action: PayloadAction<{
@@ -128,9 +129,7 @@ const taskSlice = createSlice({
           const taskDate = new Date(task.date).toISOString().slice(0, 10);
 
           const isDateSearch = !isNaN(Date.parse(searchTerm));
-          const matchesDate = isDateSearch
-        ? taskDate === searchTerm 
-        : false;
+          const matchesDate = isDateSearch ? taskDate === searchTerm : false;
 
           return (
             taskTitle.includes(searchTerm) ||
@@ -150,10 +149,7 @@ const taskSlice = createSlice({
     ) {
       state.filter = action.payload;
     },
-    sortTasks(
-      state,
-      action: PayloadAction<"date" | "alphabet" | "priority">
-    ) {
+    sortTasks(state, action: PayloadAction<"date" | "alphabet" | "priority">) {
       state.sortBy = action.payload;
 
       const priorityOrder: Record<string, number> = {
@@ -215,7 +211,7 @@ export const {
   addSubtask,
   deliteSubtask,
   deliteTask,
-/*   toggleTaskStatus, */
+  toggleTaskCompletion,
   toggleSubtaskStatus,
   editTask,
   searchTasks,

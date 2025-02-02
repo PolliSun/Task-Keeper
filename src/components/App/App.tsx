@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
 import { Header } from "../header/Header";
@@ -9,18 +9,30 @@ import { Calendar } from "../calendar/calendar";
 import { TaskForm } from "../task-form/task-form";
 import { getTasksFromStorage } from "../../utils/tasksStorage";
 import { setTasks } from "../../services/slices/taskSlice";
-import { ModalUI } from "../ui/modal/modal";
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
 import { DatasPage } from "../../pages/datas/datas";
 import { TasksPage } from "../../pages/tasks-list/tasks-list";
 import { DayDetails } from "../day-details/day-details";
+import { Layout } from "../ui/layout/layout";
+import { DesktopView } from "../ui/desktop-view/desktop-view";
+import { MobileView } from "../ui/mobile-view/mobile-view";
 
 export const App: FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const background = location.state?.background;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const tasks = getTasksFromStorage();
@@ -30,17 +42,18 @@ export const App: FC = () => {
   return (
     <div className={styles.app}>
       <Header />
-      <ModalUI>
-        <Routes location={location}>
-          <Route path="/" element={null} />
-          <Route path="/faq" element={<HomePage />} />
-          <Route path="/create" element={<TaskForm />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/calendar/day/:id" element={<Calendar />} />
-          <Route path="/task/:id" element={<TaskDetails />} />
-          <Route path="/task/:id/edit" element={<EditPage />} />
+      <Layout>
+        <Routes>
+          <Route path="/" element={isMobile ? <MobileView /> : <DesktopView />}>
+            <Route path="faq" element={<HomePage />} />
+            <Route path="create" element={<TaskForm />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="calendar/day/:id" element={<Calendar />} />
+            <Route path="task/:id" element={<TaskDetails />} />
+            <Route path="task/:id/edit" element={<EditPage />} />
+          </Route>
         </Routes>
-      </ModalUI>
+      </Layout>
     </div>
   );
 };

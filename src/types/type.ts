@@ -1,6 +1,7 @@
 export type TTask = {
   id: number;
   date: string;
+  completed: boolean;
   startDate: string;
   endDate: string;
   status: "просрочена" | "выполнена" | "в работе";

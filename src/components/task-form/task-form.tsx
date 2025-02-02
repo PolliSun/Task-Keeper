@@ -22,6 +22,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   const [description, setDescription] = useState(
     initialData?.description || ""
   );
+  const [completed, setCompleted] = useState(initialData?.completed || false);
   const [startDate, setStartDate] = useState(initialData?.startDate || "");
   const [endDate, setEndDate] = useState(initialData?.endDate || "");
   const [status, setStatus] = useState(initialData?.status || "в работе");
@@ -117,6 +118,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
       title,
       description,
       date: initialData?.date || new Date().toISOString(),
+      completed: completed,
       pinned,
       status,
       startDate,

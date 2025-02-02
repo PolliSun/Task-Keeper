@@ -24,14 +24,6 @@ body::before{
   opacity: 0.5;
 }
 
-main {
-  margin: 20px 10px;
-  display: flex;
-  position: relative;
-  height: 100%;
-  flex-grow: 1;
-}
-
 h1,
 h2,
 h3,

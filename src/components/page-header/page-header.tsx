@@ -78,28 +78,6 @@ export const PageHeader: FC = () => {
           noTasksTitle = `По вашему запросу "${searchTerm}" ничего не найдено.`;
         }
         break;
-      // case "day":
-      //   const selectedDay = calendarDays.find((day) => String(day.id) === id);
-      //   if (selectedDay) {
-      //   filteredTasksData = tasks.filter((task) => {
-      //     const taskStartDate = new Date(task.startDate);
-      //     const taskEndDate = new Date(task.endDate);
-      //     const currentDay = new Date(
-      //       selectedDay.year,
-      //       selectedDay.month,
-      //       selectedDay.day
-      //     );
-      //     taskStartDate.setHours(0, 0, 0, 0);
-      //     return taskStartDate <= currentDay && taskEndDate >= currentDay;
-      //   });
-      //   title = `Задачи на дату`;
-      //   noTasksTitle = "Добавьте задачи, чтобы начать!";
-      // } else {
-      //   filteredTasksData = [];
-      //   title = "Выбранная дата не найдена.";
-      //   noTasksTitle = "Выберите другую дату.";
-      // }
-      // break;
       default:
         filteredTasksData = tasks;
         title = `Ваши задачи: выполнено ${
