@@ -1,12 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TTask } from "../../../types/type";
 import styles from "./task-card.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { TaskStatus } from "../../task-status/task-status";
-import { FaRegCalendarAlt, FaRegHeart } from "react-icons/fa";
-import { TbClockExclamation } from "react-icons/tb";
-import { FaRegCircleCheck } from "react-icons/fa6";
-import { SlStar } from "react-icons/sl";
 import { Link } from "react-router-dom";
 
 type TaskCardUIProps = {

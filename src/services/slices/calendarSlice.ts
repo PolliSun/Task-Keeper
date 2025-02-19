@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCalendar, TDay } from "../../types/type";
+import { TDay } from "../../types/type";
 import {
   getCalendarFromStorage,
   saveCalendarToStorage,

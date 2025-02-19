@@ -1,11 +1,7 @@
-import React, { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./mobile-view.module.css";
 import { TasksPage } from "../../../pages/tasks-list/tasks-list";
 import { PageHeader } from "../../page-header/page-header";
-import { TaskForm } from "../../task-form/task-form";
-import { DatasPage } from "../../../pages/datas/datas";
-import { EditPage } from "../../edit-page/edit-page";
-import { TaskDetails } from "../../task-details/task-details";
 import { Outlet, useLocation } from "react-router-dom";
 import { SecondPageHeader } from "../../second-page-header/second-page-header";
 

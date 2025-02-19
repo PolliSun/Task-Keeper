@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { DatasPageUI } from "../../components/ui/pages/second-page/second-page";
-import { useLocation, matchPath  } from "react-router-dom";
 
 export const DatasPage: FC = () => {
  /*  const location = useLocation();

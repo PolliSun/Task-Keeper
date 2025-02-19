@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./holiday-widget.module.css";
-import { TDay } from "../../../types/type";
 
 interface HolidayWidgetUIProps {
   holiday: { name: string; description: string } | null;

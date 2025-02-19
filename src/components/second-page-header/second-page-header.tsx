@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { SecondPageHeaderUI } from "../ui/second-page-header/second-page-header";
 import { useLocation, matchPath } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

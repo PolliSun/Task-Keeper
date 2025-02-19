@@ -1,5 +1,5 @@
 import styles from "./layout.module.css";
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { TaskHeader } from "../../task-header/task-header";
 
 type LayoutProps = {

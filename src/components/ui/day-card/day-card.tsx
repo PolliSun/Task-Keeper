@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./day-card.module.css";
 import { TDay } from "../../../types/type";
 import { NavLink } from "react-router-dom";

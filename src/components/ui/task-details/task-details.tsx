@@ -1,13 +1,10 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TTask } from "../../../types/type";
 import styles from "./task-details.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
-import { TbClockExclamation } from "react-icons/tb";
-import { FaRegCircleCheck } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
-import { SlStar } from "react-icons/sl";
 import { TaskStatus } from "../../task-status/task-status";
 
 type TaskDetailsUIProps = {

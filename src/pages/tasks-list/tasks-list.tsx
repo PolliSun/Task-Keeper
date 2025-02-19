@@ -1,16 +1,15 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { RootState, useSelector } from "../../services/store";
 import { TasksListUI } from "../../components/ui/pages/tasks-list/tasks-list";
-import { useParams } from "react-router-dom";
-import { DayDetails } from "../../components/day-details/day-details";
+/* import { useParams } from "react-router-dom"; */
 import { TTask } from "../../types/type";
 
 export const TasksPage: FC = () => {
-  const { tasks, searchResults, searchTerm, filter } = useSelector(
+  const { tasks, searchResults, filter } = useSelector(
     (state: RootState) => state.tasks
   );
-  const calendarDays = useSelector((state: RootState) => state.calendar.days);
-  const { id } = useParams<{ id: string }>();
+/*   const calendarDays = useSelector((state: RootState) => state.calendar.days);
+  const { id } = useParams<{ id: string }>(); */
 
   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();

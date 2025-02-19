@@ -1,13 +1,11 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "../../services/store";
 import { setFilter, sortTasks } from "../../services/slices/taskSlice";
 import { PageHeaderUI } from "../ui/page-header/page-header";
 import { RootState, useSelector } from "../../services/store";
-import { useNavigate, useParams } from "react-router-dom";
 
 export const PageHeader: FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
 
@@ -28,8 +26,8 @@ export const PageHeader: FC = () => {
         setIsSearchVisible(false); */
   };
 
-  const calendarDays = useSelector((state: RootState) => state.calendar.days);
-  const { id } = useParams<{ id: string }>();
+/*   const calendarDays = useSelector((state: RootState) => state.calendar.days);
+  const { id } = useParams<{ id: string }>(); */
 
   const { tasks, searchResults, searchTerm, filter } = useSelector(
     (state: RootState) => state.tasks

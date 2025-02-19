@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./desktop-view.module.css";
 import { PageHeader } from "../../page-header/page-header";
@@ -6,11 +6,7 @@ import { DatasPage } from "../../../pages/datas/datas";
 import { TasksPage } from "../../../pages/tasks-list/tasks-list";
 import { SecondPageHeader } from "../../second-page-header/second-page-header";
 
-type DesktopViewProps = {
-  children?: ReactNode;
-};
-
-export const DesktopView: FC<DesktopViewProps> = ({ children }) => {
+export const DesktopView: FC = () => {
   return (
     <>
       <section className={styles.tasks}>

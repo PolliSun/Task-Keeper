@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { TaskCardUI } from "../ui/task-card/task-card";
 import { TTask } from "../../types/type";
 
@@ -10,7 +10,7 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
 
   if (!task) return null;
 
-  const isTaskOverdue = (endDate: string): boolean => {
+/*   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -20,7 +20,7 @@ export const TaskCard: FC<TaskCardProps> = memo(({ task }) => {
     return taskEndDate < today;
   };
 
-  const isOverdue = isTaskOverdue(task.endDate) && task.status !== "выполнена";
+  const isOverdue = isTaskOverdue(task.endDate) && task.status !== "выполнена"; */
 
   return (
     <TaskCardUI

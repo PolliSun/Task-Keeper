@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { IoBookOutline } from "react-icons/io5";

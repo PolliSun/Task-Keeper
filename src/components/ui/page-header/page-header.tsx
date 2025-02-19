@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./page-header.module.css";
 
-import { LuChevronDownSquare } from "react-icons/lu";
+import { LuChevronDown } from "react-icons/lu";
 import { BsListTask } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { TbClockExclamation } from "react-icons/tb";
@@ -34,7 +34,7 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
     <>
       <div className={styles.filters}>
         <button onClick={onSortClick} className={styles.filterButton}>
-          <LuChevronDownSquare
+          <LuChevronDown
             size={20}
             className={isSortOpen ? styles.iconRotated : styles.icon}
           />

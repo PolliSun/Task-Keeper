@@ -1,4 +1,4 @@
-import React, { FC, useCallback, memo, useState } from "react";
+import { FC, useCallback } from "react";
 import { TaskDetailsUI } from "../ui/task-details/task-details";
 import { useDispatch } from "../../services/store";
 import { RootState, useSelector } from "../../services/store";

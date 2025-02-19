@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-import styles from "./tasks-list.module.css";
+import { FC } from "react";
 import { TaskCard } from "../../../task-card/task-card";
 import { TTask } from "../../../../types/type";
 

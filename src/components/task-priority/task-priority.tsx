@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TaskPriorityUI } from "../ui/task-priority/task-priority";
 
 type TaskPriorityProps = {

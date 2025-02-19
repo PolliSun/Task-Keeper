@@ -1,7 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TDay, TTask } from "../../../types/type";
 import styles from "./day-details.module.css";
-import { TaskCard } from "../../task-card/task-card";
 
 type DayDetailsUIProps = {
   day: TDay;

@@ -1,10 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./calendar.module.css";
 import { TDay } from "../../../../types/type";
 import { DayCard } from "../../../day-card/day-card";
 import { HolidayWidget } from "../../../holiday-widget/holiday-widget";
-import { Outlet } from "react-router-dom";
-import { DayCardUI } from "../../day-card/day-card";
 
 type CalendarUIProps = {
   months: string[];

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./home.module.css";
 
 export const HomeUI: FC = () => {

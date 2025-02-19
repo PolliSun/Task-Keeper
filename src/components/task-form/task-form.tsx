@@ -8,7 +8,7 @@ import {
   editTask,
 } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type TaskFormProps = {
   initialData?: TTask;
@@ -17,7 +17,6 @@ type TaskFormProps = {
 export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
   const [title, setTitle] = useState(initialData?.title || "");
   const [description, setDescription] = useState(
     initialData?.description || ""

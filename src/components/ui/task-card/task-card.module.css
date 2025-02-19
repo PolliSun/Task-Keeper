@@ -20,6 +20,7 @@
   align-items: center;
   flex: 1;
   min-width: 0;
+  gap: 10px;
 }
 
 .customCheckboxContainer {
@@ -80,7 +81,6 @@
 .title {
   font-size: 14px;
   font-weight: bold;
-  margin: 0 40px 0 20px;
   flex: 1;
 }
 

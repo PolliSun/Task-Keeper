@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { HolidayWidgetUI } from "../ui/holiday-widget/holiday-widget";
 import holidaysData from "../../utils/holidays.json";
 

@@ -1,8 +1,7 @@
-import React, { FC, useMemo } from "react";
-import { TDay, TTask } from "../../types/type";
+import { FC, useMemo } from "react";
 import { DayDetailsUI } from "../ui/day-details/day-details";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector, RootState } from "../../services/store";
+import { useSelector, RootState } from "../../services/store";
 
 export const DayDetails: FC = () => {
   const days = useSelector((state: RootState) => state.calendar.days);

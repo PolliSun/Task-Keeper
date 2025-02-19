@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC } from "react";
 import { CalendarUI } from "../ui/pages/calendar/calendar";
 import { useDispatch, useSelector, RootState } from "../../services/store";
 import {
@@ -32,7 +32,6 @@ export const Calendar: FC = () => {
     (state: RootState) => state.calendar.currentDate
   );
   const days = useSelector((state: RootState) => state.calendar.days);
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { id } = useParams<{ id: string }>();
 
   const handlePreviousMonth = () => {

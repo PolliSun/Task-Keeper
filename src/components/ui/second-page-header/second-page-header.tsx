@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./second-page-header.module.css";
 
 import { IoCloseCircleOutline } from "react-icons/io5";
