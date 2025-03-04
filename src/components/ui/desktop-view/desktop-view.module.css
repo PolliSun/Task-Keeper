@@ -55,6 +55,6 @@
   background: #555;
 }
 
-.tasks:first-child {
+.tasks:-child {
   margin-right: 10px;
 }

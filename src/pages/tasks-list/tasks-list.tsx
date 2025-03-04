@@ -36,26 +36,6 @@ export const TasksPage: FC = () => {
       case "search":
         filteredTasksData = searchResults;
         break;
-/*       case "day":
-        const selectedDay = calendarDays.find((day) => String(day.id) === id);
-        if (!selectedDay) {
-          filteredTasksData = [];
-          console.error(`Selected day not found for id: ${id}`);
-        } else {
-          filteredTasksData = tasks.filter((task) => {
-            const taskStartDate = new Date(task.startDate);
-            const taskEndDate = new Date(task.endDate);
-            const currentDay = new Date(
-              selectedDay.year,
-              selectedDay.month,
-              selectedDay.day
-            );
-            taskStartDate.setHours(0, 0, 0, 0);
-            taskEndDate.setHours(0, 0, 0, 0);
-            return taskStartDate <= currentDay && taskEndDate >= currentDay;
-          });
-        }
-        break; */
       default:
         filteredTasksData = tasks;
         break;

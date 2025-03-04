@@ -33,9 +33,14 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
   return (
     <>
       <div className={styles.filters}>
-        <button onClick={onSortClick} className={styles.filterButton}>
+        <button
+          onClick={onSortClick}
+          className={`${styles.filterButton} ${
+            isSortOpen ? styles.active : ""
+          }`}
+        >
           <LuChevronDown
-            size={20}
+            size={18}
             className={isSortOpen ? styles.iconRotated : styles.icon}
           />
           {isSortOpen && (
@@ -50,29 +55,32 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
             </div>
           )}
         </button>
+
         <button
           className={`${styles.filterButton} ${
             activeFilter === "all" ? styles.active : ""
           }`}
           onClick={() => onFilterSelect("all")}
         >
-          <BsListTask size={20} />
+          <BsListTask size={18} />
         </button>
+
         <button
           className={`${styles.filterButton} ${
             activeFilter === "favorites" ? styles.active : ""
           }`}
           onClick={() => onFilterSelect("favorites")}
         >
-          <FaRegHeart size={20} />
+          <FaRegHeart size={18} />
         </button>
+
         <button
           className={`${styles.filterButton} ${
             activeFilter === "overdue" ? styles.active : ""
           }`}
           onClick={() => onFilterSelect("overdue")}
         >
-          <TbClockExclamation size={20} />
+          <TbClockExclamation size={18} />
         </button>
       </div>
 

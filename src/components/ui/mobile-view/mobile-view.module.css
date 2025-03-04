@@ -1,22 +1,21 @@
-.tasks,
-.data {
+.tasks {
   display: flex;
   background-color: #6d7a9d;
-  border-radius: calc(0.5rem - 2px);
+  border-top-right-radius: calc(-2px + 0.5rem);
+  border-bottom-right-radius: calc(-2px + 0.5rem);
   padding: 10px;
   color: #000;
   width: 100%;
+  margin-left: 7px;
 }
 
-.page,
-.pageData {
+.page {
   display: flex;
   flex-direction: column;
   border-radius: calc(1rem - 2px);
-  padding: 0px 10px 20px 20px;
+  padding: 0px 10px 10px 15px;
   width: 100%;
-
-  height: calc(100vh - 214px);
+  height: calc(100vh - 146px);
   background-color: #fff;
 }
 
@@ -52,13 +51,8 @@
   background: #555;
 }
 
-.tasks:first-child {
-  margin-left: 10px;
-}
-
-@media (min-width: 374px){
-  .page,
-  .pageData {
-    height: calc(100vh - 180px);
+@media (min-width: 768px) {
+  .page {
+    padding: 0px 10px 20px 20px;
   }
 }

@@ -1,6 +1,6 @@
 import styles from "./layout.module.css";
 import { FC, ReactNode } from "react";
-import { TaskHeader } from "../../task-header/task-header";
+import { TaskHeaderUI } from "../../ui/pages/task-header/task-header";
 
 type LayoutProps = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type LayoutProps = {
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className={styles.mainContent}>
-      <TaskHeader />
+      <TaskHeaderUI />
       <div className={styles.content}>{children}</div>
       <div className={styles.noteBookHoles}>
         {[...Array(7)].map((_, index) => (

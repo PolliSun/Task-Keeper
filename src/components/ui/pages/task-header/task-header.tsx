@@ -1,46 +1,25 @@
-import { FC, RefObject } from "react";
+import { FC } from "react";
 import styles from "./task-header.module.css";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { BiCalendar } from "react-icons/bi";
 import { BiQuestionMark } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
+import { GrHomeRounded } from "react-icons/gr";
 
-type TaskHeaderUIProps = {
-  onSearch: (searchTerm: string) => void;
-  searchTerm: string;
-  searchInputRef: RefObject<HTMLInputElement>;
-  onSearchClick: () => void;
-  isSearchVisible: boolean;
-};
-
-export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
-  onSearch,
-  searchTerm,
-  searchInputRef,
-  onSearchClick,
-  isSearchVisible,
-}) => {
+export const TaskHeaderUI: FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.buttonContainer}>
-        <button
-          className={`${styles.buttonSearch} ${
-            isSearchVisible ? styles.active : ""
-          }`}
-          onClick={onSearchClick}
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `${styles.button} ${styles.buttonHome} ${
+              isActive ? styles.active : ""
+            }`
+          }
         >
-          <IoSearch size={23} className={styles.iconSearch}/>
-          <input
-            type="text"
-            ref={searchInputRef}
-            value={searchTerm}
-            onChange={(e) => onSearch(e.target.value)}
-            className={styles.searchInput}
-            placeholder="Поиск по заметкам..."
-            onClick={(e) => e.stopPropagation()}
-          />
-        </button>
+          <GrHomeRounded size={20} />
+        </NavLink>
       </div>
 
       <div className={styles.buttonContainer}>
@@ -52,7 +31,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             }`
           }
         >
-          <RiStickyNoteAddLine size={23} />
+          <RiStickyNoteAddLine size={20} />
         </NavLink>
         <NavLink
           to="/calendar"
@@ -62,7 +41,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             }`
           }
         >
-          <BiCalendar size={23} />
+          <BiCalendar size={20} />
         </NavLink>
         <NavLink
           to="/faq"
@@ -72,7 +51,7 @@ export const TaskHeaderUI: FC<TaskHeaderUIProps> = ({
             }`
           }
         >
-          <BiQuestionMark size={23} />
+          <BiQuestionMark size={20} />
         </NavLink>
       </div>
     </header>

@@ -22,16 +22,13 @@ export const PageHeader: FC = () => {
     sortBy: "favorites" | "overdue" | "search" | "all" | "day"
   ) => {
     dispatch(setFilter(sortBy));
-    /*         setSearchTerm("");
-        setIsSearchVisible(false); */
+    setActiveFilter(sortBy);
   };
-
-/*   const calendarDays = useSelector((state: RootState) => state.calendar.days);
-  const { id } = useParams<{ id: string }>(); */
 
   const { tasks, searchResults, searchTerm, filter } = useSelector(
     (state: RootState) => state.tasks
   );
+
   const totalTasks = tasks.length;
   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
@@ -56,9 +53,7 @@ export const PageHeader: FC = () => {
         break;
       case "overdue":
         filteredTasksData = tasks.filter(
-          (task) =>
-            isTaskOverdue(task.endDate) &&
-            task.status !== "выполнена"
+          (task) => isTaskOverdue(task.endDate) && task.status !== "выполнена"
         );
         title = `Просроченые задачи: ${filteredTasksData.length} из ${totalTasks}`;
         noTasksTitle = "У вас нет просроченных задач.";

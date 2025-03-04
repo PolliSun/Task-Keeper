@@ -3,26 +3,27 @@
   position: relative;
   flex-direction: column;
   height: calc(100vh - 180px);
-  margin: 20px 10px;
+  margin: 10px 5px;
   flex-grow: 1;
 }
 
 .content {
   display: flex;
+  gap: 7px;
 }
 
 .noteBookHoles {
   position: absolute;
   left: 0;
-  top: 100px;
-  bottom: 10px;
+  top: 70px;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .hole {
-  width: 30px;
+  width: 25px;
   height: 8px;
   background-color: #cbcbcb;
   border-radius: 20%;
@@ -30,12 +31,16 @@
 }
 
 @media (min-width: 768px) {
+  .mainContent {
+    margin: 20px 10px;
+  }
   .noteBookHoles {
     left: calc(50% - 20px);
+    top: 100px;
+    bottom: 10px;
   }
   .hole {
     width: 40px;
     height: 10px;
   }
 }
-

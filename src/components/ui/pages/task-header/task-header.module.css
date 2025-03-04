@@ -1,8 +1,8 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 0 10px 0 20px;
+  align-items: flex-start;
+  margin: 0 10px 0 7px;
 }
 
 .buttonContainer {
@@ -15,68 +15,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 10px;
   font-size: 16px;
-  color: #fff;
-  background-color: #ff7e7e;
+  color: #000000;
+  background-color: #b3c3d3;
   border: none;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
   transition: all 0.5s ease;
 }
 
-.buttonSearch {
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 10px 10px 0 0;
+.button.active {
+  transform: translateY(3px);
   color: #fff;
-  background-color: #ff7e7e;
-  border: none;
-  cursor: pointer;
-  transition: all 0.4s ease-in;
-  position: relative;
-  overflow: hidden;
+/*   background-color: #6d7a9d; */
+  background-color: #fd8f8f;
+}
+
+.buttonHome {
   width: 63px;
   height: 43px;
 }
 
-.buttonSearch.active {
-  width: 300px;
-  transform: translateY(5px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  color: #000000;
-}
-
-.button.active {
-  transform: translateY(5px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  color: #000000;
-}
-
-.searchInput {
-  display: block;
-  width: 0;
-  height: 100%;
-  background-color: #fff8eb;
-  border-radius: calc(0.5rem - 2px);
-  outline: none;
-  opacity: 0;
-  cursor: default;
-  transition: width 0.5s ease, opacity 0.5s ease;
-}
-
-.buttonSearch.active .searchInput {
-  margin-left: 10px;
-  padding: 5px;
-  width: 100%;
-  opacity: 1;
-  flex: 1;
+.buttonHome.active {
+  transform: translateY(0px);
 }
 
 @media (min-width: 768px) {
   .header {
     margin: 0 10px;
+  }
+
+  .button {
+    padding: 10px 20px;
   }
 }

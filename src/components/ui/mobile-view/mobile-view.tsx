@@ -18,9 +18,9 @@ export const MobileView: FC = () => {
           </ul>
         </div>
       ) : (
-        <div className={styles.pageData}>
+        <div className={styles.page}>
           <SecondPageHeader />
-          <ul className={`${styles.list} ${styles.listSecond}`}>
+          <ul className={`${styles.list} ${styles.listFirst}`}>
             <Outlet />
           </ul>
         </div>

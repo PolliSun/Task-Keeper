@@ -1,3 +1,5 @@
+@import url("./assets/fonts/fonts.css");
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
@@ -11,6 +13,7 @@
 body {
   margin: 0;
   background-color: rgb(17 24 39);
+  font-family: "Caveat";
   color: #000;
   position: relative;
 }
