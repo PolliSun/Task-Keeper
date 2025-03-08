@@ -1,9 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TTask } from "../../types/type";
-import {
+/* import {
   saveTasksToStorage,
   getTasksFromStorage,
-} from "../../utils/tasksStorage";
+} from "../../utils/api"; */
+import { fetchTasksFromAPI, saveTaskToAPI } from "../../utils/api";
+
+export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
+  const tasks = await fetchTasksFromAPI();
+  return tasks;
+});
+
+export const addTaskToAPI = createAsyncThunk(
+  "tasks/addTask",
+  async (task: Omit<TTask, "id"> & Partial<Pick<TTask, "id">>) => {
+    const newTask = await saveTaskToAPI(task as TTask);
+    return newTask;
+  }
+);
 
 interface TaskState {
   tasks: TTask[];
@@ -14,7 +28,7 @@ interface TaskState {
 }
 
 const initialState: TaskState = {
-  tasks: getTasksFromStorage(),
+  tasks: [],
   searchResults: [],
   searchTerm: "",
   sortBy: null,
@@ -27,12 +41,12 @@ const taskSlice = createSlice({
   reducers: {
     setTasks(state, action: PayloadAction<TTask[]>) {
       state.tasks = action.payload;
-      saveTasksToStorage(state.tasks);
+      /*       saveTasksToStorage(state.tasks); */
     },
-    addTask(state, action: PayloadAction<TTask>) {
+    /*     addTask(state, action: PayloadAction<TTask>) {
       state.tasks.push(action.payload);
       saveTasksToStorage(state.tasks);
-    },
+    }, */
     addSubtask(
       state,
       action: PayloadAction<{
@@ -46,12 +60,12 @@ const taskSlice = createSlice({
       if (task) {
         if (!task.subtasks) task.subtasks = [];
         task.subtasks.push({ ...action.payload.subtask, completed: false });
-        saveTasksToStorage(state.tasks);
+        /*         saveTasksToStorage(state.tasks); */
       }
     },
     deliteTask(state, action: PayloadAction<number>) {
       state.tasks = state.tasks.filter((tasks) => tasks.id !== action.payload);
-      saveTasksToStorage(state.tasks);
+      /*       saveTasksToStorage(state.tasks); */
     },
     deliteSubtask(
       state,
@@ -64,7 +78,7 @@ const taskSlice = createSlice({
         task.subtasks = task.subtasks.filter(
           (subtasks) => subtasks.id !== action.payload.subtaskId
         );
-        saveTasksToStorage(state.tasks);
+        /*         saveTasksToStorage(state.tasks); */
       }
     },
     toggleTaskCompletion(
@@ -76,7 +90,7 @@ const taskSlice = createSlice({
       if (task) {
         task.completed = completed;
         task.status = completed ? "выполнена" : "в работе";
-        saveTasksToStorage(state.tasks);
+        /*         saveTasksToStorage(state.tasks); */
       }
     },
     toggleSubtaskStatus(
@@ -93,7 +107,7 @@ const taskSlice = createSlice({
         const subtask = task.subtasks.find((st) => st.id === subtaskId);
         if (subtask) {
           subtask.completed = completed;
-          saveTasksToStorage(state.tasks);
+          /*           saveTasksToStorage(state.tasks); */
         }
       }
     },
@@ -101,7 +115,7 @@ const taskSlice = createSlice({
       const task = state.tasks.find((task) => task.id === action.payload);
       if (task) {
         task.pinned = !task.pinned;
-        saveTasksToStorage(state.tasks);
+        /*         saveTasksToStorage(state.tasks); */
       }
     },
     editTask(state, action: PayloadAction<TTask>) {
@@ -111,7 +125,7 @@ const taskSlice = createSlice({
       );
       if (taskIndex !== -1) {
         state.tasks[taskIndex] = editedTask;
-        saveTasksToStorage(state.tasks);
+        /*         saveTasksToStorage(state.tasks); */
       }
     },
     searchTasks(state, action: PayloadAction<string>) {
@@ -126,7 +140,7 @@ const taskSlice = createSlice({
           const taskPriority = task.priority?.toLowerCase() || "";
           const taskStatus = task.status?.toLowerCase() || "";
           const taskId = task.id.toString();
-          const taskDate = new Date(task.date).toISOString().slice(0, 10);
+          const taskDate = new Date(task.created_at).toISOString().slice(0, 10);
 
           const isDateSearch = !isNaN(Date.parse(searchTerm));
           const matchesDate = isDateSearch ? taskDate === searchTerm : false;
@@ -136,7 +150,7 @@ const taskSlice = createSlice({
             taskParagraf.includes(searchTerm) ||
             taskPriority.includes(searchTerm) ||
             taskStatus.includes(searchTerm) ||
-            task.date.includes(searchTerm) ||
+            task.created_at.includes(searchTerm) ||
             taskId.includes(searchTerm) ||
             matchesDate
           );
@@ -164,7 +178,9 @@ const taskSlice = createSlice({
           state.tasks = state.tasks
             .slice()
             .sort(
-              (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
             );
           break;
         case "alphabet":
@@ -188,14 +204,17 @@ const taskSlice = createSlice({
         state.searchResults = state.searchResults.slice().sort((a, b) => {
           switch (action.payload) {
             case "date":
-              return new Date(b.date).getTime() - new Date(a.date).getTime();
+              return (
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+              );
             case "alphabet":
               return a.title.localeCompare(b.title);
-            case "priority":
+            /*             case "priority":
               const priorityDiff =
                 (priorityOrder[a.priority] || 4) -
                 (priorityOrder[b.priority] || 4);
-              return priorityDiff !== 0 ? priorityDiff : 0;
+              return priorityDiff !== 0 ? priorityDiff : 0; */
             default:
               return 0;
           }
@@ -203,11 +222,19 @@ const taskSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.tasks = action.payload;
+      })
+      .addCase(addTaskToAPI.fulfilled, (state, action) => {
+        state.tasks.push(action.payload);
+      });
+  },
 });
 
 export const {
   setTasks,
-  addTask,
   addSubtask,
   deliteSubtask,
   deliteTask,

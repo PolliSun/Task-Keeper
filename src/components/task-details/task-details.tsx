@@ -57,7 +57,7 @@ export const TaskDetails: FC = () => {
 
   if (!taskData) return <p>Задача не найдена</p>;
 
-  const isTaskOverdue = (endDate: string): boolean => {
+/*   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -68,12 +68,11 @@ export const TaskDetails: FC = () => {
   };
 
   const isOverdue =
-    isTaskOverdue(taskData.endDate) && taskData.status !== "выполнена";
+    isTaskOverdue(taskData.endDate) && taskData.status !== "выполнена"; */
 
   return (
     <TaskDetailsUI
       task={taskData}
-      isOverdue={isOverdue}
       onDelete={handleDeleteTask}
       onTaskComplete={handleTaskComplete}
       onToggle={handleSubtaskToggle}

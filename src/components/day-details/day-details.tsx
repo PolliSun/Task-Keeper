@@ -14,8 +14,8 @@ export const DayDetails: FC = () => {
 
     return tasks
       .filter((task) => {
-        const taskStartDate = new Date(task.startDate);
-        const taskEndDate = new Date(task.endDate);
+        const taskStartDate = new Date(task.start_date);
+        const taskEndDate = new Date(task.end_date);
         const currentDay = new Date(dayData.year, dayData.month, dayData.day);
         taskStartDate.setHours(0, 0, 0, 0);
 
@@ -23,7 +23,7 @@ export const DayDetails: FC = () => {
       })
       .sort(
         (a, b) =>
-          new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+          new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
       );
   }, [tasks, dayData]);
 

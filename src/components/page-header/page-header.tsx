@@ -30,11 +30,11 @@ export const PageHeader: FC = () => {
   );
 
   const totalTasks = tasks.length;
-  const isTaskOverdue = (endDate: string): boolean => {
+  const isTaskOverdue = (end_date: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const taskEndDate = new Date(endDate);
+    const taskEndDate = new Date(end_date);
     taskEndDate.setHours(0, 0, 0, 0);
 
     return taskEndDate < today;
@@ -53,7 +53,7 @@ export const PageHeader: FC = () => {
         break;
       case "overdue":
         filteredTasksData = tasks.filter(
-          (task) => isTaskOverdue(task.endDate) && task.status !== "выполнена"
+          (task) => isTaskOverdue(task.end_date) && task.status !== "выполнена"
         );
         title = `Просроченые задачи: ${filteredTasksData.length} из ${totalTasks}`;
         noTasksTitle = "У вас нет просроченных задач.";

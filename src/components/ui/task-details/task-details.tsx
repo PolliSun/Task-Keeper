@@ -9,7 +9,6 @@ import { TaskStatus } from "../../task-status/task-status";
 
 type TaskDetailsUIProps = {
   task: TTask;
-  isOverdue: boolean;
   onDelete: (id: number) => void;
   onPin: (id: number) => void;
   onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
@@ -19,7 +18,6 @@ type TaskDetailsUIProps = {
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   task,
-  isOverdue,
   onDelete,
   onPin,
   onToggle,
@@ -36,7 +34,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
               <TaskStatus
                 status={task.status}
                 displayMode="text"
-                endDate={task.endDate}
+                endDate={task.end_date}
               />
             </div>
             <h2 className={styles.title}>{task.title}</h2>
@@ -49,7 +47,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                   task.pinned ? styles.active : ""
                 }`}
                 onClick={() => {
-                  onPin && onPin(task.id);
+                  onPin(task.id);
                 }}
               >
                 <FaRegHeart size={20} />
@@ -69,7 +67,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                 <RiDeleteBin5Line size={20} />
               </button>
             </div>
-            <div className={styles.completeContainer}> 
+            <div className={styles.completeContainer}>
               <button
                 className={`${styles.completeButton} ${
                   task.completed ? styles.completed : ""
@@ -84,20 +82,20 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
         <div className={styles.priorityContainer}>
           <span className={styles.titleColumn}>создан:</span>
           <p className={styles.createDate}>
-            {new Date(task.date).toLocaleDateString()}
+            {new Date(task.created_at).toLocaleDateString()}
           </p>
           <span className={styles.titleColumn}>период:</span>
-          <p className={styles.date}>
-            {task.startDate
-              ? new Date(task.startDate).toLocaleDateString("ru-RU", {
+          <p className={styles.created_at}>
+            {task.start_date
+              ? new Date(task.start_date).toLocaleDateString("ru-RU", {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",
                 })
               : "не назначено"}{" "}
             -{" "}
-            {task.endDate
-              ? new Date(task.endDate).toLocaleDateString("ru-RU", {
+            {task.end_date
+              ? new Date(task.end_date).toLocaleDateString("ru-RU", {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",

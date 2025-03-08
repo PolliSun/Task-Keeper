@@ -3,9 +3,9 @@ import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
 import {
   addSubtask,
-  addTask,
+  addTaskToAPI,
   deliteSubtask,
-  editTask,
+  /*   editTask, */
 } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
 import { useNavigate } from "react-router-dom";
@@ -14,16 +14,19 @@ type TaskFormProps = {
   initialData?: TTask;
 };
 
+type TTaskWithoutId = Omit<TTask, "id">;
+
 export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [title, setTitle] = useState(initialData?.title || "");
+  /* const [title, setTitle] = useState<string>(''); */
   const [description, setDescription] = useState(
     initialData?.description || ""
   );
   const [completed, setCompleted] = useState(initialData?.completed || false);
-  const [startDate, setStartDate] = useState(initialData?.startDate || "");
-  const [endDate, setEndDate] = useState(initialData?.endDate || "");
+  const [start_date, setStartDate] = useState(initialData?.start_date || "");
+  const [end_date, setEndDate] = useState(initialData?.end_date || "");
   const [status, setStatus] = useState(initialData?.status || "в работе");
   const [priority, setPriority] = useState(
     initialData?.priority || "без приоритета"
@@ -110,43 +113,58 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
     setSubtasks(updatedSubtasks);
   };
 
-  const handleSubmit = () => {
-    const generateFourDigitId = () => Math.floor(1000 + Math.random() * 9000);
-    const taskData: TTask = {
-      id: initialData?.id || generateFourDigitId(),
-      title,
-      description,
-      date: initialData?.date || new Date().toISOString(),
-      completed: completed,
-      pinned,
-      status,
-      startDate,
-      endDate,
-      priority,
-      subtasks,
-    };
-
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (initialData?.id) {
+      const taskData: TTask = {
+        ...initialData,
+        title,
+        description,
+        created_at: new Date().toISOString(),
+        completed: completed,
+        pinned,
+        status,
+        start_date,
+        end_date,
+        priority,
+        subtasks,
+      };
+
+      /*     if (initialData?.id) {
       dispatch(editTask(taskData));
+    } else { */
+      /*       dispatch(addTaskToAPI(taskData)); */
+      /*     } */
+
+      navigate(-1);
     } else {
-      dispatch(addTask(taskData));
+      // For new task, create without ID (Supabase will generate it)
+      const taskData: TTaskWithoutId = {
+        title,
+        description,
+        created_at: new Date().toISOString(),
+        completed,
+        pinned,
+        status,
+        start_date,
+        end_date,
+        priority,
+        subtasks,
+      };
+
+      dispatch(addTaskToAPI(taskData as TTask));
+      navigate(-1);
     }
-
-    navigate(-1);
   };
-
-  // const handleSaveTaskSubmit = (newTask: TTask) => {
-  //   dispatch(addTask(newTask));
-  // };
 
   return (
     <TaskFormUI
       task={{
         title,
         description,
-        startDate,
+        start_date,
         status,
-        endDate,
+        end_date,
         priority,
         subtasks,
       }}

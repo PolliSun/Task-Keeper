@@ -8,8 +8,8 @@ export const TasksPage: FC = () => {
   const { tasks, searchResults, filter } = useSelector(
     (state: RootState) => state.tasks
   );
-/*   const calendarDays = useSelector((state: RootState) => state.calendar.days);
-  const { id } = useParams<{ id: string }>(); */
+
+  console.log('Текущие задачи в сторе:', tasks);
 
   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
@@ -30,7 +30,7 @@ export const TasksPage: FC = () => {
         break;
       case "overdue":
         filteredTasksData = tasks.filter(
-          (task) => isTaskOverdue(task.endDate) && task.status !== "выполнена"
+          (task) => isTaskOverdue(task.end_date) && task.status !== "выполнена"
         );
         break;
       case "search":

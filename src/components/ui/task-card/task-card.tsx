@@ -17,14 +17,14 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
           <TaskStatus
             status={task.status}
             displayMode="icon"
-            endDate={task.endDate}
+            endDate={task.end_date}
           />
           <h2 className={styles.title}>{task.title}</h2>
         </div>
         <div className={styles.buttonContainer}>
           <div className={styles.endDateContainer}>
             <h3 className={styles.endDate}>
-              {new Date(task.date).toLocaleDateString("ru-RU", {
+              {new Date(task.created_at).toLocaleDateString("ru-RU", {
                 day: "2-digit",
                 month: "long",
                 year: "numeric",

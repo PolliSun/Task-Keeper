@@ -7,8 +7,8 @@ import { useDispatch } from "../../services/store";
 import styles from "./app.module.css";
 import { Calendar } from "../calendar/calendar";
 import { TaskForm } from "../task-form/task-form";
-import { getTasksFromStorage } from "../../utils/tasksStorage";
-import { setTasks } from "../../services/slices/taskSlice";
+/* import { getTasksFromStorage } from "../../utils/tasksStorage";
+import { setTasks } from "../../services/slices/taskSlice"; */
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
 /* import { DatasPage } from "../../pages/datas/datas";
@@ -17,6 +17,7 @@ import { DayDetails } from "../day-details/day-details"; */
 import { Layout } from "../ui/layout/layout";
 import { DesktopView } from "../ui/desktop-view/desktop-view";
 import { MobileView } from "../ui/mobile-view/mobile-view";
+import { fetchTasks } from "../../services/slices/taskSlice";
 
 export const App: FC = () => {
 /*   const location = useLocation(); */
@@ -35,8 +36,7 @@ export const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    const tasks = getTasksFromStorage();
-    dispatch(setTasks(tasks));
+    dispatch(fetchTasks());
   }, [dispatch]);
 
   return (
