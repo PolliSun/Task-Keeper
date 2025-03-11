@@ -5,7 +5,7 @@ import {
   addSubtask,
   addTaskToAPI,
   deliteSubtask,
-  /*   editTask, */
+  editeTask,
 } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +81,8 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
     setPriority(e.target.value);
   };
 
-  const handleSubtaskAdd = () => {
+  const handleSubtaskAdd = (e: React.FormEvent) => {
+    e.preventDefault();
     const generateFourDigitId = () => Math.floor(1000 + Math.random() * 9000);
     const newSubtask = {
       id: generateFourDigitId(),
@@ -116,12 +117,12 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (initialData?.id) {
+      console.log("Режим редактирования задачи:", initialData.id);
       const taskData: TTask = {
         ...initialData,
         title,
         description,
-        created_at: new Date().toISOString(),
-        completed: completed,
+        completed,
         pinned,
         status,
         start_date,
@@ -130,15 +131,10 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
         subtasks,
       };
 
-      /*     if (initialData?.id) {
-      dispatch(editTask(taskData));
-    } else { */
-      /*       dispatch(addTaskToAPI(taskData)); */
-      /*     } */
-
-      navigate(-1);
+      dispatch(editeTask(taskData as TTask));
+      // navigate(-1);
     } else {
-      // For new task, create without ID (Supabase will generate it)
+      console.log("Режим создания новой задачи");
       const taskData: TTaskWithoutId = {
         title,
         description,
@@ -153,7 +149,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
       };
 
       dispatch(addTaskToAPI(taskData as TTask));
-      navigate(-1);
+      // navigate(-1);
     }
   };
 

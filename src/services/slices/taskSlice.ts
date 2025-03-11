@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TTask } from "../../types/type";
-/* import {
-  saveTasksToStorage,
-  getTasksFromStorage,
-} from "../../utils/api"; */
-import { fetchTasksFromAPI, saveTaskToAPI } from "../../utils/api";
+import {
+  fetchTasksFromAPI,
+  saveTaskToAPI,
+  updateTaskInAPI,
+  deleteTaskFromAPI,
+} from "../../utils/api";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const tasks = await fetchTasksFromAPI();
@@ -16,6 +17,22 @@ export const addTaskToAPI = createAsyncThunk(
   async (task: Omit<TTask, "id"> & Partial<Pick<TTask, "id">>) => {
     const newTask = await saveTaskToAPI(task as TTask);
     return newTask;
+  }
+);
+
+export const editeTask = createAsyncThunk(
+  "tasks/updateTask",
+  async (task: TTask) => {
+    const updateTask = await updateTaskInAPI(task);
+    return updateTask;
+  }
+);
+
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async (taskId: number) => {
+    await deleteTaskFromAPI(taskId);
+    return taskId;
   }
 );
 
@@ -39,14 +56,6 @@ const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    setTasks(state, action: PayloadAction<TTask[]>) {
-      state.tasks = action.payload;
-      /*       saveTasksToStorage(state.tasks); */
-    },
-    /*     addTask(state, action: PayloadAction<TTask>) {
-      state.tasks.push(action.payload);
-      saveTasksToStorage(state.tasks);
-    }, */
     addSubtask(
       state,
       action: PayloadAction<{
@@ -60,12 +69,7 @@ const taskSlice = createSlice({
       if (task) {
         if (!task.subtasks) task.subtasks = [];
         task.subtasks.push({ ...action.payload.subtask, completed: false });
-        /*         saveTasksToStorage(state.tasks); */
       }
-    },
-    deliteTask(state, action: PayloadAction<number>) {
-      state.tasks = state.tasks.filter((tasks) => tasks.id !== action.payload);
-      /*       saveTasksToStorage(state.tasks); */
     },
     deliteSubtask(
       state,
@@ -78,7 +82,6 @@ const taskSlice = createSlice({
         task.subtasks = task.subtasks.filter(
           (subtasks) => subtasks.id !== action.payload.subtaskId
         );
-        /*         saveTasksToStorage(state.tasks); */
       }
     },
     toggleTaskCompletion(
@@ -90,7 +93,6 @@ const taskSlice = createSlice({
       if (task) {
         task.completed = completed;
         task.status = completed ? "выполнена" : "в работе";
-        /*         saveTasksToStorage(state.tasks); */
       }
     },
     toggleSubtaskStatus(
@@ -107,7 +109,6 @@ const taskSlice = createSlice({
         const subtask = task.subtasks.find((st) => st.id === subtaskId);
         if (subtask) {
           subtask.completed = completed;
-          /*           saveTasksToStorage(state.tasks); */
         }
       }
     },
@@ -115,17 +116,6 @@ const taskSlice = createSlice({
       const task = state.tasks.find((task) => task.id === action.payload);
       if (task) {
         task.pinned = !task.pinned;
-        /*         saveTasksToStorage(state.tasks); */
-      }
-    },
-    editTask(state, action: PayloadAction<TTask>) {
-      const editedTask = action.payload;
-      const taskIndex = state.tasks.findIndex(
-        (task) => task.id === editedTask.id
-      );
-      if (taskIndex !== -1) {
-        state.tasks[taskIndex] = editedTask;
-        /*         saveTasksToStorage(state.tasks); */
       }
     },
     searchTasks(state, action: PayloadAction<string>) {
@@ -229,18 +219,29 @@ const taskSlice = createSlice({
       })
       .addCase(addTaskToAPI.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
+      })
+      .addCase(editeTask.fulfilled, (state, action) => {
+        const index = state.tasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.tasks[index] = action.payload;
+        }
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
       });
   },
 });
 
 export const {
-  setTasks,
+  // setTasks,
   addSubtask,
   deliteSubtask,
-  deliteTask,
+  // deliteTask,
   toggleTaskCompletion,
   toggleSubtaskStatus,
-  editTask,
+  // editTask,
   searchTasks,
   setFilter,
   sortTasks,

@@ -1,19 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import { Routes, Route} from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { Header } from "../header/header";
+import { Header } from "../Header/Header";
 import { useDispatch } from "../../services/store";
 
 import styles from "./app.module.css";
 import { Calendar } from "../calendar/calendar";
 import { TaskForm } from "../task-form/task-form";
-/* import { getTasksFromStorage } from "../../utils/tasksStorage";
-import { setTasks } from "../../services/slices/taskSlice"; */
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
-/* import { DatasPage } from "../../pages/datas/datas";
-import { TasksPage } from "../../pages/tasks-list/tasks-list";
-import { DayDetails } from "../day-details/day-details"; */
 import { Layout } from "../ui/layout/layout";
 import { DesktopView } from "../ui/desktop-view/desktop-view";
 import { MobileView } from "../ui/mobile-view/mobile-view";

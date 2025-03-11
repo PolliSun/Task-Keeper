@@ -3,7 +3,7 @@ import { TaskDetailsUI } from "../ui/task-details/task-details";
 import { useDispatch } from "../../services/store";
 import { RootState, useSelector } from "../../services/store";
 import {
-  deliteTask,
+  deleteTask,
   toggleTaskCompletion,
   toggleSubtaskStatus,
   pinTask,
@@ -21,10 +21,10 @@ export const TaskDetails: FC = () => {
 
   const handleDeleteTask = useCallback(
     (id: number) => {
-      dispatch(deliteTask(id));
+      dispatch(deleteTask(id));
       navigate("/");
     },
-    [dispatch]
+    [dispatch, navigate]
   );
 
   const handlePin = useCallback(() => {
@@ -56,19 +56,6 @@ export const TaskDetails: FC = () => {
   }, [navigate, taskData]);
 
   if (!taskData) return <p>Задача не найдена</p>;
-
-/*   const isTaskOverdue = (endDate: string): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const taskEndDate = new Date(endDate);
-    taskEndDate.setHours(0, 0, 0, 0);
-
-    return taskEndDate < today;
-  };
-
-  const isOverdue =
-    isTaskOverdue(taskData.endDate) && taskData.status !== "выполнена"; */
 
   return (
     <TaskDetailsUI
