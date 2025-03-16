@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Routes, Route} from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { Header } from "../Header/Header";
+import { Header } from "../header/header";
 import { useDispatch } from "../../services/store";
 
 import styles from "./app.module.css";
@@ -20,11 +20,11 @@ export const App: FC = () => {
 /*   const navigate = useNavigate();
   const background = location.state?.background; */
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

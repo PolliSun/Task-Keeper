@@ -21,9 +21,9 @@ export const addTaskToAPI = createAsyncThunk(
 );
 
 export const editeTask = createAsyncThunk(
-  "tasks/updateTask",
-  async (task: TTask) => {
-    const updateTask = await updateTaskInAPI(task);
+  "tasks/editeTask",
+  async (task: Pick<TTask, "id"> & Partial<Omit<TTask, "id">>) => {
+    const updateTask = await updateTaskInAPI(task as TTask);
     return updateTask;
   }
 );

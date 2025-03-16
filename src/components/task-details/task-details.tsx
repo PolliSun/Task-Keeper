@@ -19,13 +19,21 @@ export const TaskDetails: FC = () => {
 
   console.log(taskData?.status);
 
-  const handleDeleteTask = useCallback(
+  /*   const handleDeleteTask = useCallback(
     (id: number) => {
       dispatch(deleteTask(id));
       navigate("/");
     },
     [dispatch, navigate]
-  );
+  ); */
+
+  const handleDeleteTask = (id: number) => {
+    if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
+      dispatch(deleteTask(id));
+      console.log(id);
+      navigate("/");
+    }
+  };
 
   const handlePin = useCallback(() => {
     if (taskData) {

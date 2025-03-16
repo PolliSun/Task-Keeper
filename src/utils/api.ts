@@ -22,11 +22,11 @@ export const saveTaskToAPI = async (task: Partial<TTask>): Promise<TTask> => {
   return response.json();
 };
 
-export const updateTaskInAPI = async (task: TTask): Promise<TTask> => {
+export const updateTaskInAPI = async (task: Partial<TTask>): Promise<TTask> => {
   const response = await fetch(
     `${import.meta.env.VITE_APP_URL}/tasks/${task.id}`,
     {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,6 +46,9 @@ export const deleteTaskFromAPI = async (taskId: number): Promise<void> => {
     `${import.meta.env.VITE_APP_URL}/tasks/${taskId}`,
     {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
 

@@ -115,42 +115,36 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+      e.preventDefault();
     if (initialData?.id) {
-      console.log("Режим редактирования задачи:", initialData.id);
-      const taskData: TTask = {
+      const updatedTask: TTask = {
         ...initialData,
         title,
         description,
-        completed,
-        pinned,
-        status,
         start_date,
         end_date,
         priority,
         subtasks,
       };
 
-      dispatch(editeTask(taskData as TTask));
-      // navigate(-1);
+      dispatch(editeTask(updatedTask));
     } else {
-      console.log("Режим создания новой задачи");
-      const taskData: TTaskWithoutId = {
-        title,
-        description,
-        created_at: new Date().toISOString(),
-        completed,
-        pinned,
-        status,
-        start_date,
-        end_date,
-        priority,
-        subtasks,
-      };
+    e.preventDefault();
+    const taskData: TTaskWithoutId = {
+      title,
+      description,
+      created_at: new Date().toISOString(),
+      completed,
+      pinned,
+      status,
+      start_date,
+      end_date,
+      priority,
+      subtasks,
+    };
 
-      dispatch(addTaskToAPI(taskData as TTask));
-      // navigate(-1);
-    }
+    dispatch(addTaskToAPI(taskData as TTask));
+        }
   };
 
   return (
