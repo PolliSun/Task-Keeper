@@ -1,30 +1,21 @@
 import React, { FC } from "react";
 import styles from "./task-form.module.css";
 import { CgCloseR } from "react-icons/cg";
+import { TTask } from "../../../types/type";
+
+type FormDataValueType = string | boolean | null;
 
 type TaskFormUIProps = {
-  task: {
-    title: string;
-    description: string;
-    start_date: string;
-    status: string;
-    end_date: string;
-    priority: string;
-    subtasks: { id: number; title: string }[];
-  };
+  task: Omit<TTask, "id" | "created_at">;
   isEditing: boolean;
   titleRef: React.RefObject<HTMLTextAreaElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
   subtasksRefs: React.RefObject<(HTMLTextAreaElement | null)[]>;
-  onTitleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onStartDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onPriorityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubtaskAdd: () => void;
-  onSubtaskDelite: (id: number) => void;
+  onInputChange: (field: string, value: FormDataValueType) => void;
+  onSubtaskAdd: (e: React.MouseEvent) => void;
+  onSubtaskDelite: (id: number, e: React.MouseEvent) => void;
   onSubtaskChange: (index: number, value: string) => void;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent) => void;
 };
 
 export const TaskFormUI: FC<TaskFormUIProps> = ({
@@ -33,11 +24,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   titleRef,
   descriptionRef,
   subtasksRefs,
-  onTitleChange,
-  onDescriptionChange,
-  onStartDateChange,
-  onPriorityChange,
-  onEndDateChange,
+  onInputChange,
   onSubtaskAdd,
   onSubtaskDelite,
   onSubtaskChange,
@@ -54,7 +41,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         value={task.title}
         placeholder="Заголовок задачи"
         className={styles.textareaTitle}
-        onChange={onTitleChange}
+        onChange={(e) => onInputChange("title", e.target.value)}
         ref={titleRef}
       />
       <label className={styles.label} htmlFor="description">
@@ -66,7 +53,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         value={task.description}
         placeholder="Описание задачи"
         className={styles.textareaDescription}
-        onChange={onDescriptionChange}
+        onChange={(e) => onInputChange("description", e.target.value)}
         ref={descriptionRef}
       />
       <label className={styles.label} htmlFor="priorityGroup">
@@ -83,7 +70,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
               name="priority"
               value={label}
               checked={task.priority === label}
-              onChange={onPriorityChange}
+              onChange={() => onInputChange("priority", label)}
               className={styles.radioInput}
             />
             {label.charAt(0).toUpperCase() + label.slice(1)}
@@ -98,28 +85,28 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         <input
           id="startDate"
           type="date"
-          value={task.start_date}
+          value={task.start_date || ""}
           className={styles.formDate}
-          onChange={onStartDateChange}
+          onChange={(e) => onInputChange("start_date", e.target.value)}
         />
         <label htmlFor="endDate">дата окончания:</label>
         <input
           id="endDate"
           type="date"
-          value={task.end_date}
+          value={task.end_date || ""}
           className={styles.formDate}
-          onChange={onEndDateChange}
+          onChange={(e) => onInputChange("end_date", e.target.value)}
         />
       </div>
       <div className={styles.subtasksContainer}>
         <label className={styles.label} htmlFor="subtasks">
           Создайте список подзадач
         </label>
-        <button className={styles.buttonForm} onClick={onSubtaskAdd}>
+        <button className={styles.buttonForm} onClick={(e) => onSubtaskAdd(e)}>
           +
         </button>
       </div>
-      {task.subtasks.map((subtask, index) => (
+      {task.subtasks?.map((subtask, index) => (
         <div
           id="subtasks"
           key={index}
@@ -139,7 +126,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           />
           <button
             className={styles.buttonFormDelite}
-            onClick={() => onSubtaskDelite(subtask.id)}
+            onClick={(e) => onSubtaskDelite(subtask.id, e)}
           >
             <CgCloseR size={20} />
           </button>

@@ -9,8 +9,6 @@ export const TasksPage: FC = () => {
     (state: RootState) => state.tasks
   );
 
-  console.log('Текущие задачи в сторе:', tasks);
-
   const isTaskOverdue = (endDate: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

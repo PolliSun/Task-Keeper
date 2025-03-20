@@ -3,7 +3,7 @@ import { TaskDetailsUI } from "../ui/task-details/task-details";
 import { useDispatch } from "../../services/store";
 import { RootState, useSelector } from "../../services/store";
 import {
-  deliteTask,
+  deleteTask,
   toggleTaskCompletion,
   toggleSubtaskStatus,
   pinTask,
@@ -17,27 +17,40 @@ export const TaskDetails: FC = () => {
   const taskData = tasks.find((i) => i.id === parseInt(id || ""));
   const dispatch = useDispatch();
 
-  console.log(taskData?.status);
-
-  const handleDeleteTask = useCallback(
-    (id: number) => {
-      dispatch(deliteTask(id));
+  const handleDeleteTask = (id: number) => {
+    if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
+      dispatch(deleteTask(id));
+      console.log(id);
       navigate("/");
-    },
-    [dispatch]
-  );
+    }
+  };
 
   const handlePin = useCallback(() => {
     if (taskData) {
-      dispatch(pinTask(taskData.id));
+      dispatch(
+        pinTask({
+          taskId: taskData.id,
+          currentPinned: taskData.pinned || false,
+        })
+      );
     }
   }, [dispatch, taskData]);
 
   const handleSubtaskToggle = useCallback(
     (taskId: number, subtaskId: number, completed: boolean) => {
-      dispatch(toggleSubtaskStatus({ taskId, subtaskId, completed }));
+      const task = tasks.find((t) => t.id === taskId);
+      if (task && task.subtasks) {
+        dispatch(
+          toggleSubtaskStatus({
+            taskId,
+            subtaskId,
+            completed,
+            subtasks: task.subtasks,
+          })
+        );
+      }
     },
-    [dispatch]
+    [dispatch, tasks]
   );
 
   const handleTaskComplete = useCallback(
@@ -56,19 +69,6 @@ export const TaskDetails: FC = () => {
   }, [navigate, taskData]);
 
   if (!taskData) return <p>Задача не найдена</p>;
-
-/*   const isTaskOverdue = (endDate: string): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const taskEndDate = new Date(endDate);
-    taskEndDate.setHours(0, 0, 0, 0);
-
-    return taskEndDate < today;
-  };
-
-  const isOverdue =
-    isTaskOverdue(taskData.endDate) && taskData.status !== "выполнена"; */
 
   return (
     <TaskDetailsUI

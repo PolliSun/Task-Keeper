@@ -51,7 +51,7 @@
   background: #555;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .page {
     padding: 0px 10px 20px 20px;
   }

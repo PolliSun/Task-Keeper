@@ -2,8 +2,8 @@ export type TTask = {
   id: number;
   created_at: string;
   completed: boolean;
-  start_date: string;
-  end_date: string;
+  start_date?: string | null;
+  end_date?: string | null;
   status: "просрочена" | "выполнена" | "в работе";
   title: string;
   description: string;

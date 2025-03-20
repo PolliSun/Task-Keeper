@@ -7,13 +7,8 @@ import { useDispatch } from "../../services/store";
 import styles from "./app.module.css";
 import { Calendar } from "../calendar/calendar";
 import { TaskForm } from "../task-form/task-form";
-/* import { getTasksFromStorage } from "../../utils/tasksStorage";
-import { setTasks } from "../../services/slices/taskSlice"; */
 import { TaskDetails } from "../task-details/task-details";
 import { EditPage } from "../edit-page/edit-page";
-/* import { DatasPage } from "../../pages/datas/datas";
-import { TasksPage } from "../../pages/tasks-list/tasks-list";
-import { DayDetails } from "../day-details/day-details"; */
 import { Layout } from "../ui/layout/layout";
 import { DesktopView } from "../ui/desktop-view/desktop-view";
 import { MobileView } from "../ui/mobile-view/mobile-view";
@@ -25,11 +20,11 @@ export const App: FC = () => {
 /*   const navigate = useNavigate();
   const background = location.state?.background; */
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
