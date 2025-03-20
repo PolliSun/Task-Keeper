@@ -16,9 +16,11 @@ export const saveTaskToAPI = async (task: Partial<TTask>): Promise<TTask> => {
     },
     body: JSON.stringify(task),
   });
+
   if (!response.ok) {
     throw new Error("Не удалось сохранить задачу");
   }
+
   return response.json();
 };
 

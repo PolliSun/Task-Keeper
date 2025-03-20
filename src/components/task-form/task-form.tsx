@@ -2,39 +2,35 @@ import React, { FC, useState, useRef, useEffect } from "react";
 import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
 import {
-  addSubtask,
   addTaskToAPI,
-  deliteSubtask,
   editeTask,
 } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
 import { useNavigate } from "react-router-dom";
 
+type FormDataValueType = string | boolean | null;
+
 type TaskFormProps = {
   initialData?: TTask;
 };
 
-type TTaskWithoutId = Omit<TTask, "id">;
+type TTaskWithoutId = Omit<TTask, "id" | "created_at">;
 
 export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(initialData?.title || "");
-  /* const [title, setTitle] = useState<string>(''); */
-  const [description, setDescription] = useState(
-    initialData?.description || ""
-  );
-  const [completed, setCompleted] = useState(initialData?.completed || false);
-  const [start_date, setStartDate] = useState(initialData?.start_date || "");
-  const [end_date, setEndDate] = useState(initialData?.end_date || "");
-  const [status, setStatus] = useState(initialData?.status || "в работе");
-  const [priority, setPriority] = useState(
-    initialData?.priority || "без приоритета"
-  );
-  const [subtasks, setSubtasks] = useState<{ id: number; title: string }[]>(
-    initialData?.subtasks || []
-  );
-  const [pinned, setPinned] = useState(false);
+
+  const [formData, setFormData] = useState({
+    title: initialData?.title || "",
+    description: initialData?.description || "",
+    completed: initialData?.completed || false,
+    start_date: initialData?.start_date || null,
+    end_date: initialData?.end_date || null,
+    status: initialData?.status || "в работе",
+    priority: initialData?.priority || "без приоритета",
+    subtasks: initialData?.subtasks || [],
+    pinned: initialData?.pinned || false,
+  });
 
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -45,40 +41,26 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
       titleRef.current.style.height = "3.0rem";
       titleRef.current.style.height = `${titleRef.current.scrollHeight}px`;
     }
-  }, [title]);
+  }, [formData.title]);
 
   useEffect(() => {
     if (descriptionRef.current) {
       descriptionRef.current.style.height = "3.5rem";
       descriptionRef.current.style.height = `${descriptionRef.current.scrollHeight}px`;
     }
-  }, [description]);
+  }, [formData.description]);
 
   useEffect(() => {
-    subtasksRefs.current.forEach((ref, index) => {
+    subtasksRefs.current.forEach((ref) => {
       if (ref) {
         ref.style.height = "2.3rem";
         ref.style.height = `${ref.scrollHeight}px`;
       }
     });
-  }, [subtasks]);
+  }, [formData.subtasks]);
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTitle(e.target.value);
-  };
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(e.target.value);
-  };
-  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStartDate(e.target.value);
-  };
-  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEndDate(e.target.value);
-  };
-  const handlePriorityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPriority(e.target.value);
+  const handleInputChange = (field: string, value: FormDataValueType) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubtaskAdd = (e: React.FormEvent) => {
@@ -87,87 +69,62 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
     const newSubtask = {
       id: generateFourDigitId(),
       title: "",
+      completed: false,
     };
-    setSubtasks([...subtasks, newSubtask]);
+    setFormData((prev) => ({
+      ...prev,
+      subtasks: [...prev.subtasks, newSubtask],
+    }));
     subtasksRefs.current.push(null);
-    if (initialData?.id) {
-      dispatch(addSubtask({ taskId: initialData.id, subtask: newSubtask }));
-    }
   };
 
-  const handleSubtaskDelete = (subtaskId: number) => {
-    const indexToRemove = subtasks.findIndex(
+  const handleSubtaskDelete = (subtaskId: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    const indexToRemove = formData.subtasks.findIndex(
       (subtask) => subtask.id === subtaskId
     );
-    setSubtasks((prevSubtasks) =>
-      prevSubtasks.filter((subtask) => subtask.id !== subtaskId)
-    );
+    setFormData((prev) => ({
+      ...prev,
+      subtasks: prev.subtasks.filter((subtask) => subtask.id !== subtaskId),
+    }));
     subtasksRefs.current.splice(indexToRemove, 1);
-    if (initialData?.id) {
-      dispatch(deliteSubtask({ taskId: initialData.id, subtaskId }));
-    }
   };
 
   const handleSubtaskChange = (index: number, value: string) => {
-    const updatedSubtasks = [...subtasks];
+    const updatedSubtasks = [...formData.subtasks];
     updatedSubtasks[index] = { ...updatedSubtasks[index], title: value };
-    setSubtasks(updatedSubtasks);
+    setFormData((prev) => ({ ...prev, subtasks: updatedSubtasks }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
+    e.preventDefault();
     if (initialData?.id) {
       const updatedTask: TTask = {
         ...initialData,
-        title,
-        description,
-        start_date,
-        end_date,
-        priority,
-        subtasks,
+        ...formData,
       };
 
       dispatch(editeTask(updatedTask));
+      navigate(`/task/${updatedTask.id}`);
     } else {
-    e.preventDefault();
-    const taskData: TTaskWithoutId = {
-      title,
-      description,
-      created_at: new Date().toISOString(),
-      completed,
-      pinned,
-      status,
-      start_date,
-      end_date,
-      priority,
-      subtasks,
-    };
+      const taskData: TTaskWithoutId = {
+        ...formData,
+      };
 
-    dispatch(addTaskToAPI(taskData as TTask));
-        }
+      dispatch(addTaskToAPI(taskData));
+      navigate("/");
+    }
   };
 
   return (
     <TaskFormUI
-      task={{
-        title,
-        description,
-        start_date,
-        status,
-        end_date,
-        priority,
-        subtasks,
-      }}
+      task={formData}
       isEditing={!!initialData}
-      onTitleChange={handleTitleChange}
-      onStartDateChange={handleStartDateChange}
-      onEndDateChange={handleEndDateChange}
-      onPriorityChange={handlePriorityChange}
+      onInputChange={handleInputChange}
       onSubmit={handleSubmit}
       onSubtaskAdd={handleSubtaskAdd}
       onSubtaskChange={handleSubtaskChange}
       onSubtaskDelite={handleSubtaskDelete}
-      onDescriptionChange={handleDescriptionChange}
       titleRef={titleRef}
       descriptionRef={descriptionRef}
       subtasksRefs={subtasksRefs}
