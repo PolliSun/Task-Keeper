@@ -1,11 +1,16 @@
 .tasks,
 .data {
   display: flex;
+  align-items: flex-start;
   background-color: #6d7a9d;
   border-radius: calc(0.5rem - 2px);
   padding: 10px;
   color: #000;
   width: 50%;
+}
+
+.data {
+  flex-direction: row-reverse;
 }
 
 .page,

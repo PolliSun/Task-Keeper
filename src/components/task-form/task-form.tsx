@@ -2,7 +2,7 @@ import React, { FC, useState, useRef, useEffect } from "react";
 import { TTask } from "../../types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
 import {
-  addTaskToAPI,
+  addTask,
   editeTask,
 } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
@@ -111,7 +111,7 @@ export const TaskForm: FC<TaskFormProps> = ({ initialData }) => {
         ...formData,
       };
 
-      dispatch(addTaskToAPI(taskData));
+      dispatch(addTask(taskData));
       navigate("/");
     }
   };
