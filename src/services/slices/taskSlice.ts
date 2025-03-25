@@ -12,7 +12,7 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   return tasks;
 });
 
-export const addTaskToAPI = createAsyncThunk(
+export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task: Omit<TTask, "id" | "created_at">) => {
     const newTask = await saveTaskToAPI(task);
@@ -96,6 +96,7 @@ interface TaskState {
   sortBy: "date" | "alphabet" | "priority" | null;
   filter: "all" | "favorites" | "overdue" | "search" | "day";
   error: string | null;
+  loading: boolean;
 }
 
 const initialState: TaskState = {
@@ -105,6 +106,7 @@ const initialState: TaskState = {
   sortBy: null,
   filter: "all",
   error: null,
+  loading: false,
 };
 
 const taskSlice = createSlice({
@@ -207,18 +209,37 @@ const taskSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
+      //fetchTasks      
+      .addCase(fetchTasks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTasks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message as string;
+      })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
       })
+
+      //addTask
+      .addCase(addTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message as string;
+      })
       .addCase(
-        addTaskToAPI.fulfilled,
+        addTask.fulfilled,
         (state, action: PayloadAction<TTask>) => {
           state.tasks.push(action.payload);
         }
       )
-      .addCase(addTaskToAPI.rejected, (state, action) => {
-        state.error = action.payload as string;
-      })
+
+      //editeTask
       .addCase(editeTask.fulfilled, (state, action) => {
         const index = state.tasks.findIndex(
           (task) => task.id === action.payload.id
@@ -227,9 +248,13 @@ const taskSlice = createSlice({
           state.tasks[index] = action.payload;
         }
       })
+
+      //deleteTask
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
       })
+
+      //toggleTaskCompletion
       .addCase(toggleTaskCompletion.fulfilled, (state, action) => {
         const index = state.tasks.findIndex(
           (task) => task.id === action.payload.id
@@ -238,6 +263,8 @@ const taskSlice = createSlice({
           state.tasks[index] = action.payload;
         }
       })
+
+      //toggleSubtaskStatus
       .addCase(toggleSubtaskStatus.fulfilled, (state, action) => {
         const index = state.tasks.findIndex(
           (task) => task.id === action.payload.id
@@ -246,6 +273,8 @@ const taskSlice = createSlice({
           state.tasks[index] = action.payload;
         }
       })
+
+      //pinTask
       .addCase(pinTask.fulfilled, (state, action) => {
         const index = state.tasks.findIndex(
           (task) => task.id === action.payload.id

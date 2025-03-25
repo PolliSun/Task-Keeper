@@ -1,28 +1,17 @@
-.titleContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 2px solid #ff8989;
-}
 
-.title,
-.titleData {
-  font-size: 18px;
-  color: #6d6d6d;
-  font-style: italic;
-}
 
 .button {
-  background-color: #ffebce;
-  border-radius: 0 0 10px 10px;
-  padding: 5px;
+  padding: 15px 5px;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  color: #999;
+  background-color: #fff;
+  border-radius: 0 10px 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
 }
 
 .button.disabled {
-  background-color: #e3e3e3;
+  background-color: #41414170;
   color: #999;
   cursor: not-allowed;
   pointer-events: none;
@@ -30,6 +19,8 @@
 
 .navContainer {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
+  padding-top: 20px;
   gap: 5px;
 }
