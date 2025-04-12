@@ -1,4 +1,4 @@
-import { TTask } from "../types/type";
+import { TTask } from "./types/type";
 
 export const fetchTasksFromAPI = async (): Promise<TTask[]> => {
   const response = await fetch(`${import.meta.env.VITE_APP_URL}/tasks`);

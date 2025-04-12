@@ -1,4 +1,4 @@
-import { TCalendar } from '../types/type';
+import { TCalendar } from './types/type';
 
 export const getCalendarFromStorage = ():TCalendar => {
     const calendar = localStorage.getItem('calendar');

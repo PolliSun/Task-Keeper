@@ -2,7 +2,7 @@ import { FC } from "react";
 import { RootState, useSelector } from "../../services/store";
 import { TasksListUI } from "../../components/ui/pages/tasks-list/tasks-list";
 /* import { useParams } from "react-router-dom"; */
-import { TTask } from "../../types/type";
+import { TTask } from "../../utils/types/type";
 
 export const TasksPage: FC = () => {
   const { tasks, searchResults, filter } = useSelector(

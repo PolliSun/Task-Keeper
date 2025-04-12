@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { TaskCard } from "../../../task-card/task-card";
-import { TTask } from "../../../../types/type";
+import { TTask } from "../../../../utils/types/type";
 
 type TasksListUIProps = {
   tasks: TTask[];

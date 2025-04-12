@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TTask } from "../../../types/type";
+import { TTask } from "../../../utils/types/type";
 import styles from "./task-details.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";

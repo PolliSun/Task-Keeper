@@ -13,7 +13,7 @@ Task-Keeper — это удобный и функциональный сайт �
 - **Webpack**
 - **React**
 - **React Router**
-- **Redux Toolkit**
+- **Tanstack-Query**
 
 
 

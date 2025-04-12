@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef, useEffect } from "react";
-import { TTask } from "../../types/type";
+import { TTask } from "../../utils/types/type";
 import { TaskFormUI } from "../ui/task-form/task-form";
 import {
   addTaskToAPI,

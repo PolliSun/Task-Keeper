@@ -5,7 +5,7 @@ import { LuChevronDown } from "react-icons/lu";
 import { BsListTask } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { TbClockExclamation } from "react-icons/tb";
-import { TTask } from "../../../types/type";
+import { TTask } from "../../../utils/types/type";
 
 type PageHeaderUIProps = {
   tasks: TTask[];

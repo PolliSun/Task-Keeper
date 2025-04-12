@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./task-form.module.css";
 import { CgCloseR } from "react-icons/cg";
-import { TTask } from "../../../types/type";
+import { TTask } from "../../../utils/types/type";
 
 type FormDataValueType = string | boolean | null;
 

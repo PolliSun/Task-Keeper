@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TTask } from "../../types/type";
+import { TTask } from "../../utils/types/type";
 import {
   fetchTasksFromAPI,
   saveTaskToAPI,
