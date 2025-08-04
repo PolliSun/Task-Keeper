@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./components/app/app";
-import { HashRouter } from "react-router-dom";
+import { App } from "./components/App/App";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./services/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -17,9 +17,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <Provider store={store}>
-          <HashRouter>
+          <BrowserRouter>
             <App />
-          </HashRouter>
+          </BrowserRouter>
         </Provider>
       </UserProvider>
     </QueryClientProvider>

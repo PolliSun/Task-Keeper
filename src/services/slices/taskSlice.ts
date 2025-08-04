@@ -15,6 +15,9 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
 export const addTaskToAPI = createAsyncThunk(
   "tasks/addTask",
   async (task: Omit<TTask, "id" | "created_at">) => {
+    if (!task.user_id) {
+      throw new Error("User ID is required");
+    }
     const newTask = await saveTaskToAPI(task);
     return newTask;
   }

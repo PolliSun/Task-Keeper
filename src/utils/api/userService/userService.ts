@@ -24,6 +24,11 @@ export interface UpdateUser {
 
 export interface userService {
   login: ({ email, password }: LoginData) => Promise<{ data: User }>;
+  logout: () => Promise<void>;
+  getUser: () => Promise<{ data: User }>
+  updateUser: ({username, avatar_url}: UpdateUser) => Promise<{ data: User }>;
+  refreshToken: () => Promise<void>;
+  register: ({ email, password }: RegisterData) => Promise<{ data: User}>;
 }
 
 export const userService = new userServiceReal();

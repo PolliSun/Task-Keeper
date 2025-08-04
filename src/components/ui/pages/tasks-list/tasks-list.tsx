@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { TaskCard } from "../../../task-card/task-card";
-import { TTask } from "../../../../utils/types/type";
+import { Task } from "../../../../utils/api/taskService/taskService";
 
 type TasksListUIProps = {
-  tasks: TTask[];
+  tasks: Task[];
 };
 
 export const TasksListUI: FC<TasksListUIProps> = ({

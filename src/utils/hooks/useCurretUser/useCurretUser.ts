@@ -7,3 +7,9 @@ export const useLogin = () => {
     mutationFn: (data: LoginData) => userService.login(data),
   });
 };
+
+export const useLogout =() => {
+  return useMutation ({
+    mutationFn: () => userService.logout(),
+  })
+}

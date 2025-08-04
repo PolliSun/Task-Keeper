@@ -1,48 +1,55 @@
 import React, { FC } from "react";
 import styles from "./task-form.module.css";
+import { Task } from "../../../utils/api/taskService/taskService";
 import { CgCloseR } from "react-icons/cg";
-import { TTask } from "../../../utils/types/type";
 
 type FormDataValueType = string | boolean | null;
 
 type TaskFormUIProps = {
-  task: Omit<TTask, "id" | "created_at">;
+  task: Omit<Task, "id" | "created_at">;
   isEditing: boolean;
-  titleRef: React.RefObject<HTMLTextAreaElement>;
-  descriptionRef: React.RefObject<HTMLTextAreaElement>;
-  subtasksRefs: React.RefObject<(HTMLTextAreaElement | null)[]>;
+  // titleRef: React.RefObject<HTMLTextAreaElement>;
+  // descriptionRef: React.RefObject<HTMLTextAreaElement>;
+  // subtasksRefs: React.RefObject<(HTMLTextAreaElement | null)[]>;
   onInputChange: (field: string, value: FormDataValueType) => void;
-  onSubtaskAdd: (e: React.MouseEvent) => void;
+  onSubtaskAdd: (e: React.FormEvent) => void;
   onSubtaskDelite: (id: number, e: React.MouseEvent) => void;
-  onSubtaskChange: (index: number, value: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubtaskChange: (id: number, value: string) => void;
+  onSubmit: (data: Omit<Task, "id" | "created_at">) => void;
 };
 
 export const TaskFormUI: FC<TaskFormUIProps> = ({
   task,
   isEditing,
-  titleRef,
-  descriptionRef,
-  subtasksRefs,
+  // titleRef,
+  // descriptionRef,
+  // subtasksRefs,
   onInputChange,
   onSubtaskAdd,
   onSubtaskDelite,
   onSubtaskChange,
   onSubmit,
 }) => {
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(task);
+  };
+
   return (
-    <form className={styles.taskForm} onSubmit={onSubmit}>
+    <form className={styles.taskForm} onSubmit={handleSubmit}>
       <label className={styles.label} htmlFor="title">
         Придумайте заголовок задачи *
       </label>
       <textarea
         id="title"
         name="title"
-        value={task.title}
+        value={task?.title}
         placeholder="Заголовок задачи"
         className={styles.textareaTitle}
         onChange={(e) => onInputChange("title", e.target.value)}
-        ref={titleRef}
+        required
+        // ref={titleRef}
       />
       <label className={styles.label} htmlFor="description">
         Придумайте описание задачи
@@ -50,11 +57,11 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
       <textarea
         id="description"
         name="description"
-        value={task.description}
+        value={task?.description}
         placeholder="Описание задачи"
         className={styles.textareaDescription}
         onChange={(e) => onInputChange("description", e.target.value)}
-        ref={descriptionRef}
+        // ref={descriptionRef}
       />
       <label className={styles.label} htmlFor="priorityGroup">
         Выберите приоритет *
@@ -63,13 +70,13 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         {["высокий", "средний", "низкий", "без приоритета"].map((label) => (
           <label
             key={label}
-            className={task.priority === label ? styles.active : ""}
+            className={task?.priority === label ? styles.active : ""}
           >
             <input
               type="radio"
               name="priority"
               value={label}
-              checked={task.priority === label}
+              checked={task?.priority === label}
               onChange={() => onInputChange("priority", label)}
               className={styles.radioInput}
             />
@@ -85,7 +92,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         <input
           id="startDate"
           type="date"
-          value={task.start_date || ""}
+          value={task?.start_date || ""}
           className={styles.formDate}
           onChange={(e) => onInputChange("start_date", e.target.value)}
         />
@@ -93,7 +100,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         <input
           id="endDate"
           type="date"
-          value={task.end_date || ""}
+          value={task?.end_date || ""}
           className={styles.formDate}
           onChange={(e) => onInputChange("end_date", e.target.value)}
         />
@@ -102,14 +109,14 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         <label className={styles.label} htmlFor="subtasks">
           Создайте список подзадач
         </label>
-        <button className={styles.buttonForm} onClick={(e) => onSubtaskAdd(e)}>
+        <button type="button" className={styles.buttonForm} onClick={onSubtaskAdd}>
           +
         </button>
       </div>
-      {task.subtasks?.map((subtask, index) => (
+      {task?.subtasks?.map((subtask, index) => (
         <div
           id="subtasks"
-          key={index}
+          key={subtask.id}
           className={styles.buttonSubtaskContainer}
         >
           <textarea
@@ -117,21 +124,23 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             value={subtask.title}
             placeholder={`подзадача ${index + 1}`}
             className={styles.textareaSubtask}
-            onChange={(e) => onSubtaskChange(index, e.target.value)}
-            ref={(e) => {
-              if (subtasksRefs.current) {
-                subtasksRefs.current[index] = e;
-              }
-            }}
+            onChange={(e) => onSubtaskChange(subtask.id, e.target.value)}
+            required
+            // ref={(e) => {
+            //   if (subtasksRefs.current) {
+            //     subtasksRefs.current[index] = e;
+            //   }
+            // }}
           />
           <button
+            type="button"
             className={styles.buttonFormDelite}
             onClick={(e) => onSubtaskDelite(subtask.id, e)}
           >
             <CgCloseR size={20} />
           </button>
         </div>
-      ))}
+      ))} 
 
       <button type="submit" className={styles.buttonSubmit}>
         {isEditing ? "Изменить" : "Создать"}
