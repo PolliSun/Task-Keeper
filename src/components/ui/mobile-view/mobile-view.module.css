@@ -1,5 +1,7 @@
 .tasks {
   display: flex;
+  align-items: flex-start;
+  flex-direction: row-reverse;
   background-color: #6d7a9d;
   border-top-right-radius: calc(-2px + 0.5rem);
   border-bottom-right-radius: calc(-2px + 0.5rem);

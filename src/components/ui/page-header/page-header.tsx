@@ -5,12 +5,8 @@ import { LuChevronDown } from "react-icons/lu";
 import { BsListTask } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { TbClockExclamation } from "react-icons/tb";
-import { TTask } from "../../../utils/types/type";
 
 type PageHeaderUIProps = {
-  tasks: TTask[];
-  title: string;
-  noTasksTitle?: string;
   onSortClick: () => void;
   isSortOpen: boolean;
   onSortSelect: (sortBy: "date" | "alphabet" | "priority") => void;
@@ -21,9 +17,6 @@ type PageHeaderUIProps = {
 };
 
 export const PageHeaderUI: FC<PageHeaderUIProps> = ({
-  tasks,
-  title,
-  noTasksTitle,
   onSortClick,
   isSortOpen,
   onSortSelect,
@@ -45,12 +38,12 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
           />
           {isSortOpen && (
             <div className={styles.sortDropdown}>
-              <button onClick={() => onSortSelect("date")}>По дате</button>
+              <button onClick={() => onSortSelect("date")}>Д</button>
               <button onClick={() => onSortSelect("alphabet")}>
-                По алфавиту
+                А
               </button>
               <button onClick={() => onSortSelect("priority")}>
-                По приоритету
+                П
               </button>
             </div>
           )}
@@ -82,12 +75,6 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
         >
           <TbClockExclamation size={18} />
         </button>
-      </div>
-
-      <div className={styles.titleContainer}>
-        <h3 className={styles.title}>
-          {tasks.length > 0 ? title : noTasksTitle}
-        </h3>
       </div>
     </>
   );
