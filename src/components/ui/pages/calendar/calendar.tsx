@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./calendar.module.css";
-import { TDay } from "../../../../types/type";
+import { TDay } from "../../../../utils/types/type";
 import { DayCard } from "../../../day-card/day-card";
 import { HolidayWidget } from "../../../holiday-widget/holiday-widget";
 

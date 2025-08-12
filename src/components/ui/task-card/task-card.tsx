@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TTask } from "../../../types/type";
+import { TTask } from "../../../utils/types/type";
 import styles from "./task-card.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { TaskStatus } from "../../task-status/task-status";

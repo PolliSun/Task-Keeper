@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TDay } from "../../types/type";
+import { TDay } from "../../utils/types/type";
 import { DayCardUI } from "../ui/day-card/day-card";
 
 type DayCardProps = {

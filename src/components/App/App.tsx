@@ -1,25 +1,19 @@
 import { FC, useEffect, useState } from "react";
 import { Routes, Route} from "react-router-dom";
 import { HomePage } from "../../pages/home-page";
-import { Header } from "../header/header";
-import { useDispatch } from "../../services/store";
-
+import { Header } from "../Header/Header";
 import styles from "./app.module.css";
 import { Calendar } from "../calendar/calendar";
-import { TaskForm } from "../task-form/task-form";
-import { TaskDetails } from "../task-details/task-details";
-import { EditPage } from "../edit-page/edit-page";
+import { TaskDetails } from "../../pages/task-details/task-details";
 import { Layout } from "../ui/layout/layout";
 import { DesktopView } from "../ui/desktop-view/desktop-view";
 import { MobileView } from "../ui/mobile-view/mobile-view";
-import { fetchTasks } from "../../services/slices/taskSlice";
+import { Login } from "../../pages/login/login";
+import { Profile } from "../../pages/profile/profile";
+import { CreateTask } from "../../pages/create-task/create-task";
+import { EditTask } from "../../pages/edit-task/edit-task";
 
 export const App: FC = () => {
-/*   const location = useLocation(); */
-  const dispatch = useDispatch();
-/*   const navigate = useNavigate();
-  const background = location.state?.background; */
-
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
@@ -30,25 +24,29 @@ export const App: FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
-
   return (
     <div className={styles.app}>
       <Header />
-      <Layout>
         <Routes>
-          <Route path="/" element={isMobile ? <MobileView /> : <DesktopView />}>
+          <Route path="/profile" element={<Profile/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
+          <Route
+            path="/"
+            element={
+              <Layout>
+                {isMobile ? <MobileView /> : <DesktopView />}
+              </Layout>
+            }
+          >
+            <Route index element={null} /> 
             <Route path="faq" element={<HomePage />} />
-            <Route path="create" element={<TaskForm />} />
+            <Route path="create" element={<CreateTask />} />
             <Route path="calendar" element={<Calendar />} />
             <Route path="calendar/day/:id" element={<Calendar />} />
             <Route path="task/:id" element={<TaskDetails />} />
-            <Route path="task/:id/edit" element={<EditPage />} />
+            <Route path="task/:id/edit" element={<EditTask />} />
           </Route>
         </Routes>
-      </Layout>
     </div>
   );
 };

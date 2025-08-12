@@ -1,4 +1,5 @@
 export type TTask = {
+  user_id: string;
   id: number;
   created_at: string;
   completed: boolean;

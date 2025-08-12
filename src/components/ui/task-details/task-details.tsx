@@ -1,17 +1,17 @@
 import { FC } from "react";
-import { TTask } from "../../../types/type";
 import styles from "./task-details.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { TaskStatus } from "../../task-status/task-status";
+import { Task } from "../../../utils/api/taskService/taskService";
 
 type TaskDetailsUIProps = {
-  task: TTask;
+  task: Task;
   onDelete: (id: number) => void;
   onPin: (id: number) => void;
-  onToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
+  onSubtaskToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
   onTaskComplete: (taskId: number, completed: boolean) => void;
   onEditTask: (id: number) => void;
 };
@@ -20,7 +20,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   task,
   onDelete,
   onPin,
-  onToggle,
+  onSubtaskToggle,
   onTaskComplete,
   onEditTask,
 }) => {
@@ -122,7 +122,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                       type="checkbox"
                       checked={subtask.completed || false}
                       onChange={(e) =>
-                        onToggle(task.id, subtask.id, e.target.checked)
+                        onSubtaskToggle(task.id, subtask.id, e.target.checked)
                       }
                       className={styles.hiddenCheckbox}
                     />

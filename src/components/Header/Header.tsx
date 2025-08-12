@@ -4,9 +4,13 @@ import styles from "./header.module.css";
 import { IoBookOutline } from "react-icons/io5";
 import { searchTasks, setFilter } from "../../services/slices/taskSlice";
 import { useDispatch } from "../../services/store";
+import { useUser } from "../../contexts/UserContext";
+import { CgProfile } from "react-icons/cg";
+import { FiLogIn } from "react-icons/fi";
 
 export const Header: FC = () => {
   const navigate = useNavigate();
+  const { isLogin } = useUser();
 
   const dispatch = useDispatch();
 
@@ -16,12 +20,29 @@ export const Header: FC = () => {
     dispatch(searchTasks(""));
   };
 
+  const handleNavigationLogin = () => {
+    navigate("/login");
+  };
+
+  const handleNavigationProfile = () => {
+    navigate("/profile");
+  };
+
   return (
     <header className={styles.header}>
-      <a href="#" onClick={handleNavigation} className={styles.link}>
+      <a onClick={handleNavigation} className={styles.link}>
         <IoBookOutline size={40} />
         <h1 className={styles.title}>Task Keeper</h1>
       </a>
+      {isLogin ? (
+        <a onClick={handleNavigationProfile} className={styles.link}>
+          <CgProfile size={30} />
+        </a>
+      ) : (
+        <a onClick={handleNavigationLogin} className={styles.link}>
+          <FiLogIn size={30} />
+        </a>
+      )}
     </header>
   );
 };

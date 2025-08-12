@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TTask } from "../../types/type";
+import { TTask } from "../../utils/types/type";
 import {
   fetchTasksFromAPI,
   saveTaskToAPI,
@@ -15,6 +15,9 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
 export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task: Omit<TTask, "id" | "created_at">) => {
+    if (!task.user_id) {
+      throw new Error("User ID is required");
+    }
     const newTask = await saveTaskToAPI(task);
     return newTask;
   }

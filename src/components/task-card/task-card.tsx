@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { TaskCardUI } from "../ui/task-card/task-card";
-import { TTask } from "../../types/type";
+import { TTask } from "../../utils/types/type";
 
 type TaskCardProps = {
   task: TTask;
