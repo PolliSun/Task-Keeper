@@ -4,10 +4,9 @@ export type Task = {
   user_id: string;
   id: number;
   created_at: string;
-  completed: boolean;
   start_date: string | null;
   end_date: string | null;
-  status: "просрочена" | "выполнена" | "в работе";
+  status: string;
   title: string;
   description: string;
   priority: string;

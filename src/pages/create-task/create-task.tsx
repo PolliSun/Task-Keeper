@@ -7,24 +7,27 @@ import { useNavigate } from "react-router-dom";
 
 export const CreateTask: FC = () => {
   const { mutateAsync } = useCreateTask();
-  const { user } = useUser();
+  const { user, isLogin } = useUser();
   const navigate = useNavigate();
   type FormDataValueType = string | boolean | null;
 
   const [formData, setFormData] = useState<Omit<Task, "id" | "created_at">>({
-    user_id: user!.userId,
+    user_id: user?.userId || "", // временное значение
     title: "",
     description: "",
-    completed: false,
     start_date: null,
     end_date: null,
-    status: "в работе",
+    status: "новая",
     priority: "без приоритета",
     subtasks: [],
     pinned: false,
   });
 
-  if (!user || !formData) {
+  if (!user?.userId) {
+    return <div>загрузка задачи</div>;
+  }
+
+  if (!isLogin || !formData) {
     return <div>Пожалуйста, войдите в систему</div>;
   }
 
@@ -71,33 +74,6 @@ export const CreateTask: FC = () => {
       subtasks: prev.subtasks?.filter((subtask) => subtask.id !== subtaskId),
     }));
   };
-
-    // const titleRef = useRef<HTMLTextAreaElement>(null);
-    // const descriptionRef = useRef<HTMLTextAreaElement>(null);
-    // const subtasksRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
-  
-    // useEffect(() => {
-    //   if (titleRef.current) {
-    //     titleRef.current.style.height = "3.0rem";
-    //     titleRef.current.style.height = `${titleRef.current.scrollHeight}px`;
-    //   }
-    // }, [formData.title]);
-  
-    // useEffect(() => {
-    //   if (descriptionRef.current) {
-    //     descriptionRef.current.style.height = "3.5rem";
-    //     descriptionRef.current.style.height = `${descriptionRef.current.scrollHeight}px`;
-    //   }
-    // }, [formData.description]);
-  
-    // useEffect(() => {
-    //   subtasksRefs.current.forEach((ref) => {
-    //     if (ref) {
-    //       ref.style.height = "2.3rem";
-    //       ref.style.height = `${ref.scrollHeight}px`;
-    //     }
-    //   });
-    // }, [formData.subtasks]);
 
   return (
     <TaskFormUI

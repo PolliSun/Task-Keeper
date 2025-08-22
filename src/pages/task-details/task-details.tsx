@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect } from "react";
 import { TaskDetailsUI } from "../../components/ui/task-details/task-details";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -6,50 +6,52 @@ import {
   useGetTaskById,
   useUpdateTask,
 } from "../../utils/hooks/useTasks/useTasks";
+import { useTasksContext } from "../../contexts/TaskContext";
 
 export const TaskDetails: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: task, isLoading } = useGetTaskById(Number(id));
+  const { selectedTask, setSelectedTask } = useTasksContext();
+  const taskId = Number(id);
+
+  const task = selectedTask?.id === taskId ? selectedTask : null;
+  const { data: fetchedTask, isLoading } = useGetTaskById(taskId);
   const { mutateAsync: deleteTask } = useDeleteTask();
   const { mutateAsync: updateTask } = useUpdateTask();
 
-  const [pinned, setPinned] = useState(task?.data.pinned ?? false);
+  const currentTask = task || fetchedTask?.data || null;
+
+  useEffect(() => {
+    if (fetchedTask && fetchedTask.data && !selectedTask) {
+      setSelectedTask(fetchedTask.data);
+    }
+  }, [fetchedTask, selectedTask, setSelectedTask]);
 
   const handleDeleteTask = async () => {
-    if (!task?.data.id) return;
+    if (!currentTask?.id) return;
     if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
-      await deleteTask(task?.data.id);
+      await deleteTask(currentTask.id);
+      setSelectedTask(null);
       navigate("/");
     }
   };
 
   const handlePinTask = async () => {
-    if (!task?.data.id) return;
-
-    const newPinned = !pinned;
-    setPinned(newPinned);
-
+    if (!currentTask?.id) return;
+    const newPinned = !currentTask.pinned;
     await updateTask({
-      id: task?.data.id,
+      id: currentTask.id,
       updates: { pinned: newPinned },
     });
+    setSelectedTask({ ...currentTask, pinned: newPinned });
   };
 
   const handleEditTask = async () => {
-    if (task?.data) {
-      navigate(`/task/${task.data.id}/edit`, {
-        state: { initialData: task.data },
+    if (currentTask) {
+      navigate(`/task/${currentTask.id}/edit`, {
+        state: { initialData: currentTask },
       });
     }
-  };
-
-  const handleTaskComplete = async () => {
-    if (!task?.data.id) return;
-    await updateTask({
-      id: task?.data.id,
-      updates: { completed: !task.data.completed },
-    });
   };
 
   const handleSubtaskToggle = async (
@@ -57,30 +59,40 @@ export const TaskDetails: FC = () => {
     subtaskId: number,
     completed: boolean
   ) => {
-    if (!task?.data.id || !task.data.subtasks) return;
+    if (!currentTask?.id || !currentTask.subtasks) return;
 
-    const updatedSubtasks = task.data.subtasks.map((subtask) =>
+    const updatedSubtasks = currentTask.subtasks.map((subtask) =>
       subtask.id === subtaskId ? { ...subtask, completed } : subtask
     );
     await updateTask({
       id: taskId,
       updates: { subtasks: updatedSubtasks },
     });
+    setSelectedTask({ ...currentTask, subtasks: updatedSubtasks });
+  };
+
+  const handleStatusChange = async (newStatus: string) => {
+    if (!currentTask?.id) return;
+    await updateTask({
+      id: currentTask.id,
+      updates: { status: newStatus },
+    });
+    setSelectedTask({ ...currentTask, status: newStatus });
   };
 
   if (isLoading) {
     return <p>Загрузка задачи...</p>;
   }
-  if (!task) return <p>Задача не найдена</p>;
+  if (!currentTask) return <p>Задача не найдена</p>;
 
   return (
     <TaskDetailsUI
-      task={task.data}
+      task={currentTask}
       onDelete={handleDeleteTask}
-      onTaskComplete={handleTaskComplete}
       onSubtaskToggle={handleSubtaskToggle}
       onPin={handlePinTask}
       onEditTask={handleEditTask}
+      onStatusSelect={handleStatusChange}
     />
   );
 };

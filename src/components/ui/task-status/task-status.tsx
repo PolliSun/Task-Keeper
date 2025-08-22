@@ -1,10 +1,11 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./task-status.module.css";
+import { IconType } from "react-icons"; 
 
 type TaskStatusUIProps = {
-  status?: "просрочена" | "выполнена" | "в работе";
+  status?: string;
   color?: string;
-  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 };
 
 export const TaskStatusUI: FC<TaskStatusUIProps> = ({
@@ -14,7 +15,7 @@ export const TaskStatusUI: FC<TaskStatusUIProps> = ({
 }) => {
   return (
     <>
-      {Icon && <Icon color={color} />}
+      {Icon && <Icon color={color} size={16}/>}
 
       {status === "просрочена" && (
         <div className={`${styles.status} ${styles.statusOverdue}`}>
@@ -32,6 +33,27 @@ export const TaskStatusUI: FC<TaskStatusUIProps> = ({
       )}
       {status === "в работе" && (
         <div className={`${styles.status} ${styles.statusProgress}`}>
+          <h3 className={styles.title}>
+            {status}
+          </h3>
+        </div>
+      )}
+      {status === "новая" && (
+        <div className={`${styles.status} ${styles.statusNew}`}>
+          <h3 className={styles.title}>
+            {status}
+          </h3>
+        </div>
+      )}
+      {status === "отложена" && (
+        <div className={`${styles.status} ${styles.statusPostponed}`}>
+          <h3 className={styles.title}>
+            {status}
+          </h3>
+        </div>
+      )}
+      {status === "тестирование" && (
+        <div className={`${styles.status} ${styles.statusTesting}`}>
           <h3 className={styles.title}>
             {status}
           </h3>

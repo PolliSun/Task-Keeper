@@ -8,12 +8,18 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.filterButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .filters {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 5px;
-  padding-top: 20px;
+  justify-content: space-between;
+  padding: 20px 0;
+  height: 100%;
 }
 
 .filterButton {
@@ -23,6 +29,11 @@
   background-color: #41414170;
   border-radius: 10px 0 0;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 80%);
+}
+
+.buttonArchive {
+  border-radius: 10px 0 0 10px;
+  clip-path: unset;
 }
 
 .filterButton.active {

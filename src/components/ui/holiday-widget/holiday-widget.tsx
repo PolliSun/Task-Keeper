@@ -7,15 +7,13 @@ interface HolidayWidgetUIProps {
 
 export const HolidayWidgetUI: FC<HolidayWidgetUIProps> = ({ holiday }) => {
   return (
-    <div className={styles.factsContainer}>
+    <>
       {holiday ? (
-        <div>
+        <div className={styles.factsContainer}>
           <h2 className={styles.factsTitle}>{holiday.name}</h2>
           <p className={styles.factsParagraph}>{holiday.description}</p>
         </div>
-      ) : (
-        <p>Сегодня нет специальных праздников</p>
-      )}
-    </div>
+      ) : null}
+    </>
   );
 };

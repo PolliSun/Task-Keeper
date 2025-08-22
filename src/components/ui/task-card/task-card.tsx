@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { TTask } from "../../../utils/types/type";
 import styles from "./task-card.module.css";
 import { TaskPriority } from "../../task-priority/task-priority";
 import { TaskStatus } from "../../task-status/task-status";
 import { Link } from "react-router-dom";
+import { Task } from "../../../utils/api/taskService/taskService";
 
 type TaskCardUIProps = {
-  task: TTask;
+  task: Task;
 };
 
 export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
@@ -17,7 +17,6 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
           <TaskStatus
             status={task.status}
             displayMode="icon"
-            endDate={task.end_date}
           />
           <h2 className={styles.title}>{task.title}</h2>
         </div>

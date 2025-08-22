@@ -1,0 +1,54 @@
+.selector {
+  position: relative;
+}
+
+.statusButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 115px;
+}
+
+.statusSelected {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 3;
+}
+
+.statusList {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #6b7280;
+  padding-right: 5px;
+  width: 115px;
+  border-radius: calc(0.5rem - 2px);
+}
+
+.checkmark {
+  border: 5px solid #6b7280;
+  border-radius: 50%;
+}
+
+.arrowDropdown {
+  display: flex;
+  background-color: #f7fafd;
+  border-radius: calc(0.5rem - 2px);
+  padding: 4px;
+}
+
+.iconRotated {
+  transform: rotate(-180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
