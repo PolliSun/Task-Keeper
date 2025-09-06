@@ -46,6 +46,16 @@ export const TaskDetails: FC = () => {
     setSelectedTask({ ...currentTask, pinned: newPinned });
   };
 
+  const handleArchivedTask = async () => {
+    if (!currentTask?.id) return;
+    const newArchive = !currentTask.archived;
+    await updateTask({
+      id: currentTask.id,
+      updates: { archived: newArchive },
+    });
+    setSelectedTask({ ...currentTask, archived: newArchive });
+  };
+
   const handleEditTask = async () => {
     if (currentTask) {
       navigate(`/task/${currentTask.id}/edit`, {
@@ -54,18 +64,14 @@ export const TaskDetails: FC = () => {
     }
   };
 
-  const handleSubtaskToggle = async (
-    taskId: number,
-    subtaskId: number,
-    completed: boolean
-  ) => {
+  const handleSubtaskToggle = async (subtaskId: number, completed: boolean) => {
     if (!currentTask?.id || !currentTask.subtasks) return;
 
     const updatedSubtasks = currentTask.subtasks.map((subtask) =>
       subtask.id === subtaskId ? { ...subtask, completed } : subtask
     );
     await updateTask({
-      id: taskId,
+      id: currentTask.id,
       updates: { subtasks: updatedSubtasks },
     });
     setSelectedTask({ ...currentTask, subtasks: updatedSubtasks });
@@ -93,6 +99,7 @@ export const TaskDetails: FC = () => {
       onPin={handlePinTask}
       onEditTask={handleEditTask}
       onStatusSelect={handleStatusChange}
+      onArchived={handleArchivedTask}
     />
   );
 };

@@ -11,7 +11,7 @@ type TaskCardUIProps = {
 
 export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
   return (
-    <Link to={`/task/${task.id}`} state={{ background: location.pathname }}>
+    <Link to={`/task/${task.id}`}>
       <li key={task.id} className={styles.card}>
         <div className={styles.dataContainer}>
           <TaskStatus

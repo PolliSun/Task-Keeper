@@ -32,6 +32,10 @@ export const FirstPageTitle: FC = () => {
         title = `Просроченые задачи: ${sortedTasks.length} из ${totalTasks}`;
         noTasksTitle = "У вас нет просроченных задач.";
         break;
+      case "archive":
+        title = `Архивные задачи: ${sortedTasks.length}`;
+        noTasksTitle = "У вас нет архивных задач.";
+        break;
       default:
         title = `Ваши задачи: выполнено ${
           tasks.filter((task) => task.status === "выполнена").length

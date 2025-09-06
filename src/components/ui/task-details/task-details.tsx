@@ -9,15 +9,12 @@ import { TaskStatusSelector } from "../../task-status-selector/task-status-selec
 
 type TaskDetailsUIProps = {
   task: Task;
-  onDelete: (id: number) => void;
-  onPin: (id: number) => void;
-  onSubtaskToggle: (
-    taskId: number,
-    subtaskId: number,
-    completed: boolean
-  ) => void;
+  onDelete: () => void;
+  onPin: () => void;
+  onSubtaskToggle: (subtaskId: number, completed: boolean) => void;
   onStatusSelect: (status: string) => void;
-  onEditTask: (id: number) => void;
+  onEditTask: () => void;
+  onArchived: () => void;
 };
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
@@ -27,6 +24,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   onSubtaskToggle,
   onEditTask,
   onStatusSelect,
+  onArchived,
 }) => {
   return (
     <>
@@ -35,7 +33,10 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <div className={styles.titleContainer}>
             <div className={styles.stateContainer}>
               <p className={styles.numberTask}>Задача №{task.id}</p>
-              <TaskStatusSelector currentStatus={task.status} onStatusChange={onStatusSelect}/>
+              <TaskStatusSelector
+                currentStatus={task.status}
+                onStatusChange={onStatusSelect}
+              />
             </div>
             <h2 className={styles.title}>{task.title}</h2>
           </div>
@@ -46,26 +47,27 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                 className={`${styles.buttonСlip} ${
                   task.pinned ? styles.active : ""
                 }`}
-                onClick={() => {
-                  onPin(task.id);
-                }}
+                onClick={onPin}
               >
                 <FaRegHeart size={20} />
               </button>
               <button
                 aria-label="Редактировать заметку"
                 className={styles.buttonEdit}
-                onClick={() => onEditTask(task.id)}
+                onClick={onEditTask}
               >
                 <FiEdit2 size={20} />
               </button>
               <button
                 aria-label="Удалить заметку"
                 className={styles.buttonDelete}
-                onClick={() => onDelete(task.id)}
+                onClick={onDelete}
               >
                 <RiDeleteBin5Line size={20} />
               </button>
+            </div>
+            <div>
+              <button onClick={onArchived}>Arhive</button>
             </div>
           </div>
         </div>
@@ -114,7 +116,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                       type="checkbox"
                       checked={subtask.completed || false}
                       onChange={(e) =>
-                        onSubtaskToggle(task.id, subtask.id, e.target.checked)
+                        onSubtaskToggle(subtask.id, e.target.checked)
                       }
                       className={styles.hiddenCheckbox}
                     />

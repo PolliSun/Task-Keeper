@@ -3,7 +3,7 @@ import { Task } from "../utils/api/taskService/taskService";
 import { useUser } from "./UserContext";
 import { useGetTasks } from "../utils/hooks/useTasks/useTasks";
 
-type TaskFilter = "all" | "favorites" | "overdue";
+type TaskFilter = "all" | "favorites" | "overdue" | "archive";
 type TaskSort = "date" | "priority" | "status";
 
 type TaskContextType = {
@@ -64,8 +64,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         return tasks.filter(
           (task) => isTaskOverdue(task.end_date) && task.status !== "выполнена"
         );
+      case "archive":
+        return tasks.filter((task) => task.archived);
       default:
-        return tasks;
+        return tasks.filter((task) => task.archived !== true);
     }
   }, [tasks, filter]);
 

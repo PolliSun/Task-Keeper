@@ -15,7 +15,9 @@ export const PageHeader: FC = () => {
     setIsSortOpen(false);
   };
 
-  const handleFilterChange = (sortBy: "all" | "favorites" | "overdue") => {
+  const handleFilterChange = (
+    sortBy: "all" | "favorites" | "overdue" | "archive"
+  ) => {
     setFilter(sortBy);
   };
 

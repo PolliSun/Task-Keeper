@@ -11,6 +11,7 @@ export type Task = {
   description: string;
   priority: string;
   pinned: boolean;
+  archived: boolean;
   subtasks?: Subtask[];
 };
 
