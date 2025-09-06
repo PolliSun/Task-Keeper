@@ -7,23 +7,24 @@ import {
 import { Task } from "../../utils/api/taskService/taskService";
 import { useUser } from "../../contexts/UserContext";
 import { TaskFormUI } from "../../components/ui/task-form/task-form";
+import { useTasksContext } from "../../contexts/TaskContext";
 
 export const EditTask: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: task, isLoading } = useGetTaskById(Number(id));
+  const { setSelectedTask } = useTasksContext();
   const { user } = useUser();
-  const { mutateAsync } = useUpdateTask();
+  const { mutateAsync: updateTask } = useUpdateTask();
   type FormDataValueType = string | boolean | null;
 
   const [formData, setFormData] = useState<Omit<Task, "id" | "created_at">>({
     user_id: user?.userId || "",
     title: "",
     description: "",
-    completed: false,
     start_date: null,
     end_date: null,
-    status: "в работе",
+    status: "новая",
     priority: "без приоритета",
     subtasks: [],
     pinned: false,
@@ -35,7 +36,6 @@ export const EditTask: FC = () => {
         user_id: user.userId,
         title: task.data.title,
         description: task.data.description,
-        completed: task.data.completed,
         start_date: task.data.start_date,
         end_date: task.data.end_date,
         status: task.data.status,
@@ -64,10 +64,11 @@ export const EditTask: FC = () => {
 
   const handleSubmit = async (data: Omit<Task, "id" | "created_at">) => {
     if (!task?.data.id) return;
-    await mutateAsync({
+    await updateTask({
       id: task?.data.id,
       updates: data,
     });
+    setSelectedTask({ ...task.data, ...data });
     navigate(-1);
   };
 

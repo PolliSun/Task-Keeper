@@ -4,16 +4,17 @@ import { TaskPriority } from "../../task-priority/task-priority";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
-import { TaskStatus } from "../../task-status/task-status";
 import { Task } from "../../../utils/api/taskService/taskService";
+import { TaskStatusSelector } from "../../task-status-selector/task-status-selector";
 
 type TaskDetailsUIProps = {
   task: Task;
-  onDelete: (id: number) => void;
-  onPin: (id: number) => void;
-  onSubtaskToggle: (taskId: number, subtaskId: number, completed: boolean) => void;
-  onTaskComplete: (taskId: number, completed: boolean) => void;
-  onEditTask: (id: number) => void;
+  onDelete: () => void;
+  onPin: () => void;
+  onSubtaskToggle: (subtaskId: number, completed: boolean) => void;
+  onStatusSelect: (status: string) => void;
+  onEditTask: () => void;
+  onArchived: () => void;
 };
 
 export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
@@ -21,8 +22,9 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
   onDelete,
   onPin,
   onSubtaskToggle,
-  onTaskComplete,
   onEditTask,
+  onStatusSelect,
+  onArchived,
 }) => {
   return (
     <>
@@ -31,10 +33,9 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <div className={styles.titleContainer}>
             <div className={styles.stateContainer}>
               <p className={styles.numberTask}>Задача №{task.id}</p>
-              <TaskStatus
-                status={task.status}
-                displayMode="text"
-                endDate={task.end_date}
+              <TaskStatusSelector
+                currentStatus={task.status}
+                onStatusChange={onStatusSelect}
               />
             </div>
             <h2 className={styles.title}>{task.title}</h2>
@@ -46,36 +47,27 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                 className={`${styles.buttonСlip} ${
                   task.pinned ? styles.active : ""
                 }`}
-                onClick={() => {
-                  onPin(task.id);
-                }}
+                onClick={onPin}
               >
                 <FaRegHeart size={20} />
               </button>
               <button
                 aria-label="Редактировать заметку"
                 className={styles.buttonEdit}
-                onClick={() => onEditTask(task.id)}
+                onClick={onEditTask}
               >
                 <FiEdit2 size={20} />
               </button>
               <button
                 aria-label="Удалить заметку"
                 className={styles.buttonDelete}
-                onClick={() => onDelete(task.id)}
+                onClick={onDelete}
               >
                 <RiDeleteBin5Line size={20} />
               </button>
             </div>
-            <div className={styles.completeContainer}>
-              <button
-                className={`${styles.completeButton} ${
-                  task.completed ? styles.completed : ""
-                }`}
-                onClick={() => onTaskComplete(task.id, !task.completed)}
-              >
-                {task.completed ? "открыть" : "выполнить"}
-              </button>
+            <div>
+              <button onClick={onArchived}>Arhive</button>
             </div>
           </div>
         </div>
@@ -105,9 +97,11 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
           <span className={styles.titleColumn}>приоритет:</span>
           <TaskPriority priority={task.priority} />
         </div>
-        <div className={styles.descriptionContainer}>
-          <p className={styles.description}>{task.description}</p>
-        </div>
+        {task.description && (
+          <div className={styles.descriptionContainer}>
+            <p className={styles.description}>{task.description}</p>
+          </div>
+        )}
         {task.subtasks && task.subtasks.length > 0 && (
           <>
             <h2 className={styles.subtaskTitle}>список подзадач:</h2>
@@ -122,7 +116,7 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
                       type="checkbox"
                       checked={subtask.completed || false}
                       onChange={(e) =>
-                        onSubtaskToggle(task.id, subtask.id, e.target.checked)
+                        onSubtaskToggle(subtask.id, e.target.checked)
                       }
                       className={styles.hiddenCheckbox}
                     />

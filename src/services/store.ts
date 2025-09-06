@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import tasksReducer from './slices/taskSlice';
 import calendarReducer from './slices/calendarSlice';
 
 import {
@@ -10,7 +9,6 @@ import {
   } from 'react-redux';  
 
 export const rootReducer = combineReducers({
-  tasks: tasksReducer,
   calendar: calendarReducer,
 });
 

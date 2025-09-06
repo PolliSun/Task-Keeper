@@ -45,13 +45,6 @@ export const useUpdateTask = () => {
     onSuccess: (updatedTask, { id }) => {
       queryClient.setQueryData(["task", id], updatedTask);
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      // const tasksCache = queryClient.getQueryData<Task[]>(["tasks", user_id]);
-      // if (tasksCache) {
-      //   const newTasks = tasksCache.map((task) =>
-      //     task.id === id ? updatedTask : task
-      //   );
-      //   queryClient.setQueryData(["tasks", user_id], newTasks);
-      // }
     },
   });
 };

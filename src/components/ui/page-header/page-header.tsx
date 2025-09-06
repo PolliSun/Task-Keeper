@@ -5,14 +5,13 @@ import { LuChevronDown } from "react-icons/lu";
 import { BsListTask } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { TbClockExclamation } from "react-icons/tb";
+import { FiArchive } from "react-icons/fi";
 
 type PageHeaderUIProps = {
   onSortClick: () => void;
   isSortOpen: boolean;
-  onSortSelect: (sortBy: "date" | "alphabet" | "priority") => void;
-  onFilterSelect: (
-    sortBy: "favorites" | "overdue" | "search" | "all" | "day"
-  ) => void;
+  onSortSelect: (sortBy: "date" | "priority" | "status") => void;
+  onFilterSelect: (sortBy: "all" | "favorites" | "overdue" | "archive") => void;
   activeFilter: string;
 };
 
@@ -24,9 +23,9 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
   activeFilter,
 }) => {
   return (
-    <>
-      <div className={styles.filters}>
-        <button
+    <div className={styles.filters}>
+      <div className={styles.filterButtons}>
+        <div
           onClick={onSortClick}
           className={`${styles.filterButton} ${
             isSortOpen ? styles.active : ""
@@ -39,15 +38,11 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
           {isSortOpen && (
             <div className={styles.sortDropdown}>
               <button onClick={() => onSortSelect("date")}>Д</button>
-              <button onClick={() => onSortSelect("alphabet")}>
-                А
-              </button>
-              <button onClick={() => onSortSelect("priority")}>
-                П
-              </button>
+              <button onClick={() => onSortSelect("priority")}>П</button>
+              <button onClick={() => onSortSelect("status")}>С</button>
             </div>
           )}
-        </button>
+        </div>
 
         <button
           className={`${styles.filterButton} ${
@@ -76,6 +71,16 @@ export const PageHeaderUI: FC<PageHeaderUIProps> = ({
           <TbClockExclamation size={18} />
         </button>
       </div>
-    </>
+      <div>
+        <button
+          className={`${styles.filterButton} ${styles.buttonArchive} ${
+            activeFilter === "archive" ? styles.active : ""
+          }`}
+          onClick={() => onFilterSelect("archive")}
+        >
+          <FiArchive size={18} />
+        </button>
+      </div>
+    </div>
   );
 };

@@ -6,20 +6,36 @@
   border-radius: calc(0.5rem - 2px);
   padding:  4px 12px;
   background-color: #ffffff;
+  flex: 1;
 }
 
 .statusCompleted {
-  color: #16a34a;
+  color: #6b7280;
   background-color: #dcfce7;
 }
 
 .statusOverdue {
-  color: #dc2626;
+  color: #6b7280;
   background-color: #fee2e2;
 }
 
 .statusProgress {
-  color: #2563eb;
+  color: #6b7280;
+  background-color: #dbeafe;
+}
+
+.statusNew {
+  color: #6b7280;
+  background-color: #fff7ad;
+}
+
+.statusPostponed {
+  color: #6b7280;
+  background-color: #fee2e2;
+}
+
+.statusTesting {
+  color: #6b7280;
   background-color: #dbeafe;
 }
 
