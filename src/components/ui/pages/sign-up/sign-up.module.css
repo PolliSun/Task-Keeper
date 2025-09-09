@@ -34,7 +34,8 @@
   margin: 20px auto;
 }
 
-.login_button {
+.register_button,
+.close_button {
   margin-top: 20px;
   padding: 7px 10px;
   border-radius: calc(0.5rem - 2px);
@@ -42,18 +43,22 @@
   background-color: #ffebce;
 }
 
-.signUp {
+.exit {
   margin-top: 20px;
   text-align: center;
   font-size: 14px;
   color: #6d7a9d;
 }
 
-.signUp_button {
+.exit_button {
   font-weight: bold;
   text-decoration: underline;
   margin-left: 5px;
   color: #6d7a9d;
+}
+
+.close_button {
+  margin-top: 30px;
 }
 
 .error {

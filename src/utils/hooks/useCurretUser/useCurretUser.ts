@@ -1,15 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
-import { userService } from "../../api/userService/userService";
-import { LoginData, User } from "../../api/userService/userService";
+import { useContext } from "react";
+import { UserContext } from "../../../contexts/UserContext";
 
-export const useLogin = () => {
-  return useMutation<{ data: User }, Error, LoginData>({
-    mutationFn: (data: LoginData) => userService.login(data),
-  });
-};
-
-export const useLogout =() => {
-  return useMutation ({
-    mutationFn: () => userService.logout(),
-  })
-}
+export const useCurrentUser = () => useContext(UserContext);

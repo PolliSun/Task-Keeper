@@ -5,16 +5,16 @@ import {
   useUpdateTask,
 } from "../../utils/hooks/useTasks/useTasks";
 import { Task } from "../../utils/api/taskService/taskService";
-import { useUser } from "../../contexts/UserContext";
 import { TaskFormUI } from "../../components/ui/task-form/task-form";
 import { useTasksContext } from "../../contexts/TaskContext";
+import { useCurrentUser } from "../../utils/hooks/useCurretUser/useCurretUser";
 
 export const EditTask: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: task, isLoading } = useGetTaskById(Number(id));
   const { setSelectedTask } = useTasksContext();
-  const { user } = useUser();
+  const { user } = useCurrentUser();
   const { mutateAsync: updateTask } = useUpdateTask();
   type FormDataValueType = string | boolean | null;
 
@@ -28,6 +28,7 @@ export const EditTask: FC = () => {
     priority: "без приоритета",
     subtasks: [],
     pinned: false,
+    archived: false,
   });
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export const EditTask: FC = () => {
         priority: task.data.priority,
         subtasks: task.data.subtasks || [],
         pinned: task.data.pinned,
+        archived: task.data.archived,
       });
     }
   }, [task?.data, user?.userId]);

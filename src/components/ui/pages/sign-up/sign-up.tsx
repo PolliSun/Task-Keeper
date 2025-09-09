@@ -1,35 +1,34 @@
 import { FC } from "react";
-import styles from "./sign-In.module.css";
-import { LoginData } from "../../../../utils/api/userService/userService";
+import styles from "./sign-up.module.css";
+import { RegisterData } from "../../../../utils/api/userService/userService";
 import { WrepperNoteLeftUI } from "../../wrepper-note-left/wrepper-note-left";
 
-type SignInUIProps = {
-  login: LoginData;
-  onSubmit: (data: LoginData) => void;
+type SignUpUIProps = {
+  register: RegisterData;
+  onSubmit: (data: RegisterData) => void;
   onEmailChange: (email: string) => void;
   onPasswordChange: (password: string) => void;
   isLoading?: boolean;
   error?: string | null;
-  onRegister: () => void;
+  onLogin: () => void;
 };
 
-export const SignInUI: FC<SignInUIProps> = ({
-  login,
+export const SignUpUI: FC<SignUpUIProps> = ({
+  register,
   onSubmit,
   onEmailChange,
   onPasswordChange,
-  isLoading = false,
-  error = null,
-  onRegister,
+  isLoading,
+  error,
+  onLogin,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(login);
+    onSubmit(register);
   };
-
   return (
-    <WrepperNoteLeftUI title={"Вход в Task Keeper"}>
-      <form name="sign-in" onSubmit={handleSubmit} className={styles.form}>
+    <WrepperNoteLeftUI title={"Регистрация в Task Keeper"}>
+      <form name="register" onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.field_container}>
           <label className={styles.label} htmlFor="email">
             Email
@@ -38,7 +37,7 @@ export const SignInUI: FC<SignInUIProps> = ({
             className={styles.input}
             id="email"
             type="email"
-            value={login.email}
+            value={register.email}
             placeholder="Введите ваш email"
             onChange={(e) => onEmailChange(e.target.value)}
           />
@@ -51,23 +50,23 @@ export const SignInUI: FC<SignInUIProps> = ({
             className={styles.input}
             id="password"
             type="password"
-            value={login.password}
+            value={register.password}
             placeholder="Введите пароль"
             onChange={(e) => onPasswordChange(e.target.value)}
           />
         </div>
         {error && <div className={styles.error}>{error}</div>}
-        <button className={styles.login_button} disabled={isLoading}>
-          {isLoading ? "Вход..." : "Войти"}
+        <button className={styles.register_button} disabled={isLoading}>
+          {isLoading ? "Регистрация..." : "Зарегистрироваться"}
         </button>
-        <div className={styles.signUp}>
-          Еще нет аккаунта?
+        <div className={styles.exit}>
+          Уже есть аккаунта?
           <button
             type="button"
-            onClick={onRegister}
-            className={styles.signUp_button}
+            onClick={onLogin}
+            className={styles.exit_button}
           >
-            Зарегистрироваться
+            Войти
           </button>
         </div>
       </form>

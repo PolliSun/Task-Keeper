@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
 import { Task } from "../utils/api/taskService/taskService";
-import { useUser } from "./UserContext";
 import { useGetTasks } from "../utils/hooks/useTasks/useTasks";
 
 type TaskFilter = "all" | "favorites" | "overdue" | "archive";
@@ -37,8 +36,7 @@ const TaskContext = createContext<TaskContextType>({
 export const useTasksContext = () => useContext(TaskContext);
 
 export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useUser();
-  const { data, isLoading } = useGetTasks(user?.userId || "");
+  const { data, isLoading } = useGetTasks();
   const [filter, setFilter] = useState<TaskFilter>("all");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [sort, setSort] = useState<TaskSort>("date");
@@ -95,10 +93,9 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
     const statusTask: Record<string, number> = {
       просрочена: 1,
       отложена: 2,
-      тестирование: 3,
-      "в работе": 4,
-      выполнена: 5,
-      новая: 6,
+      "в работе": 3,
+      выполнена: 4,
+      новая: 5,
     };
 
     switch (sort) {

@@ -22,7 +22,7 @@ export type Subtask = {
 };
 
 export interface taskService {
-  getTasks: (user_id: string) => Promise<{ data: Task[] }>;
+  getTasks: () => Promise<{ data: Task[] }>;
   getTaskById: (id: number) => Promise<{ data: Task }>;
   createTask: (
     task: Omit<Task, "id" | "created_at">

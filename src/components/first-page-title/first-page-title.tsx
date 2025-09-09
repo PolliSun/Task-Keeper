@@ -38,7 +38,8 @@ export const FirstPageTitle: FC = () => {
         break;
       default:
         title = `Ваши задачи: выполнено ${
-          tasks.filter((task) => task.status === "выполнена").length
+          tasks.filter((task) => task.status === "выполнена" && !task.archived)
+            .length
         } из ${totalTasks}`;
         noTasksTitle = "Добавьте задачи, чтобы начать!";
         break;

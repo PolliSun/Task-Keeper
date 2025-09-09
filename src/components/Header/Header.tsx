@@ -2,13 +2,13 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { IoBookOutline } from "react-icons/io5";
-import { useUser } from "../../contexts/UserContext";
 import { CgProfile } from "react-icons/cg";
 import { FiLogIn } from "react-icons/fi";
+import { useCurrentUser } from "../../utils/hooks/useCurretUser/useCurretUser";
 
 export const Header: FC = () => {
   const navigate = useNavigate();
-  const { isLogin } = useUser();
+  const { isLogin } = useCurrentUser();
 
   const handleNavigation = () => {
     navigate("/");
