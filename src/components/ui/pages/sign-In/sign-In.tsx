@@ -10,7 +10,8 @@ type SignInUIProps = {
   onPasswordChange: (password: string) => void;
   isLoading?: boolean;
   error?: string | null;
-  onRegister: () => void;
+  onLinkRegister: () => void;
+  onLinkForgotPassword: () => void;
 };
 
 export const SignInUI: FC<SignInUIProps> = ({
@@ -20,7 +21,8 @@ export const SignInUI: FC<SignInUIProps> = ({
   onPasswordChange,
   isLoading = false,
   error = null,
-  onRegister,
+  onLinkRegister,
+  onLinkForgotPassword,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,6 +58,9 @@ export const SignInUI: FC<SignInUIProps> = ({
             onChange={(e) => onPasswordChange(e.target.value)}
           />
         </div>
+        <span className={styles.forgot_password} onClick={onLinkForgotPassword}>
+          Забыли пароль?
+        </span>
         {error && <div className={styles.error}>{error}</div>}
         <button className={styles.login_button} disabled={isLoading}>
           {isLoading ? "Вход..." : "Войти"}
@@ -64,7 +69,7 @@ export const SignInUI: FC<SignInUIProps> = ({
           Еще нет аккаунта?
           <button
             type="button"
-            onClick={onRegister}
+            onClick={onLinkRegister}
             className={styles.signUp_button}
           >
             Зарегистрироваться

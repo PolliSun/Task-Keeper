@@ -160,6 +160,11 @@ export class userServiceReal implements userService {
       if (resData.code === "user_already_exists") {
         throw new Error("Пользователь с таким email уже зарегистрирован.");
       }
+      if (resData.code === "over_email_send_rate_limit") {
+        throw new Error(
+          "Слишком много запросов на отправку email. Пожалуйста, попробуйте позже."
+        );
+      }
       if (resData.code === "weak_password") {
         throw new Error(
           "Пароль слишком слабый. Используйте минимум 6 символов."
@@ -177,6 +182,22 @@ export class userServiceReal implements userService {
         username: user.username || user.email || email,
         avatar_url: user.avatar_url || "",
       },
+    };
+  }
+
+  async resetPasswordRequest(email: string): Promise<{ message: string }> {
+    const res = await fetch(`${API_URL}/api/auth?action=reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const resData = await res.json();
+
+    return {
+      message:
+        resData.message ||
+        "Письмо с инструкциями по сбросу пароля отправлено на ваш email",
     };
   }
 }

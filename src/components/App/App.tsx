@@ -13,6 +13,7 @@ import { Profile } from "../../pages/profile/profile";
 import { CreateTask } from "../../pages/create-task/create-task";
 import { EditTask } from "../../pages/edit-task/edit-task";
 import { Register } from "../../pages/register/register";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 
 export const App: FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
@@ -32,6 +33,7 @@ export const App: FC = () => {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route
           path="/"
           element={

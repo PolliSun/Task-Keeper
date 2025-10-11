@@ -24,6 +24,9 @@ type UserContextType = {
   register:
     | UseMutationResult<{ data: User }, Error, RegisterData, unknown>
     | Record<string, never>;
+  requestPasswordReset:
+    | UseMutationResult<{ message: string }, Error, string, unknown>
+    | Record<string, never>;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -33,6 +36,7 @@ export const UserContext = createContext<UserContextType>({
   signIn: {},
   logout: {},
   register: {},
+  requestPasswordReset: {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -76,12 +80,24 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
+  const requestPasswordReset = useMutation({
+    mutationFn: (email: string) => userService.resetPasswordRequest(email),
+  });
+
   const user = profile.data?.data || null;
   const isLogin = !!profile.data;
 
   return (
     <UserContext.Provider
-      value={{ user, isLogin, profile, signIn, logout, register }}
+      value={{
+        user,
+        isLogin,
+        profile,
+        signIn,
+        logout,
+        register,
+        requestPasswordReset,
+      }}
     >
       {children}
     </UserContext.Provider>

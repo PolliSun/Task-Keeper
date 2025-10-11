@@ -34,6 +34,10 @@ export const Login: FC = () => {
     navigate("/register");
   };
 
+  const onForgotPasswordClick = () => {
+    navigate("/forgot-password");
+  };
+
   return (
     <SignInUI
       login={loginData}
@@ -42,7 +46,8 @@ export const Login: FC = () => {
       onPasswordChange={onPasswordChange}
       isLoading={signIn.isPending}
       error={signIn.error?.message}
-      onRegister={onRegisterClick}
+      onLinkRegister={onRegisterClick}
+      onLinkForgotPassword={onForgotPasswordClick}
     />
   );
 };
