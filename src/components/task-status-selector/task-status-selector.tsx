@@ -1,13 +1,7 @@
 import { FC, useState } from "react";
 import { TaskStatusSelectorUI } from "../ui/task-status-selector/task-status-selector";
 
-const AVAILABLE_STATUSES = [
-  "новая",
-  "в работе",
-  "отложена",
-  "выполнена",
-  "тестирование",
-];
+const AVAILABLE_STATUSES = ["новая", "в работе", "отложена", "выполнена"];
 
 type TaskStatusSelectorProps = {
   currentStatus: string;

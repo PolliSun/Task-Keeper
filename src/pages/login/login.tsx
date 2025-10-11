@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { SignInUI } from "../../components/ui/pages/sign-In/sign-In";
 import { LoginData } from "../../utils/api/userService/userService";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../contexts/UserContext";
+import { useCurrentUser } from "../../utils/hooks/useCurretUser/useCurretUser";
 
 export const Login: FC = () => {
   const [loginData, setLoginData] = useState<LoginData>({
@@ -11,9 +11,8 @@ export const Login: FC = () => {
   });
 
   const navigate = useNavigate();
-  // const { mutate: login, isPending, error } = useLogin();
 
-  const { signIn } = useUser();
+  const { signIn } = useCurrentUser();
 
   const handleSubmit = (data: LoginData) => {
     signIn.mutate(data, {
@@ -31,6 +30,14 @@ export const Login: FC = () => {
     setLoginData({ ...loginData, password });
   };
 
+  const onRegisterClick = () => {
+    navigate("/register");
+  };
+
+  const onForgotPasswordClick = () => {
+    navigate("/forgot-password");
+  };
+
   return (
     <SignInUI
       login={loginData}
@@ -39,6 +46,8 @@ export const Login: FC = () => {
       onPasswordChange={onPasswordChange}
       isLoading={signIn.isPending}
       error={signIn.error?.message}
+      onLinkRegister={onRegisterClick}
+      onLinkForgotPassword={onForgotPasswordClick}
     />
   );
 };

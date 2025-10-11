@@ -22,13 +22,19 @@ export interface UpdateUser {
   avatar_url?: string;
 }
 
+export interface ResetPassword {
+  newPassword: string;
+  reNewPassword: string;
+}
+
 export interface userService {
   login: ({ email, password }: LoginData) => Promise<{ data: User }>;
   logout: () => Promise<void>;
-  getUser: () => Promise<{ data: User }>
-  updateUser: ({username, avatar_url}: UpdateUser) => Promise<{ data: User }>;
-  refreshToken: () => Promise<void>;
-  register: ({ email, password }: RegisterData) => Promise<{ data: User}>;
+  getUser: () => Promise<{ data: User }>;
+  updateUser: ({ username, avatar_url }: UpdateUser) => Promise<{ data: User }>;
+  refreshToken: () => Promise<{ success: boolean }>;
+  register: ({ email, password }: RegisterData) => Promise<{ data: User }>;
+  resetPasswordRequest: (email: string) => Promise<{ message: string }>;
 }
 
 export const userService = new userServiceReal();

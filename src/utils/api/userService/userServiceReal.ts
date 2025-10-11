@@ -6,60 +6,88 @@ import {
   userService,
 } from "./userService";
 import { supabase } from "../../serviceFuncs/supabaseClient";
-
+const API_URL = import.meta.env.VITE_API_URL;
 export class userServiceReal implements userService {
   async login({ email, password }: LoginData): Promise<{ data: User }> {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const res = await fetch(`${API_URL}/api/auth?action=login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
-    if (error) {
-      throw new Error(error.message || "Ошибка при входе");
+    const resData = await res.json();
+
+    if (!res.ok) {
+      if (resData.code === "email_not_confirmed") {
+        throw new Error(
+          "Пожалуйста, подтвердите ваш email адрес по ссылке в письме."
+        );
+      }
+      if (resData.code === "invalid_credentials") {
+        throw new Error("Неверный email или пароль.");
+      }
+      throw new Error(resData.message || "Ошибка при входе");
     }
 
-    if (!data.user) {
-      throw new Error("Пользователь не найден");
-    }
+    const { session, user } = resData;
 
-    return {
-      data: {
-        userId: data.user.id,
-        created_at: data.user.created_at,
-        username: data.user.user_metadata?.username || data.user.email || email,
-        avatar_url: data.user.user_metadata?.avatar_url || "",
-      },
-    };
-  }
-
-  async logout(): Promise<void> {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      throw new Error(error.message || "Ошибка при выходе");
-    }
-  }
-
-  async getUser(): Promise<{ data: User }> {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-
-    if (error) {
-      throw new Error(error.message || "Ошибка получения пользователя");
-    }
-
-    if (!user) {
-      throw new Error("Пользователь не авторизован");
+    if (session?.access_token) {
+      localStorage.setItem("access_token", session.access_token);
+      localStorage.setItem("refresh_token", session.refresh_token);
     }
 
     return {
       data: {
         userId: user.id,
         created_at: user.created_at,
-        username: user.user_metadata.username || user.email || "",
-        avatar_url: user.user_metadata?.avatar_url || "",
+        username: user.username || user.email || email,
+        avatar_url: user.avatar_url || "",
+      },
+    };
+  }
+
+  async logout(): Promise<void> {
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+
+    await fetch(`${API_URL}/api/auth?action=logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refresh_token}`,
+      },
+    });
+  }
+
+  async getUser(): Promise<{ data: User }> {
+    const token = localStorage.getItem("access_token");
+
+    if (!token) {
+      throw new Error("Пользователь не авторизован");
+    }
+
+    const res = await fetch(`${API_URL}/api/user/profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const resData = await res.json();
+
+    if (!res.ok) {
+      throw new Error(resData.message || "Ошибка получения пользователя");
+    }
+
+    return {
+      data: {
+        userId: resData.id,
+        created_at: resData.created_at,
+        username: resData.username || "",
+        avatar_url: resData.avatar_url || "",
       },
     };
   }
@@ -89,51 +117,87 @@ export class userServiceReal implements userService {
     };
   }
 
-  async refreshToken(): Promise<void> {
-    const { error } = await supabase.auth.refreshSession();
+  async refreshToken(): Promise<{ success: boolean }> {
+    const refresh_token = localStorage.getItem("refresh_token");
 
-    if (error) {
-      throw new Error(error.message || "Ошибка обновления сессии");
+    if (!refresh_token) {
+      throw new Error("Refresh token не найден");
     }
+
+    const res = await fetch(`${API_URL}/api/auth?action=refresh-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refresh_token}`,
+      },
+    });
+
+    if (!res.ok) {
+      const resData = await res.json().catch(() => ({}));
+      throw new Error(resData.message || "Ошибка обновления токена");
+    }
+
+    const resData = await res.json();
+
+    if (resData.session) {
+      localStorage.setItem("access_token", resData.session.access_token);
+      localStorage.setItem("refresh_token", resData.session.refresh_token);
+    }
+
+    return { success: true };
   }
 
-  async register({
-    email,
-    password,
-  }: RegisterData): Promise<{ data: User }> {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+  async register({ email, password }: RegisterData): Promise<{ data: User }> {
+    const res = await fetch(`${API_URL}/api/auth?action=register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (error) {
-      throw new Error(error.message || "Ошибка при регистрации");
+    const resData = await res.json();
+
+    if (!res.ok) {
+      if (resData.code === "user_already_exists") {
+        throw new Error("Пользователь с таким email уже зарегистрирован.");
+      }
+      if (resData.code === "over_email_send_rate_limit") {
+        throw new Error(
+          "Слишком много запросов на отправку email. Пожалуйста, попробуйте позже."
+        );
+      }
+      if (resData.code === "weak_password") {
+        throw new Error(
+          "Пароль слишком слабый. Используйте минимум 6 символов."
+        );
+      }
+      throw new Error(resData.message || "Ошибка при регистрации");
     }
 
-    if (!data.user) {
-      throw new Error("Не удалось создать пользователя");
-    }
-
-    const userName = `user_${Math.floor(Math.random() * 1000)}`;
-    const { data: userData, error: userError } = await supabase
-      .from("users")
-      .insert([
-        {
-          id: data.user?.id,
-          username: userName,
-        },
-      ])
-      .select()
-      .single();
-
-    if (userError) {
-      throw new Error(userError.message || "Ошибка создания профиля");
-    }
+    const { user } = resData;
 
     return {
       data: {
-        userId: userData.userId,
-        created_at: userData.created_at,
-        username: userData.username,
-        avatar_url: userData.avatar_url || "",
+        userId: user.id,
+        created_at: user.created_at,
+        username: user.username || user.email || email,
+        avatar_url: user.avatar_url || "",
       },
+    };
+  }
+
+  async resetPasswordRequest(email: string): Promise<{ message: string }> {
+    const res = await fetch(`${API_URL}/api/auth?action=reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const resData = await res.json();
+
+    return {
+      message:
+        resData.message ||
+        "Письмо с инструкциями по сбросу пароля отправлено на ваш email",
     };
   }
 }

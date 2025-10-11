@@ -3,13 +3,11 @@
   flex-direction: column;
   gap: 8px;
 }
-.field_container:first-child {
-  margin-bottom: 20px;
-}
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 30px;
   margin-left: 40px;
   max-width: 500px;
   width: 100%;
@@ -36,7 +34,8 @@
   margin: 20px auto;
 }
 
-.login_button {
+.register_button,
+.close_button {
   margin-top: 20px;
   padding: 7px 10px;
   border-radius: calc(0.5rem - 2px);
@@ -44,29 +43,24 @@
   background-color: #ffebce;
 }
 
-.signUp {
+.exit {
   margin-top: 20px;
   text-align: center;
   font-size: 14px;
   color: #6d7a9d;
 }
 
-.signUp_button {
+.exit_button {
   font-weight: bold;
   text-decoration: underline;
   margin-left: 5px;
   color: #6d7a9d;
 }
 
-.error {
-  color: #dc2626;
-  margin: 10px 0 20px;
+.close_button {
+  margin-top: 30px;
 }
 
-.forgot_password {
-  margin-top: 5px;
-  text-align: end;
-  font-size: 14px;
-  color: #6d7a9d;
-  cursor: pointer;
+.error {
+  color: #dc2626;
 }

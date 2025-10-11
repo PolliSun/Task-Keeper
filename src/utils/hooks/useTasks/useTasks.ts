@@ -1,11 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Task, taskService } from "../../api/taskService/taskService";
 
-export const useGetTasks = (user_id: string) => {
+export const useGetTasks = () => {
   return useQuery({
-    queryKey: ["tasks", user_id],
-    queryFn: async () => await taskService.getTasks(user_id),
-    enabled: !!user_id,
+    queryKey: ["tasks"],
+    queryFn: async () => await taskService.getTasks(),
   });
 };
 

@@ -1,76 +1,104 @@
-import React, { createContext, useContext, useEffect } from "react";
-import { supabase } from "../utils/serviceFuncs/supabaseClient";
-import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
-import { LoginData, User, userService } from "../utils/api/userService/userService";
+import React, { createContext } from "react";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import {
+  LoginData,
+  RegisterData,
+  User,
+  userService,
+} from "../utils/api/userService/userService";
 
 type UserContextType = {
   user: User | null;
   isLogin: boolean;
   profile: UseQueryResult<{ data: User }, Error> | Record<string, never>;
-  signIn: UseMutationResult<{ data: User }, Error, LoginData, unknown> | Record<string, never>;
+  signIn:
+    | UseMutationResult<{ data: User }, Error, LoginData, unknown>
+    | Record<string, never>;
   logout: UseMutationResult<void, Error, void, unknown> | Record<string, never>;
+  register:
+    | UseMutationResult<{ data: User }, Error, RegisterData, unknown>
+    | Record<string, never>;
+  requestPasswordReset:
+    | UseMutationResult<{ message: string }, Error, string, unknown>
+    | Record<string, never>;
 };
 
-const UserContext = createContext<UserContextType>({
+export const UserContext = createContext<UserContextType>({
   user: null,
   isLogin: false,
   profile: {},
   signIn: {},
   logout: {},
+  register: {},
+  requestPasswordReset: {},
 });
-
-export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const client = useQueryClient();
 
   useQuery({
-    queryKey: ['refresh token'],
-    queryFn: () => supabase.auth.refreshSession(),
+    queryKey: ["refresh-token"],
+    queryFn: () => userService.refreshToken(),
     refetchInterval: 4.9 * 60 * 1000,
-    refetchIntervalInBackground: true,
     retry: false,
-  })
+    enabled: !!localStorage.getItem("refresh_token"),
+  });
 
   const profile = useQuery({
     queryKey: ["profile"],
     queryFn: () => userService.getUser(),
     retry: false,
-  })
+    enabled: !!localStorage.getItem("access_token"),
+    staleTime: 5 * 60 * 1000,
+  });
 
   const signIn = useMutation({
     mutationFn: (variables: LoginData) => userService.login(variables),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["profile"] });
+      client.invalidateQueries({ queryKey: ["tasks"] });
     },
-  })
+  });
+
+  const register = useMutation({
+    mutationFn: (variables: RegisterData) => userService.register(variables),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["profile"] });
+    },
+  });
 
   const logout = useMutation({
     mutationFn: () => userService.logout(),
     onSuccess: () => {
-      client.setQueriesData({ queryKey: ["profile"] }, null);
-    }
-  })
+      client.clear();
+    },
+  });
 
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event) => {
-        if (event === 'SIGNED_IN') {
-          client.invalidateQueries({ queryKey: ["profile"] });
-        } else if (event === 'SIGNED_OUT') {
-          client.setQueryData(["profile"], null);
-        }
-      }
-    );
-
-    return () => subscription.unsubscribe();
-  }, [client]);
+  const requestPasswordReset = useMutation({
+    mutationFn: (email: string) => userService.resetPasswordRequest(email),
+  });
 
   const user = profile.data?.data || null;
   const isLogin = !!profile.data;
 
   return (
-    <UserContext.Provider value={{ user, isLogin, profile, signIn, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        isLogin,
+        profile,
+        signIn,
+        logout,
+        register,
+        requestPasswordReset,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
