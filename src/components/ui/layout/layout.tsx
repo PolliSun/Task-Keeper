@@ -10,7 +10,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className={styles.mainContent}>
       <TaskHeaderUI />
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        {children}
+      </div>
       <div className={styles.noteBookHoles}>
         {[...Array(7)].map((_, index) => (
           <div key={index} className={styles.hole} />

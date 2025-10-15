@@ -14,9 +14,13 @@ import { CreateTask } from "../../pages/create-task/create-task";
 import { EditTask } from "../../pages/edit-task/edit-task";
 import { Register } from "../../pages/register/register";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { Home } from "../ui/home/home";
+import { ProtectedRoute } from "../protected-route/protected-route";
+import { useCurrentUser } from "../../utils/hooks/useCurretUser/useCurretUser";
 
 export const App: FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const { profile } = useCurrentUser();
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,23 +34,48 @@ export const App: FC = () => {
     <div className={styles.app}>
       <Header />
       <Routes>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route
+          path="/profile"
+          element={<ProtectedRoute component={<Profile />} />}
+        ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route
           path="/"
           element={
-            <Layout>{isMobile ? <MobileView /> : <DesktopView />}</Layout>
+            profile ? (
+              <Layout>{isMobile ? <MobileView /> : <DesktopView />}</Layout>
+            ) : (
+              <Home />
+            )
           }
         >
           <Route index element={null} />
-          <Route path="faq" element={<HomePage />} />
-          <Route path="create" element={<CreateTask />} />
-          <Route path="calendar" element={<Calendar />} />
-          <Route path="calendar/day/:id" element={<Calendar />} />
-          <Route path="task/:id" element={<TaskDetails />} />
-          <Route path="task/:id/edit" element={<EditTask />} />
+          <Route
+            path="faq"
+            element={<ProtectedRoute component={<HomePage />} />}
+          />
+          <Route
+            path="create"
+            element={<ProtectedRoute component={<CreateTask />} />}
+          />
+          <Route
+            path="calendar"
+            element={<ProtectedRoute component={<Calendar />} />}
+          />
+          <Route
+            path="calendar/day/:id"
+            element={<ProtectedRoute component={<Calendar />} />}
+          />
+          <Route
+            path="task/:id"
+            element={<ProtectedRoute component={<TaskDetails />} />}
+          />
+          <Route
+            path="task/:id/edit"
+            element={<ProtectedRoute component={<EditTask />} />}
+          />
         </Route>
       </Routes>
     </div>
