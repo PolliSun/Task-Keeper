@@ -11,7 +11,11 @@ export const Header: FC = () => {
   const { isLogin } = useCurrentUser();
 
   const handleNavigation = () => {
-    navigate("/");
+    if (isLogin) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
   };
 
   const handleNavigationLogin = () => {

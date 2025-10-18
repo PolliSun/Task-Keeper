@@ -11,7 +11,7 @@ export const TaskHeaderUI: FC = () => {
     <header className={styles.header}>
       <div className={styles.buttonContainer}>
         <NavLink
-          to="/"
+          to="/dashboard"
           className={({ isActive }) =>
             `${styles.button} ${styles.buttonHome} ${
               isActive ? styles.active : ""
@@ -24,7 +24,7 @@ export const TaskHeaderUI: FC = () => {
 
       <div className={styles.buttonContainer}>
         <NavLink
-          to="/create"
+          to="/dashboard/create"
           className={({ isActive }) =>
             `${styles.button} ${styles.buttonCreate} ${
               isActive ? styles.active : ""
@@ -34,7 +34,7 @@ export const TaskHeaderUI: FC = () => {
           <RiStickyNoteAddLine size={20} />
         </NavLink>
         <NavLink
-          to="/calendar"
+          to="/dashboard/calendar"
           className={({ isActive }) =>
             `${styles.button} ${styles.buttonCalendar} ${
               isActive ? styles.active : ""
@@ -44,7 +44,7 @@ export const TaskHeaderUI: FC = () => {
           <BiCalendar size={20} />
         </NavLink>
         <NavLink
-          to="/faq"
+          to="/dashboard/faq"
           className={({ isActive }) =>
             `${styles.button} ${styles.buttonTasks} ${
               isActive ? styles.active : ""

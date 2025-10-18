@@ -76,6 +76,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = useMutation({
     mutationFn: () => userService.logout(),
     onSuccess: () => {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
       client.clear();
     },
   });
