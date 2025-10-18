@@ -17,7 +17,7 @@ export const Login: FC = () => {
   const handleSubmit = (data: LoginData) => {
     signIn.mutate(data, {
       onSuccess: () => {
-        navigate("/");
+        navigate("/dashboard");
       },
     });
   };

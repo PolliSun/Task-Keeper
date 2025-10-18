@@ -4,23 +4,23 @@ import { matchPath, useLocation } from "react-router-dom";
 
 export const SecondPageTitle: FC = () => {
   const location = useLocation();
-  const matchDay = matchPath("/calendar/day/:id", location.pathname);
+  const matchDay = matchPath("/dashboard/calendar/day/:id", location.pathname);
 
   const getTitlePage = (path: string): string => {
     switch (true) {
-      case path === "/create":
+      case path === "/dashboard/create":
         return `Создание задачи`;
 
-      case path === "/calendar":
+      case path === "/dashboard/calendar":
         return `Календарь`;
 
-      case path === "/faq":
+      case path === "/dashboard/faq":
         return `Страница вопросов`;
 
-      case matchPath("/task/:id", path) !== null:
+      case matchPath("/dashboard/task/:id", path) !== null:
         return `Детали задачи`;
 
-      case matchPath("/task/:id/edit", path) !== null:
+      case matchPath("/dashboard/task/:id/edit", path) !== null:
         return `Редактирование задачи`;
 
       case matchDay !== null:

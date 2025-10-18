@@ -15,7 +15,7 @@ export const ForgotPassword: FC = () => {
   const handleSubmit = (email: string) => {
     requestPasswordReset.mutate(email, {
       onSuccess: () => {
-        navigate("/");
+        navigate("/login");
       },
     });
   };

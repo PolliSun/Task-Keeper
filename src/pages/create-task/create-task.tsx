@@ -50,7 +50,7 @@ export const CreateTask: FC = () => {
 
   const handleSubmit = async (data: Omit<Task, "id" | "created_at">) => {
     await mutateAsync(data);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const handleSubtaskAdd = (e: React.FormEvent) => {

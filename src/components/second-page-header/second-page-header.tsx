@@ -8,7 +8,7 @@ export const SecondPageHeader: FC = () => {
   const navigate = useNavigate();
 
   const handleCloseClick = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const isDisabled = location.pathname === "/";

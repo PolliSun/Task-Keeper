@@ -32,7 +32,7 @@ export const TaskDetails: FC = () => {
     if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
       await deleteTask(currentTask.id);
       setSelectedTask(null);
-      navigate("/");
+      navigate("/dashboard");
     }
   };
 
@@ -58,7 +58,7 @@ export const TaskDetails: FC = () => {
 
   const handleEditTask = async () => {
     if (currentTask) {
-      navigate(`/task/${currentTask.id}/edit`, {
+      navigate(`/dashboard/task/${currentTask.id}/edit`, {
         state: { initialData: currentTask },
       });
     }
