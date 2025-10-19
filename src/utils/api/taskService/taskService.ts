@@ -13,6 +13,7 @@ export type Task = {
   pinned: boolean;
   archived: boolean;
   subtasks?: Subtask[];
+  tags?: string[];
 };
 
 export type Subtask = {

@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { Task } from "../../../utils/api/taskService/taskService";
 import { TaskStatusSelector } from "../../task-status-selector/task-status-selector";
+import { FiArchive } from "react-icons/fi";
 
 type TaskDetailsUIProps = {
   task: Task;
@@ -40,37 +41,57 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
             </div>
             <h2 className={styles.title}>{task.title}</h2>
           </div>
-          <div className={styles.actionsContainer}>
-            <div className={styles.buttonContainer}>
-              <button
-                aria-label="Закрепить заметку"
-                className={`${styles.buttonСlip} ${
-                  task.pinned ? styles.active : ""
-                }`}
-                onClick={onPin}
-              >
-                <FaRegHeart size={20} />
-              </button>
-              <button
-                aria-label="Редактировать заметку"
-                className={styles.buttonEdit}
-                onClick={onEditTask}
-              >
-                <FiEdit2 size={20} />
-              </button>
-              <button
-                aria-label="Удалить заметку"
-                className={styles.buttonDelete}
-                onClick={onDelete}
-              >
-                <RiDeleteBin5Line size={20} />
-              </button>
-            </div>
-            <div>
-              <button onClick={onArchived}>Arhive</button>
-            </div>
+          <div className={styles.buttonContainer}>
+            <button
+              aria-label="Закрепить заметку"
+              className={styles.buttonСlip}
+              onClick={onPin}
+            >
+              <FaRegHeart
+                size={20}
+                className={`${task.pinned ? styles.buttonСlipActive : ""}`}
+              />
+            </button>
+            <button
+              aria-label="Редактировать заметку"
+              className={styles.buttonEdit}
+              onClick={onEditTask}
+            >
+              <FiEdit2 size={20} />
+            </button>
+            <button
+              aria-label="Удалить заметку"
+              className={styles.buttonDelete}
+              onClick={onDelete}
+            >
+              <RiDeleteBin5Line size={20} />
+            </button>
+            <div className={styles.buttonLine}></div>
+            <button
+              onClick={onArchived}
+              aria-label="Архивировать заметку"
+              className={styles.buttonArchived}
+            >
+              <FiArchive
+                size={20}
+                className={`${task.archived ? styles.buttonArchiveActive : ""}`}
+              />
+            </button>
           </div>
         </div>
+        {task.tags && (
+          <div className={styles.tagsContainer}>
+            <ul className={styles.tagsList}>
+              {task.tags?.map((tag, index) => {
+                return (
+                  <li key={index}>
+                    <div className={styles.tagName}>{tag}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
         <div className={styles.priorityContainer}>
           <span className={styles.titleColumn}>создан:</span>
           <p className={styles.createDate}>
@@ -133,6 +154,13 @@ export const TaskDetailsUI: FC<TaskDetailsUIProps> = ({
               ))}
             </ul>
           </>
+        )}
+        {task.status === "выполнена" && task.archived !== true && (
+          <div className={styles.archiveInfoContainer}>
+            <FiArchive size={18} className={styles.archiveInfoIcon}/>
+            <p className={styles.archiveInfoTitle}>Архивировать завершенную задачу?</p>
+            <button className={styles.archiveInfoButton} onClick={onArchived}>Да</button>
+          </div>
         )}
       </li>
     </>

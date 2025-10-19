@@ -10,6 +10,7 @@ export const CreateTask: FC = () => {
   const { user, isLogin } = useCurrentUser();
   const navigate = useNavigate();
   type FormDataValueType = string | boolean | null;
+  const [currentTag, setCurrentTag] = useState("");
 
   const [formData, setFormData] = useState<Omit<Task, "id" | "created_at">>({
     user_id: user?.userId || "",
@@ -22,6 +23,7 @@ export const CreateTask: FC = () => {
     subtasks: [],
     pinned: false,
     archived: false,
+    tags: [],
   });
 
   if (!user?.userId) {
@@ -76,6 +78,26 @@ export const CreateTask: FC = () => {
     }));
   };
 
+  const handleTagChange = (tag: string) => {
+    setCurrentTag(tag);
+  };
+
+  const handleDeleteTag = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags?.filter((_, i) => i !== index) || [],
+    }));
+  };
+
+  const handleAddTag = (tag: string) => {
+    if (tag.trim() !== "" && !formData.tags?.includes(tag.trim())) {
+      setFormData((prev) => ({
+        ...prev,
+        tags: [...(prev.tags || []), tag.trim()],
+      }));
+    }
+  };
+
   return (
     <TaskFormUI
       task={formData}
@@ -84,7 +106,11 @@ export const CreateTask: FC = () => {
       onSubmit={handleSubmit}
       onSubtaskAdd={handleSubtaskAdd}
       onSubtaskChange={handleSubtaskChange}
+      onTagChange={handleTagChange}
       onSubtaskDelite={handleSubtaskDelete}
+      onDeleteTag={handleDeleteTag}
+      onAddTag={handleAddTag}
+      currentTag={currentTag}
     />
   );
 };
