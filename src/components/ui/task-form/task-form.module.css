@@ -19,6 +19,7 @@
 .textareaTitle,
 .textareaDescription,
 .textareaSubtask,
+.tagsInput,
 .formDate {
   border-radius: calc(0.5rem - 2px);
   height: 2.5rem;
@@ -32,7 +33,6 @@
 }
 
 .formDate {
-
   height: 2rem;
 }
 
@@ -137,4 +137,31 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 5px;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.tagButton {
+  width: 18px;
+  height: 18px;
+}
+
+.tagContainer {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  padding: 2px 5px;
+  border: 1px solid #e3e3e3;
+  border-radius: 15px;
+}
+
+.tagName {
+  font-size: 15px;
+  color: #6d7a9d;
+  font-style: oblique;
 }

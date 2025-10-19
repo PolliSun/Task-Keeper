@@ -12,7 +12,7 @@ export const MobileView: FC = () => {
 
   return (
     <section className={styles.tasks}>
-      {location.pathname === "/" ? (
+      {location.pathname === "/dashboard" ? (
         <>
           <PageHeader />
           <div className={styles.page}>

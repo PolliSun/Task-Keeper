@@ -60,7 +60,7 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         return tasks.filter((task) => task.pinned);
       case "overdue":
         return tasks.filter(
-          (task) => isTaskOverdue(task.end_date) && task.status !== "выполнена"
+          (task) => isTaskOverdue(task.end_date) && task.status !== "выполнена" && task.status !== "отложена"
         );
       case "archive":
         return tasks.filter((task) => task.archived);

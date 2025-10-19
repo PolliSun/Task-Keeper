@@ -14,7 +14,7 @@ export const FirstPageTitle: FC = () => {
     setIsSearch(!isSearch);
   };
 
-  const totalTasks = tasks.length;
+  const totalTasks = tasks.length - tasks.filter((task) => task.archived === true).length;
 
   let title = "";
   let noTasksTitle = "";

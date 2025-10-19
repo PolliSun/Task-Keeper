@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styles from "./task-form.module.css";
 import { Task } from "../../../utils/api/taskService/taskService";
 import { CgCloseR } from "react-icons/cg";
+import { IoClose } from "react-icons/io5";
 
 type FormDataValueType = string | boolean | null;
 
@@ -15,7 +16,11 @@ type TaskFormUIProps = {
   onSubtaskAdd: (e: React.FormEvent) => void;
   onSubtaskDelite: (id: number, e: React.MouseEvent) => void;
   onSubtaskChange: (id: number, value: string) => void;
+  onTagChange: (tag: string) => void;
   onSubmit: (data: Omit<Task, "id" | "created_at">) => void;
+  onDeleteTag: (index: number) => void;
+  onAddTag: (tag: string) => void;
+  currentTag?: string;
 };
 
 export const TaskFormUI: FC<TaskFormUIProps> = ({
@@ -28,12 +33,26 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
   onSubtaskAdd,
   onSubtaskDelite,
   onSubtaskChange,
+  onTagChange,
   onSubmit,
+  onDeleteTag,
+  onAddTag,
+  currentTag,
 }) => {
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(task);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const value = currentTag?.trim();
+      if (value) {
+        onAddTag(value);
+        onTagChange("");
+      }
+    }
   };
 
   return (
@@ -84,6 +103,40 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
           </label>
         ))}
       </div>
+
+      <label htmlFor="tag" className={styles.label}>
+        Добавьте теги для задачи:
+      </label>
+      <div className={styles.tagsContainer}>
+        <ul className={styles.tagsList}>
+          {task.tags?.map((tag, index) => {
+            return (
+              <li key={index}>
+                <div className={styles.tagContainer}>
+                  <p className={styles.tagName}>{tag}</p>
+                  <button
+                    type="button"
+                    className={styles.tagButton}
+                    onClick={() => onDeleteTag(index)}
+                  >
+                    <IoClose size={18} />
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <input
+          id="tag"
+          type="string"
+          value={currentTag || ""}
+          className={styles.tagsInput}
+          onKeyDown={handleKeyDown}
+          placeholder="например: работа, учеба, дом ..."
+          onChange={(e) => onTagChange(e.target.value)}
+        />
+      </div>
+
       <label className={styles.label} htmlFor="dateContainer">
         Выберите период активности задачи
       </label>
@@ -109,7 +162,11 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
         <label className={styles.label} htmlFor="subtasks">
           Создайте список подзадач
         </label>
-        <button type="button" className={styles.buttonForm} onClick={onSubtaskAdd}>
+        <button
+          type="button"
+          className={styles.buttonForm}
+          onClick={onSubtaskAdd}
+        >
           +
         </button>
       </div>
@@ -140,7 +197,7 @@ export const TaskFormUI: FC<TaskFormUIProps> = ({
             <CgCloseR size={20} />
           </button>
         </div>
-      ))} 
+      ))}
 
       <button type="submit" className={styles.buttonSubmit}>
         {isEditing ? "Изменить" : "Создать"}

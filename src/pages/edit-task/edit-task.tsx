@@ -16,6 +16,7 @@ export const EditTask: FC = () => {
   const { setSelectedTask } = useTasksContext();
   const { user } = useCurrentUser();
   const { mutateAsync: updateTask } = useUpdateTask();
+  const [currentTag, setCurrentTag] = useState("");
   type FormDataValueType = string | boolean | null;
 
   const [formData, setFormData] = useState<Omit<Task, "id" | "created_at">>({
@@ -29,6 +30,7 @@ export const EditTask: FC = () => {
     subtasks: [],
     pinned: false,
     archived: false,
+    tags: [],
   });
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export const EditTask: FC = () => {
         subtasks: task.data.subtasks || [],
         pinned: task.data.pinned,
         archived: task.data.archived,
+        tags: task.data.tags,
       });
     }
   }, [task?.data, user?.userId]);
@@ -101,6 +104,26 @@ export const EditTask: FC = () => {
     return <p>Загрузка задачи...</p>;
   }
 
+  const handleTagChange = (tag: string) => {
+    setCurrentTag(tag);
+  };
+
+  const handleDeleteTag = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags?.filter((_, i) => i !== index) || [],
+    }));
+  };
+
+  const handleAddTag = (tag: string) => {
+    if (tag.trim() !== "" && !formData.tags?.includes(tag.trim())) {
+      setFormData((prev) => ({
+        ...prev,
+        tags: [...(prev.tags || []), tag.trim()],
+      }));
+    }
+  };
+
   return (
     <TaskFormUI
       task={formData}
@@ -109,7 +132,11 @@ export const EditTask: FC = () => {
       onSubmit={handleSubmit}
       onSubtaskAdd={handleSubtaskAdd}
       onSubtaskChange={handleSubtaskChange}
+      onTagChange={handleTagChange}
       onSubtaskDelite={handleSubtaskDelete}
+      onDeleteTag={handleDeleteTag}
+      onAddTag={handleAddTag}
+      currentTag={currentTag}
     />
   );
 };

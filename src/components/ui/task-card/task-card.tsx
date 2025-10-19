@@ -14,10 +14,7 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
     <Link to={`/dashboard/task/${task.id}`}>
       <li key={task.id} className={styles.card}>
         <div className={styles.dataContainer}>
-          <TaskStatus
-            status={task.status}
-            displayMode="icon"
-          />
+          <TaskStatus status={task.status} displayMode="icon" />
           <h2 className={styles.title}>{task.title}</h2>
         </div>
         <div className={styles.buttonContainer}>
@@ -32,6 +29,19 @@ export const TaskCardUI: FC<TaskCardUIProps> = ({ task }) => {
           </div>
           <TaskPriority priority={task.priority} />
         </div>
+        {task.tags && (
+          <div>
+            <ul className={styles.tagsList}>
+              {task.tags.slice(0, 5).map((tag, index) => {
+                return (
+                  <li key={index}>
+                    <p className={styles.tagName}>{tag}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </li>
     </Link>
   );
